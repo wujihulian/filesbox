@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.svnlan.user.dao.CommonConvertDao" >
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="convertID" >
+        insert into common_convert (sourceID, `fileID`,`userID`,`name`,`state`,`frequencyCount`,`remark`, createTime, modifyTime, scheduleFrequencyCount,scheduleTime)
+        values (
+            #{sourceID}, #{fileID}, #{userID}, #{name}, #{state}, #{frequencyCount}, #{remark}, unix_timestamp(now()), 0, 0, 0
+            )
+    </insert>
+
+    <update id="updateStatus" >
+        update common_convert
+        set state = #{state},
+        modifyTime = unix_timestamp()
+        where convertID = #{convertID}
+    </update>
+    <update id="updateStatusAndCount" >
+        update common_convert
+        set state = #{state},
+        frequencyCount = frequencyCount + 1,
+        userID = #{userID},
+        <if test="remark != null"> remark = #{remark},</if>
+        modifyTime = unix_timestamp()
+        where convertID = #{convertID}
+    </update>
+    <update id="updateScheduleStatus" >
+        update common_convert
+        set state = #{state},
+        scheduleFrequencyCount = scheduleFrequencyCount + 1,
+        modifyTime = unix_timestamp()
+        where convertID = #{convertID}
+    </update>
+    <select id="checkExist" resultType="java.lang.Long">
+        select convertID
+        from `common_convert`
+        where sourceID = #{sourceID}
+        <if test="fileID != null"> and fileID = #{fileID}</if>
+        limit 1
+    </select>
+    <select id="getConvertList" resultType="com.svnlan.user.vo.CommonConvertVo">
+        select DISTINCT cc.sourceID, cc.convertID, io.`fileID`,cc.`userID`,io.`name`,cc.`state`,cc.`frequencyCount`, cc.createTime, cc.modifyTime
+        , cc.scheduleFrequencyCount, cc.scheduleTime, cc.remark
+        , io.`size`, io.fileType, f.is_m3u8 isM3u8, io.`createUser`, f.`size` fileSize
+        , (CASE
+        WHEN f.isExistFile = 0 THEN 2
+        WHEN cc.state = '1' THEN 3
+        WHEN  cc.state = '0' THEN 1
+        WHEN  cc.state = '2' THEN 0 end) stateSort
+        from `common_convert` cc
+        left join io_source io  on cc.sourceID = io.sourceID
+        left join `io_file` f on f.fileID = io.fileID
+        where cc.`state` in ('0','1','2')
+        and io.isDelete = 0
+        and io.isFolder = 0
+        <include refid="convertList_WHERE" />
+        order by ${sortField} ${sortType}, cc.modifyTime desc
+    </select>
+
+    <sql id="convertList_WHERE">
+
+        <if test="userID != null">
+            and (cc.userID = #{userID})
+        </if>
+        <if test="sourceID != null">
+            and io.sourceID = #{sourceID}
+        </if>
+        <if test="state != null">
+            and cc.state = #{state}
+        </if>
+        <if test="fileType != null">
+            and io.fileType in
+            <foreach collection="fileTypeList" item="item" open="(" close=")" separator=",">
+                #{item}
+            </foreach>
+        </if>
+        <if test="keyword != null">
+            and ( io.name like concat('%', #{keyword}, '%') OR io.`name_pinyin` LIKE CONCAT('%',#{keyword}, '%')
+            OR io.`name_pinyin_simple` LIKE CONCAT('%',#{keyword}, '%')
+            )
+        </if>
+        <choose>
+            <when test="minDate != null">
+                <choose>
+                    <when test="maxDate != null">
+                        and (io.createTime between #{minDate} and #{maxDate})
+                    </when>
+                    <otherwise>
+                        and (io.createTime >= #{minDate})
+                    </otherwise>
+                </choose>
+            </when>
+            <otherwise>
+                <if test="maxDate != null">
+                    and ( #{maxDate} >=io.createTime)
+                </if>
+            </otherwise>
+        </choose>
+    </sql>
+
+
+    <select id="getScheduleConvertList" resultType="com.svnlan.user.vo.CommonConvertVo">
+        select cc.sourceID, cc.convertID, io.`fileID`, io.`name`,cc.`state`,cc.`frequencyCount`,cc.`remark`, cc.createTime, cc.modifyTime, cc.scheduleFrequencyCount, cc.scheduleTime
+        , io.`size`
+        from `common_convert` cc
+        left join io_source io on cc.sourceID = io.sourceID
+        where io.isDelete = 0
+
+
+    </select>
+</mapper>

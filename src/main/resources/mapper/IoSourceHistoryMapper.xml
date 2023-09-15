@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.svnlan.home.dao.IoSourceHistoryDao" >
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id" >
+        insert into io_source_history (sourceID, `userID`,`fileID`, `size`, `detail`, createTime, modifyTime)
+        values (
+            #{sourceID}, #{userID}, #{fileID}, #{size}, #{detail}, unix_timestamp(now()), unix_timestamp(now())
+            )
+    </insert>
+
+    <insert id="batchInsert" >
+        insert into io_source_history (sourceID, `userID`,`fileID`, `size`, `detail`, createTime, modifyTime)
+        values
+        <foreach collection="list" index="index" item="item" open="" separator="," close="">
+            (
+            #{item.sourceID}, #{item.userID}, #{item.fileID}, #{item.size}, #{item.detail}, unix_timestamp(now()), unix_timestamp(now())
+            )
+        </foreach>
+    </insert>
+
+    <select id="getSourceHistoryBySourceID" resultType="com.svnlan.home.vo.HomeExplorerVO">
+        select se.id, se.sourceID, se.`fileID`,se.`userID`,  se.`size`, se.`detail`, f.createTime, u.avatar, CASE WHEN u.nickname is null or u.nickname = '' THEN u.`name` else u.nickname end  nickname, u.sex,u.`status`
+        ,io.targetType,io.isFolder,io.fileType,f.path,fm.`value`, f.hashMd5,io.`name`
+        from io_source_history se
+        LEFT JOIN io_source io on se.sourceID = io.sourceID
+        LEFT JOIN io_file f on se.fileID = f.fileID
+        left join `io_file_meta` fm on se.fileID = fm.fileID and fm.`key` = 'fileInfoMore'
+        left join `user` u on se.userID = u.userID
+        where se.sourceID = #{sourceID}
+        order by se.createTime desc, se.id desc
+        <if test="startIndex >= 0 and 0 != pageSize">
+            LIMIT #{startIndex}, #{pageSize}
+        </if>
+    </select>
+
+    <select id="getCountSourceHistoryBySourceID" resultType="java.lang.Long">
+        select count(1) from io_source_history se where se.sourceID = #{sourceID}
+    </select>
+
+    <update id="updateDetail" >
+        update `io_source_history`
+        set `detail` = #{detail},
+        modifyTime = unix_timestamp(now())
+        where id = #{id}
+    </update>
+    <update id="updateVerDetail" >
+        update `io_source_history`
+        set `detail` = #{detail},
+        `fileID` = #{fileID},
+        `userID` = #{userID},
+        `size` = #{size},
+        modifyTime = unix_timestamp(now())
+        where id = #{id}
+    </update>
+    <update id="updateVerSource" >
+        update `io_source`
+        set `fileID` = #{fileID},
+        `size` = #{size},
+        `modifyUser` = #{userID},
+        modifyTime = unix_timestamp(now())
+        where sourceID = #{sourceID}
+    </update>
+    <select id="getHistorySourceInfo" resultType="com.svnlan.home.domain.CommonSource">
+        select f.fileID, f.`name` , f.hashMd5, f.size, f.path, s.fileType, s.parentID, s.sourceID, s.isFolder, s.parentLevel, s.targetType, s.`name` sourceName
+        from io_source_history se
+        LEFT JOIN io_source s on se.sourceID = s.sourceID
+        left join io_file f ON f.fileID = se.fileID
+        where se.id = #{id}
+    </select>
+
+    <delete id="delByID">
+        delete from io_source_history where id = #{id}
+    </delete>
+    <delete id="delBySourceID">
+        delete from io_source_history where sourceID = #{sourceID}
+    </delete>
+
+    <select id="getHistoryInfo" resultType="com.svnlan.home.domain.IoSourceHistory">
+        select id, sourceID, fileID, `size`,userID,createTime
+        from io_source_history
+        where id = #{id}
+    </select>
+    <select id="getFileInfoBySourceID" resultType="com.svnlan.home.domain.IoSourceHistory">
+        select fileID, `size`,createUser userID,parentID,parentLevel,`name`,targetType
+        from io_source
+        where sourceID = #{sourceID}
+    </select>
+    <select id="getHistoryInfoByFileId" resultType="com.svnlan.home.domain.IoSourceHistory">
+        select id, sourceID, fileID, `size`,userID
+        from io_source_history
+        where sourceID = #{sourceID} and fileID = #{fileID}
+    </select>
+    <update id="updateSize" >
+        update `io_source_history`
+        set `size` = #{size},
+        `detail` = #{detail},
+        modifyTime = unix_timestamp(now())
+        where id = #{id}
+    </update>
+</mapper>

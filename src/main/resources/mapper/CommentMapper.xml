@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.svnlan.home.dao.CommentDao" >
+
+    <sql id="Base_Column_List">
+		c.commentID, c.`pid` , c.userID, c.targetType, c.targetID, c.content, c.createTime , c.`status`
+	</sql>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="commentID" >
+        INSERT INTO `comment` ( `pid`, `userID`, `targetType`, `targetID`, `content`, `praiseCount`, `commentCount`, `status`, `modifyTime`, `createTime`)
+        VALUES
+    ( #{pid}, #{userID}, #{targetType}, #{targetID}, IFNULL(#{content}, ''), IFNULL(#{praiseCount}, 0), IFNULL(#{commentCount}, 0), IFNULL(#{status}, 1), unix_timestamp(now()), unix_timestamp(now())
+    );
+    </insert>
+    <update id="setCommentCount" >
+        update `comment`
+        set `commentCount` = commentCount + #{commentCount},
+        modifyTime = unix_timestamp(now())
+        where commentID = #{commentID}
+    </update>
+
+    <delete id="deleteComment" >
+        delete from `comment`
+        where commentID = #{commentID} or pid = #{commentID}
+    </delete>
+
+    <select id="getCountComment" resultType="java.lang.Long">
+        select count(1)
+        from comment c
+        where <include refid="getCommentList_WHERE" />
+    </select>
+    <select id="getCommentList" resultType="com.svnlan.home.vo.CommentVo">
+        select
+        c.commentID, c.`pid` , c.userID, c.targetType, c.targetID, c.content, c.createTime, u.`name`, u.nickname, u.avatar
+        , co.content targetContent, cou.`name` targetUserName, cou.nickname targetNickname
+        from `comment` c
+        LEFT JOIN `comment` co ON c.pid = co.commentID
+        LEFT JOIN `user` u ON c.userID = u.userID
+        LEFT JOIN `user` cou ON co.userID = cou.userID
+        where <include refid="getCommentList_WHERE" />
+        order by c.createTime asc
+        <if test="startIndex >= 0 and 0 != pageSize">
+            LIMIT #{startIndex}, #{pageSize}
+        </if>
+    </select>
+    <sql id="getCommentList_WHERE">
+        c.targetID = #{targetID} and c.status = 1
+        <if test="targetType != null"> and c.targetType = #{targetType}</if>
+        <if test="idFrom != null"> and c.commentID > #{idFrom}</if>
+	</sql>
+    <select id="checkCommentExist" resultType="java.lang.Integer">
+        select 1
+        from comment c
+        where commentID = #{commentID}
+    </select>
+    <select id="getTargetIdByCommentId" resultType="com.svnlan.home.vo.CommentVo">
+        select targetID,userID
+        from comment c
+        where commentID = #{commentID}
+    </select>
+</mapper>

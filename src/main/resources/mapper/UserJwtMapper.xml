@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.svnlan.jwt.dao.UserJwtDao">
+    <resultMap id="BaseResultMap" type="com.svnlan.jwt.domain.LoginUser">
+        <id column="userID" jdbcType="BIGINT" property="userID"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="lastLogin" jdbcType="TIMESTAMP" property="lastLogin"/>
+        <result column="avatar" jdbcType="VARCHAR" property="avatar"/>
+        <result column="nickname" jdbcType="VARCHAR" property="nickname"/>
+        <result column="status" property="status"/>
+        <result column="phone" jdbcType="VARCHAR" property="phone"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+        <result column="sex" property="sex"/>
+        <result column="roleID" property="roleID"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+		u.userID, u.name, u.nickname, u.password, u.lastLogin, u.phone, u.email, u.status, u.sex, u.avatar, u.roleID
+	</sql>
+
+    <select id="findByUserName" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from `user` u
+        where name = #{name}
+        and status in (0,1)
+        union
+        select
+        <include refid="Base_Column_List"/>
+        from `user` u
+        where phone = #{name}
+        and status in (0,1)
+        union
+        select
+        <include refid="Base_Column_List"/>
+        from `user` u
+        where email = #{name}
+        and status in (0,1)
+    </select>
+
+    <select id="findByUserId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from `user` u
+        where userID = #{userID}
+        and status = 1
+    </select>
+
+    <update id="updateLogin">
+        update `user` set lastLogin = #{lastLogin} where userID = #{userID}
+    </update>
+
+    <update id="updateUserMajor">
+        UPDATE `user` u
+        SET
+        gmt_modified = now()
+        <if test="null != avatar">
+            ,u.avatar = #{avatar}
+        </if>
+        WHERE u.userID = #{userID}
+    </update>
+    <select id="checkPassword" resultType="java.lang.String">
+        select password from `user` where userID = #{userID} limit 1
+    </select>
+
+    <select id="findByLoginName" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/> from `user` u
+        where  u.name=#{name} and status = 1 limit 1
+    </select>
+
+    <select id="getUserIdentity" resultType="com.svnlan.jwt.domain.UserRole">
+        select  r.administrator, r.auth
+        from `user` u
+        join  `role` r on u.roleID = r.roleID and r.status = 1 and enable = 1
+        where u.userID = #{userID}
+        and u.status = 1
+    </select>
+
+</mapper>

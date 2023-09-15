@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.svnlan.manage.dao.CommonDesignClassifyDao">
+
+    <delete id="deleteById" parameterType="java.lang.Integer">
+        delete from common_design_classify where designClassifyID = #{designClassifyID}
+    </delete>
+    <insert id="insert" useGeneratedKeys="true" keyProperty="designClassifyID">
+        insert into common_design_classify (typeName, parentID, parentLevel, status, sort, namePinyin, namePinyinSimple, createTime, modifyTime, createUser)
+        values (#{typeName}, #{parentID}, #{parentLevel}, #{status}, #{sort}, #{namePinyin}, #{namePinyinSimple},unix_timestamp(now()), unix_timestamp(now())
+        , #{createUser}
+        )
+    </insert>
+    <insert id="insertBatch" useGeneratedKeys="true" keyProperty="designClassifyID">
+        insert into common_design_classify (typeName, parentID, parentLevel, status, sort, namePinyin, namePinyinSimple, createTime, modifyTime, createUser)
+        values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.typeName}, #{item.parentID}, #{item.parentLevel}, #{item.status}, #{item.sort}, #{item.namePinyin}, #{item.namePinyinSimple}
+            ,unix_timestamp(now()), unix_timestamp(now()), #{item.createUser}
+            )
+        </foreach>
+    </insert>
+
+    <update id="updateById" parameterType="com.svnlan.manage.domain.CommonDesignClassify">
+        update common_design_classify
+        set typeName = #{typeName},
+        <if test="parentID != null">parentID = #{parentID},</if>
+        <if test="parentLevel != null">parentLevel = #{parentLevel},</if>
+        <if test="status != null">status = #{status},</if>
+        <if test="namePinyin != null">namePinyin = #{namePinyin},</if>
+        <if test="namePinyinSimple != null">namePinyinSimple = #{namePinyinSimple},</if>
+        modifyTime  = unix_timestamp(now())
+        where designClassifyID = #{designClassifyID}
+    </update>
+    <select id="selectById" resultType="com.svnlan.manage.domain.CommonDesignClassify" >
+        select designClassifyID, typeName, parentID, parentLevel, status, sort, createTime, modifyTime
+        from common_design_classify where designClassifyID = #{designClassifyID}
+    </select>
+    <select id="selectVoById" resultType="com.svnlan.manage.vo.CommonDesignClassifyVo" >
+        select designClassifyID, typeName, parentID, parentLevel, status, sort, createTime, modifyTime
+        from common_design_classify where designClassifyID = #{designClassifyID}
+    </select>
+    <select id="selectListByParam" resultType="com.svnlan.manage.vo.CommonDesignClassifyVo">
+        select designClassifyID, typeName, parentID, parentLevel, status, sort, namePinyin, namePinyinSimple, createTime, modifyTime
+        from common_design_classify
+        where status = 1
+        <if test="keyword != null">
+            and ( typeName like concat('%', #{keyword}, '%')
+            )
+        </if>
+        order by sort,createTime asc
+    </select>
+    <select id="selectListAndCountByParam" resultType="com.svnlan.manage.vo.CommonDesignClassifyVo">
+        select cit.designClassifyID, cit.typeName, cit.parentID, cit.parentLevel, cit.status, cit.sort, cit.namePinyin, cit.namePinyinSimple, cit.createTime, cit.modifyTime
+        ,(case when isnull(ll.sum) then 0 else ll.sum end) as `count`
+        from common_design_classify cit
+
+        left join (
+        select count(1) as sum, designClassifyID
+        from common_design
+        where state = '1'
+        group by designClassifyID
+        ) ll on ll.designClassifyID = cit.designClassifyID
+
+
+        where cit.status = 1
+        <if test="keyword != null">
+            and ( cit.typeName like concat('%', #{keyword}, '%')
+            )
+        </if>
+        order by sort,createTime asc
+    </select>
+    <update id="updateStatusById">
+        update common_design_classify
+        set status = #{status}, modifyTime  = unix_timestamp(now())
+        where designClassifyID = #{designClassifyID}
+    </update>
+    <update id="deleteSettings">
+        update common_design_classify
+        set status = 0 , modifyTime  = unix_timestamp(now())
+        where designClassifyID in
+        <foreach collection="list" item="item" open="(" close=")" separator="," index="index">
+            #{item}
+        </foreach>
+    </update>
+
+    <select id="selectSequenceById" resultType="String">
+        select parentLevel
+        from common_design_classify
+        where designClassifyID = #{designClassifyID}
+    </select>
+
+    <update id="batchUpdate">
+        <foreach collection="list" separator=";" index="index" item="item" close="" open="">
+            update common_design_classify set sort = #{item.sort} where designClassifyID = #{item.designClassifyID}
+        </foreach>
+    </update>
+    <select id="copyInfoTypeListByLevel" resultType="com.svnlan.manage.domain.CommonDesignClassify">
+        select designClassifyID, typeName, parentID, parentLevel, status, sort
+        from common_design_classify
+        where `status` = 1
+        and ( parentLevel like concat(#{parentLevel},'%'))
+        order by createTime asc
+    </select>
+    <update id="batchUpdateParent">
+        update common_design_classify
+        <set>
+            <trim prefix="parentLevel=case" suffix="end">
+                <foreach collection="list" item="item" index="index">
+                    when designClassifyID=#{item.designClassifyID} then #{item.parentLevel}
+                </foreach>
+            </trim>
+            ,modifyTime=unix_timestamp()
+        </set>
+        where designClassifyID in
+        <foreach collection="list" item="item" index="index" separator="," open="(" close=")">
+            #{item.designClassifyID}
+        </foreach>
+    </update>
+
+    <select id="checkChild" resultType="java.lang.Integer">
+        (select 1
+        from common_design_classify
+        where `status` = 1
+        and ( parentLevel like concat(#{parentLevel},'%'))
+        limit 1
+        )
+
+        union
+
+        (
+        select 1
+        from common_design
+        where `state` in ('0','4','1')
+        and designClassifyID = #{designClassifyID}
+        )
+    </select>
+
+    <select id="checkNameIsExist" resultType="com.svnlan.manage.domain.CommonDesignClassify">
+        select designClassifyID, typeName, parentID, parentLevel, status, sort
+        from `common_design_classify`
+        where typeName = #{typeName} and status != 0
+    </select>
+</mapper>

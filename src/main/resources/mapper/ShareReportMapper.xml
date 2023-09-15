@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.svnlan.user.dao.ShareReportDao">
+
+    <sql id="queryColumn">
+        SELECT sr.id, sr.share_id shareId, sr.reason,sr.create_time createTime, sr.title, sr.user_id userId,
+               sr.status, s.status shareStatus, sr.reason, sr.report_type, sr.source_id sourceId, s.shareHash
+        FROM share_report sr INNER JOIN share s ON s.shareID = sr.share_id
+    </sql>
+
+    <sql id="queryForListSQL">
+        <include refid="queryColumn"/>
+        <where>
+            <trim prefixOverrides="AND">
+                <if test="dto.timeFrom != null">
+                    AND sr.create_time <![CDATA[ >= ]]> #{dto.timeFrom}
+                </if>
+                <if test="dto.timeTo != null">
+                    AND sr.create_time <![CDATA[ <= ]]> #{dto.timeTo}
+                </if>
+                <if test="dto.reportType != null">
+                    AND sr.report_type = #{dto.reportType}
+                </if>
+                <if test="dto.status != null">
+                    <if test="dto.status == 0 || dto.status == 1">
+                        AND sr.status = #{dto.status}
+                    </if>
+                    <if test="dto.status == 4 || dto.status == 3">
+                        AND sr.status = 1 AND s.status = #{dto.status}
+                    </if>
+                </if>
+            </trim>
+        </where>
+        ORDER BY sr.create_time DESC
+    </sql>
+
+    <select id="selectPage" resultType="com.svnlan.user.domain.ShareReport">
+        <include refid="queryForListSQL"/>
+    </select>
+    <select id="selectList" resultType="com.svnlan.user.domain.ShareReport">
+        <include refid="queryForListSQL"/>
+    </select>
+
+    <select id="selectListByIds" resultType="com.svnlan.user.domain.ShareReport">
+        <include refid="queryColumn"/>
+        WHERE sr.id IN
+        <foreach collection="ids" item="_id" separator=", " open="(" close=")">
+            #{_id}
+        </foreach>
+    </select>
+</mapper>
