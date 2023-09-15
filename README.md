@@ -35,13 +35,6 @@ Video Editor
 
 
 
-
-
-**Contact**
-Email: 6267294@qq.com
-
-
-
 ### Install
 
 1. Install from source
@@ -61,5 +54,13 @@ wget https://github.com/wujihulian/wjhl_disk/archive/refs/heads/master.zip
 unzip wjhl_disk-master.zip
 chomd -Rf 777 ./*
 ```
+
+
+
+
+
+**Contact**
+Email: 6267294@qq.com
+
 
 
