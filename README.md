@@ -31,7 +31,7 @@ File Manager
 Pictures
 ![](md/a14b6be68e734f06a23d1975848fe74d1694755242303_60012.png)
 Videos 
-![](md/126080467cce489f93587e6af91592721694755064625_60012.png)
+![](md/videos.png)
 Video Editor
 ![](md/b7c5ab69d5e64bed9d1553c8a65d251d1694754947257_60012.png)
 APP
