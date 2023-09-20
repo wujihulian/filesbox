@@ -33,7 +33,6 @@ public enum UserOptionEnum {
     listSortKeep("listSortKeep", "1", ""),
     fileRepeat("fileRepeat", "replace", ""),
     recycleOpen("recycleOpen", "1", ""),
-    kodAppDefault("kodAppDefault", "", ""),
     fileIconSizeDesktop("fileIconSizeDesktop", "70", ""),
     fileIconSizePhoto("fileIconSizePhoto", "120", ""),
     photoConfig("photoConfig", "", ""),
