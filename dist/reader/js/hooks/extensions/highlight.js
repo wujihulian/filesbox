@@ -1,0 +1,1 @@
+EPUBJS.Hooks.register("beforeChapterDisplay").highlight=function(e,t){var n=document.createElement("style");n.innerHTML=".highlight { background: yellow; font-weight: normal; }",t.render.document.head.appendChild(n),e&&e()};

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>预览</title>
+    <link rel="stylesheet" href="/mindMap/simpleMindMap.esm.min.css">
+    <style>
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+        }
+
+        * {
+            padding: 0px;
+            margin: 0px;
+        }
+
+        #mindMapContainer {
+            width: 100%;
+            height: 100%;
+        }
+
+        #mindMapContainer * {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="mindMapContainer"></div>
+</body>
+<script src="/js/jquery-3.6.3.min.js"></script>
+<script src="/mindMap/simpleMindMap.umd.min.js"></script>
+<script>
+
+
+    var fileUrl = decodeURIComponent(getUrlParam('mindUrl') || '');
+
+
+    var mindMap = new window.simpleMindMap.default({
+        el: document.getElementById('mindMapContainer'),
+        data: {
+            "data": {
+                "text": "根节点"
+            },
+            "children": []
+        }
+    });
+
+
+    $.ajax({
+        type: "get",
+        url: fileUrl,
+        async: false,
+        success: function (res) {
+
+            let data = JSON.parse(res)
+            // 如果数据中存在root属性，那么代表是包含配置的完整数据，则使用setFullData方法导入数据
+            if (data.root) {
+                mindMap.setFullData(data)
+            } else {
+                // 否则使用setData方法导入
+                mindMap.setData(data)
+            }
+            // 导入数据后有可能新数据渲染在可视区域外了，所以为了更好的体验，可以复位一下视图的变换
+            mindMap.view.reset()
+
+
+
+
+
+        },
+        error: function (data) {
+
+        },
+    });
+
+
+
+
+    function getUrlParam(name) {
+        const regx = new RegExp('(^|&)' + name + '=([^&]*)(&|$)')
+        const r = window.location.search.substr(1).match(regx)
+        if (r != null) {
+            return r[2]
+        }
+        return null
+    }
+</script>
+
+</html>

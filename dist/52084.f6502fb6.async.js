@@ -1,0 +1,1 @@
+(self.webpackChunkant_design_pro=self.webpackChunkant_design_pro||[]).push([[52084],{52084:function(n,s,e){n=e.nmd(n),function(){ace.require(["ace/snippets/gherkin"],function(p){n&&(n.exports=p)})}()}}]);

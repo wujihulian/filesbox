@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>微信登录</title>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <style>
+        html {
+            height: 100%;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+
+        .box {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            display: none;
+        }
+
+        .box h3 {
+            color: #ff3636;
+            font-size: 16px;
+        }
+
+        .box p {
+            color: #747474;
+            font-size: 14px;
+        }
+
+        #success {
+            text-align: center;
+        }
+
+        #avatar {
+            display: none;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+        }
+
+        #nickname {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box" id="successBox">
+        <h3>操作成功</h3>
+        <p>恭喜，微信登录成功</p>
+        <div id="success">
+            <img id="avatar" />
+            <p id="nickname"></p>
+        </div>
+    </div>
+    <div class="box" id="errBox">
+        <h3>操作失败</h3>
+        <p>抱歉，微信登录失败</p>
+        <img src="/error.png" />
+        <p id="err"></p>
+    </div>
+</body>
+
+<script>
+    const code = getUrlParam('code');
+    const sig = getUrlParam('sig');
+    const state = getUrlParam('state');
+    const cdnPath = getUrlParam('cdnPath');
+    const type = getUrlParam('type');
+
+    if (code) {
+        $.ajax({
+            url: `${cdnPath}/api/wechat/login/callback?code=${code}&sig=${sig}&state=${state}`,
+            method: 'get',
+            success: res => {
+                const { success, message, data = {} } = res
+
+                if (success) {
+                    $('#successBox').css('display', 'flex')
+                    if (data.avatar) $('#avatar').css('display', 'block').attr('src', `${cdnPath}${data.avatar}`)
+                    if (data.nickname) $('#nickname').css('display', 'block').text(data.nickname)
+
+                    if (type == 'changePwd') {
+                        if (data.sig) {
+                            window.top.postMessage(
+                                JSON.stringify({
+                                    openIdType_sig: `2_${data.sig}`
+                                }),
+                                '*'
+                            );
+                        }
+
+                        return
+                    }
+
+                    if (data.token) {
+                        window.top.postMessage(
+                            JSON.stringify({
+                                token: data.token
+                            }),
+                            '*'
+                        );
+
+                        setTimeout(() => {
+                            window.top.location.href = `${cdnPath}/`;
+                        }, 3000)
+                    }
+                } else {
+                    $('#errBox').css('display', 'flex')
+                    $('#err').text(message)
+                }
+            },
+            error: err => {
+                const { responseJSON = {} } = err
+                $('#errBox').css('display', 'flex')
+                $('#err').text(responseJSON.message)
+            },
+        })
+    }
+
+    function getUrlParam(name) {
+        const regx = new RegExp('(^|&)' + name + '=([^&]*)(&|$)')
+        const r = window.location.search.substr(1).match(regx)
+        if (r != null) {
+            return r[2]
+        }
+        return null
+    }
+</script>
+
+</html>

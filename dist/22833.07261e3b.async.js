@@ -1,0 +1,1 @@
+(self.webpackChunkant_design_pro=self.webpackChunkant_design_pro||[]).push([[22833],{22833:function(n,a,e){n=e.nmd(n),function(){ace.require(["ace/snippets/haskell_cabal"],function(s){n&&(n.exports=s)})}()}}]);
