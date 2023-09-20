@@ -1,0 +1,6 @@
+framework module PSImageEditors {
+  umbrella header "PSImageEditors-umbrella.h"
+
+  export *
+  module * { export * }
+}

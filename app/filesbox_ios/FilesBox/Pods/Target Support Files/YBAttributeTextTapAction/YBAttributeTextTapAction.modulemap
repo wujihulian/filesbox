@@ -1,0 +1,6 @@
+framework module YBAttributeTextTapAction {
+  umbrella header "YBAttributeTextTapAction-umbrella.h"
+
+  export *
+  module * { export * }
+}

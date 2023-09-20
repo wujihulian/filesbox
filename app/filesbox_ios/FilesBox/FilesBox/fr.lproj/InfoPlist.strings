@@ -1,0 +1,17 @@
+/* 
+  InfoPlist.strings
+  FilesBox
+
+  Created by 无极互联 on 2023/4/6.
+  
+*/
+{
+    NSCameraUsageDescription = "Filesbox nécessite l'accès à la caméra pour prendre des photos, balayer des codes et plus encore
+";
+    NSMicrophoneUsageDescription = "Filesbox nécessite des autorisations de microphone pour inclure votre voix";
+    NSPhotoLibraryAddUsageDescription = "Filesbox nécessite l'autorisation d'obtenir un album pour enregistrer des images dans un album";
+    NSPhotoLibraryUsageDescription = "Filesbox nécessite l'autorisation d'obtenir des albums pour télécharger des images, etc.";
+    NSLocationWhenInUseUsageDescription = "Filesbox a besoin d'obtenir votre positionnement";
+    NSPasteboardUsageDescription = "Filesbox nouvelle page Web";
+
+}

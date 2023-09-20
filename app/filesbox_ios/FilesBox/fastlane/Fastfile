@@ -1,0 +1,99 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:ios)
+
+platform :ios do
+  desc "debug上传到fir.im"
+ before_all do
+    # faselane中pod install的操作
+    # cocoapods
+    ENV["FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT"] = "120"
+    ENV["FASTLANE_XCODEBUILD_SETTINGS_RETRIES"] = "4"
+  end
+  lane :debugFir do
+  
+     gym(
+          workspace:"FilesBox.xcworkspace",
+          configuration: "Debug",
+          scheme: "FilesBox", 
+          silent: true,  
+          clean: true,
+          export_method:"development",
+          output_directory: "./FilesBoxIpa",
+          output_name: "FilesBox.ipa",
+       # 允许访问钥匙串 已验证
+         export_xcargs: "-allowProvisioningUpdates",
+         export_options:{
+        "iCloudContainerEnvironment":"Development"
+        }
+      )
+     firim(firim_api_token:"bae01f7bcf24daa358f35ae0d9e8eb46", app_changelog:"打开上传")
+      # add actions here: https://docs.fastlane.tools/actions
+  end
+  desc "release上传到fir.im"
+  lane :releaseFir do
+     gym(
+          workspace:"FilesBox.xcworkspace",
+          configuration: "Release",
+          scheme: "FilesBox", 
+          silent: true,  
+          clean: true,
+          export_method:"development",
+          output_directory: "./知多宝Ipa",
+          output_name: "FilesBox.ipa",
+       # 允许访问钥匙串 已验证
+         export_xcargs: "-allowProvisioningUpdates",
+         export_options:{
+        "iCloudContainerEnvironment":"Development"
+        }
+      )
+     firim(firim_api_token:"bae01f7bcf24daa358f35ae0d9e8eb46", app_changelog:"Release")
+    # add actions here: https://docs.fastlane.tools/actions
+  end
+  desc "release 上传appStore"
+  lane :release do
+        gym(
+          workspace:"FilesBox.xcworkspace",
+          configuration: "Release",
+          scheme: "FilesBox", 
+          silent: true,  
+          clean: true,
+          export_method:"app-store",
+          output_directory:"./知多宝上传APP",
+          output_name: "FilesBox.ipa",
+       # 允许访问钥匙串 已验证
+         export_xcargs: "-allowProvisioningUpdates",
+         export_options:{
+        "iCloudContainerEnvironment":"Production"
+        }
+       )
+  app_store_connect_api_key(
+    key_id: "GTAK8JLBQB",
+    issuer_id: "6e68c3c0-e477-4d21-81b9-5f83bdd9c7a1",
+    key_filepath: "./AuthKey_GTAK8JLBQB.p8",
+    duration: 1200, # optional (maximum 1200)
+    in_house: false # optional but may be required if using match/sigh
+  )
+       upload_to_app_store(
+         force:true,
+         username:"wujihulian2@qq.com",
+         skip_screenshots:true
+ 
+        )
+                  # upload your app to App Store Connect
+      slack(message: "Successfully uploaded a new App Store build")
+  end	
+end

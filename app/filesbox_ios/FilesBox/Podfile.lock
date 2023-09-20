@@ -1,0 +1,224 @@
+PODS:
+  - AFNetworking (3.1.0):
+    - AFNetworking/NSURLSession (= 3.1.0)
+    - AFNetworking/Reachability (= 3.1.0)
+    - AFNetworking/Security (= 3.1.0)
+    - AFNetworking/Serialization (= 3.1.0)
+    - AFNetworking/UIKit (= 3.1.0)
+  - AFNetworking/NSURLSession (3.1.0):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (3.1.0)
+  - AFNetworking/Security (3.1.0)
+  - AFNetworking/Serialization (3.1.0)
+  - AFNetworking/UIKit (3.1.0):
+    - AFNetworking/NSURLSession
+  - ASIHTTPRequest (1.8.2):
+    - ASIHTTPRequest/ASIWebPageRequest (= 1.8.2)
+    - ASIHTTPRequest/CloudFiles (= 1.8.2)
+    - ASIHTTPRequest/Core (= 1.8.2)
+    - ASIHTTPRequest/S3 (= 1.8.2)
+  - ASIHTTPRequest/ASIWebPageRequest (1.8.2):
+    - ASIHTTPRequest/Core
+  - ASIHTTPRequest/CloudFiles (1.8.2):
+    - ASIHTTPRequest/Core
+  - ASIHTTPRequest/Core (1.8.2):
+    - Reachability
+  - ASIHTTPRequest/S3 (1.8.2):
+    - ASIHTTPRequest/Core
+  - CocoaLumberjack (3.7.4):
+    - CocoaLumberjack/Core (= 3.7.4)
+  - CocoaLumberjack/Core (3.7.4)
+  - CYLTabBarController (1.28.5):
+    - CYLTabBarController/Core (= 1.28.5)
+  - CYLTabBarController/Core (1.28.5)
+  - FMDB (2.7.5):
+    - FMDB/standard (= 2.7.5)
+  - FMDB/standard (2.7.5)
+  - GTSDK (2.7.4.0):
+    - ZXSDK
+  - IJKMediaFramework (0.1.4)
+  - IQKeyboardManager (6.5.11)
+  - JXCategoryView (1.5.9)
+  - JXPagingView/Pager (2.1.2)
+  - LBXScan/LBXNative (2.5.1):
+    - LBXScan/Types (~> 2.2)
+  - LBXScan/Types (2.5.1)
+  - LBXScan/UI (2.5.1):
+    - LBXScan/Types (~> 2.2)
+  - Masonry (1.1.0)
+  - MBProgressHUD (1.2.0)
+  - MJExtension (3.4.1)
+  - MJRefresh (3.7.5)
+  - MSColorPicker (1.0.1)
+  - PSImageEditors (0.2.5):
+    - Masonry
+    - TOCropViewController
+  - Reachability (3.2)
+  - ReactiveObjC (3.1.1)
+  - Realm (3.21.0):
+    - Realm/Headers (= 3.21.0)
+  - Realm/Headers (3.21.0)
+  - SDWebImage (5.15.5):
+    - SDWebImage/Core (= 5.15.5)
+  - SDWebImage/Core (5.15.5)
+  - SJXSignTextView (1.0.2)
+  - SocketRocket (0.6.0)
+  - SVGKit (3.0.0):
+    - CocoaLumberjack (~> 3.0)
+  - SWTableViewCell (0.3.7)
+  - TKCarouselView (1.2.0)
+  - TOCropViewController (2.6.1)
+  - TTGTagCollectionView (1.11.2)
+  - TYPagerController (2.1.2)
+  - TZImagePickerController (3.8.3):
+    - TZImagePickerController/Basic (= 3.8.3)
+    - TZImagePickerController/Location (= 3.8.3)
+  - TZImagePickerController/Basic (3.8.3)
+  - TZImagePickerController/Location (3.8.3)
+  - WechatOpenSDK (2.0.1)
+  - Weibo_SDK (3.3.5)
+  - WZLBadge (1.2.6)
+  - YBAttributeTextTapAction (3.0.3)
+  - YYKit (1.0.9):
+    - YYKit/no-arc (= 1.0.9)
+  - YYKit/no-arc (1.0.9)
+  - zhPopupController (2.0.0)
+  - ZipArchive (1.4.0)
+  - ZXSDK (3.2.3)
+
+DEPENDENCIES:
+  - AFNetworking (= 3.1.0)
+  - ASIHTTPRequest
+  - CYLTabBarController (~> 1.28.3)
+  - FMDB
+  - GTSDK
+  - IJKMediaFramework (from `https://gitee.com/renzifeng/IJKMediaFramework.git`)
+  - IQKeyboardManager (~> 6.5.0)
+  - JXCategoryView (~> 1.5.8)
+  - JXPagingView/Pager
+  - LBXScan/LBXNative
+  - LBXScan/UI
+  - Masonry
+  - MBProgressHUD
+  - MJExtension
+  - MJRefresh
+  - MSColorPicker
+  - PSImageEditors
+  - Reachability
+  - ReactiveObjC
+  - Realm (~> 3.13)
+  - SDWebImage
+  - SJXSignTextView
+  - SocketRocket
+  - SVGKit
+  - SWTableViewCell
+  - TKCarouselView
+  - TTGTagCollectionView (~> 1.11.1)
+  - TYPagerController
+  - TZImagePickerController
+  - WechatOpenSDK
+  - Weibo_SDK (from `https://github.com/sinaweibosdk/weibo_ios_sdk.git`)
+  - WZLBadge
+  - YBAttributeTextTapAction
+  - YYKit
+  - zhPopupController
+  - ZipArchive (~> 1.4)
+
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - AFNetworking
+    - ASIHTTPRequest
+    - CocoaLumberjack
+    - CYLTabBarController
+    - FMDB
+    - GTSDK
+    - IQKeyboardManager
+    - JXCategoryView
+    - JXPagingView
+    - LBXScan
+    - Masonry
+    - MBProgressHUD
+    - MJExtension
+    - MJRefresh
+    - MSColorPicker
+    - PSImageEditors
+    - Reachability
+    - ReactiveObjC
+    - Realm
+    - SDWebImage
+    - SJXSignTextView
+    - SocketRocket
+    - SVGKit
+    - SWTableViewCell
+    - TKCarouselView
+    - TOCropViewController
+    - TTGTagCollectionView
+    - TYPagerController
+    - TZImagePickerController
+    - WechatOpenSDK
+    - WZLBadge
+    - YBAttributeTextTapAction
+    - YYKit
+    - zhPopupController
+    - ZipArchive
+    - ZXSDK
+
+EXTERNAL SOURCES:
+  IJKMediaFramework:
+    :git: https://gitee.com/renzifeng/IJKMediaFramework.git
+  Weibo_SDK:
+    :git: https://github.com/sinaweibosdk/weibo_ios_sdk.git
+
+CHECKOUT OPTIONS:
+  IJKMediaFramework:
+    :commit: 346dc5f784f950173731343a3c4f0bf3032a0cbc
+    :git: https://gitee.com/renzifeng/IJKMediaFramework.git
+  Weibo_SDK:
+    :commit: 7e07f07ede2770cb700fb609d2f602c0e2f8767d
+    :git: https://github.com/sinaweibosdk/weibo_ios_sdk.git
+
+SPEC CHECKSUMS:
+  AFNetworking: 19827bce8c8d25b16bea185837cb66976c23f8fe
+  ASIHTTPRequest: ec013992946676b7978dcbde6396d57312d21db4
+  CocoaLumberjack: 543c79c114dadc3b1aba95641d8738b06b05b646
+  CYLTabBarController: edd9fecba9afa3f2e9e44ed50ca6dde69941f25f
+  FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
+  GTSDK: f28e6d575e8a1c26e331ce29b0ecac7db39679cc
+  IJKMediaFramework: 10bc56947709e01023005f0a049ad4b65811914f
+  IQKeyboardManager: ef43ce1ba1e5aaf4adf222c0a46f39761f246879
+  JXCategoryView: 2ef9ecfd3735158d009ce02d1f29811aa822da65
+  JXPagingView: 90924b364a2ff7e94db534fad1fa50925ff69ee4
+  LBXScan: 90ca10d0c38fb4a5a6980d7782354f3f69f50093
+  Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
+  MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
+  MJExtension: 21c5f6f8c4d5d8844b7ae8fbae08fed0b501f961
+  MJRefresh: fdf5e979eb406a0341468932d1dfc8b7f9fce961
+  MSColorPicker: 90b8663b99d6c5c3ba10ccfaa4a600b844f8738e
+  PSImageEditors: 74ec1f9ef782134d04c66b4031222c70ec003973
+  Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
+  ReactiveObjC: 011caa393aa0383245f2dcf9bf02e86b80b36040
+  Realm: 38e9dcb19104b58407167d99f70d4995f7c16023
+  SDWebImage: fd7e1a22f00303e058058278639bf6196ee431fe
+  SJXSignTextView: dd3ec3285b42d2138960825ad3fac52a14b4ea4a
+  SocketRocket: fccef3f9c5cedea1353a9ef6ada904fde10d6608
+  SVGKit: 1ad7513f8c74d9652f94ed64ddecda1a23864dea
+  SWTableViewCell: 2a94aadc9d47b2b611fa064566bf57948b95b579
+  TKCarouselView: 3fde35add8c169c6df14b7d7c5395383c6a51be4
+  TOCropViewController: edfd4f25713d56905ad1e0b9f5be3fbe0f59c863
+  TTGTagCollectionView: 949030356ed27954f39dd29d78978c0f5c35a745
+  TYPagerController: 262556ecef99986d26ed77fb1288a198ed42f4af
+  TZImagePickerController: e9909edbadf7381140efc5b5c9f5bdbfd630f7d4
+  WechatOpenSDK: 18ce56b19815ffc2358a312c2c49f155fd803983
+  Weibo_SDK: de16c45365d00c18999908f5d59c018dad3f2f1f
+  WZLBadge: 9ec779dcfd94c825518b395e8315fccaabff1bfa
+  YBAttributeTextTapAction: b7e61f0265b5673e7ce7bad7319e8eff9e209a2b
+  YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
+  zhPopupController: 600aee950c86442c5cca0b078d94c71fe0e1c51e
+  ZipArchive: e25a4373192673e3229ac8d6e9f64a3e5713c966
+  ZXSDK: 3ae8f7f2c5d45b4c1def43e14d930495c5f4d424
+
+PODFILE CHECKSUM: 143e33c6e4447f0c9acae516e62edad17302835c
+
+COCOAPODS: 1.12.1

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>weixinULAPI</string>
+		<string>weixin</string>
+		<string>weixinURLParamsAPI</string>
+		<string>wechat.jinxuanmeng.com</string>
+	</array>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>weixin</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>wx283aec18f2335a85</string>
+			</array>
+		</dict>
+	</array>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>App uploads</string>
+	</array>
+	<key>NSCameraUsageDescription</key>
+	<string>FilesBox requires camera permissions to take pictures, scan code, and so on</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>FilesBox needs to get album permissions, used to save pictures to album FilesBox needs to get camera permissions, used to take pictures, scan code, etc</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>FilesBox requires access to albums, which can be used to upload images, etc</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>FilesBox requires access to the microphone to record your voice</string>
+</dict>
+</plist>

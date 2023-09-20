@@ -1,0 +1,6 @@
+framework module SJXSignTextView {
+  umbrella header "SJXSignTextView-umbrella.h"
+
+  export *
+  module * { export * }
+}

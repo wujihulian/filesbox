@@ -1,0 +1,316 @@
+//
+//  PrefixHeader.pch
+//  VideoULimit
+//
+//  Created by svnlan on 2018/10/11.
+//  Copyright © 2018年 svnlan. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+#ifdef __OBJC__
+#import "OCHeader.h"
+//#import "UnlimitedBusiness-Swift.h"
+
+#define kAppID  @"1670829879"
+#define kUMAppKey @"5fe57b3c44bb94418a649fa5"
+#define kNIMSDKKey @"5bac3de1f6bee9fe25229bcd0fcaf3cd"
+#define kErrorLogAppID @"9e304d4e8df1b74cfa0099131984ios8"
+#define kErrorLogAppKey @"6091010c7e02a546a5d326c15aa66fd3"
+
+//微信开放平台
+#define WechatAppID     @"wx283aec18f2335a85"
+#define WechatAppSecret @"b10e94cd00d0aeb6c67fdb5c43449423"
+#define WeChatUniversalLink     @"https://www.filesbox.cn/"
+
+// GTSDK 配置信息
+#define kGtAppId @"fRul3cguYE6J5jiGJXhAT1"
+#define kGtAppKey @"Wus4AftrvR74NaBjvBaMO6"
+#define kGtAppSecret @"XZPrmwjZac5IMZSHhJYgy6"
+
+#define NLogFunc    NSLog(@"%s", __func__);
+
+#pragma mark - ----------------------- 环境配置 -------------------------
+
+#ifdef DEBUG
+#pragma mark ---------------------- 开发模式 ---------------------
+
+#define IS_DEBUG 1
+//#define Student_APNS_Key     IS_DEBUG ? @"b9fd186410aeb551e8248a05" : @"71a9c60ceea59ac33cdb6021"
+//// 教师端推送appKey
+//#define TH_APNS_Key     IS_DEBUG ? @"f130362cd720854bb1987c08" : @"e57ff31bd77f3ebbf92775b8"
+
+#define Student_APNS_Key @"19649af8adc1cc1f6f5f2327"
+// 教师端推送appKey
+#define TH_APNS_Key @"19649af8adc1cc1f6f5f2327"
+
+#define NSLog(s, ... ) NSLog( @"[%@ in line %d] %s => %@", [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, __PRETTY_FUNCTION__, [NSString stringWithFormat:(s), ##__VA_ARGS__] )
+
+//网络请求输出log
+#define ISNetLog 1
+#define NetLog(...) {if(ISNetLog) NSLog(__VA_ARGS__);}
+
+//#define kBaseServiceUrl @"http://xiaozi.zongpingtai.ebh.net:890"
+//#define kBaseServiceUrl @"https://28256.ebh.net:1443"
+//#define kBaseServiceUrl @"http://book.sunshine.net"
+//#define kBaseServiceUrl @"https://book.xx.cn"
+//#define kBaseServiceUrl @"http://28256.ebh.net"
+//#define kBaseServiceUrl @"https://syswx1.ebh.net"
+//#define kBaseServiceUrl @"https://kptcs.wxbig.cn"
+//#define kBaseServiceUrl @"http://123.hushuli.xx.cn"
+//#define kBaseServiceUrl @"https://cqxwxx.xx.cn"
+//#define kBaseServiceUrl @"https://chunqiu.xx.cn"
+//#define kBaseServiceUrl @"https://pre.xx.cn"
+#define kBaseServiceUrl  ChooseUrl
+//#define kBaseServiceUrl  @"https://sys.xx.cn"
+
+#define kSchoolServiceUrl ChooseUrl
+
+#define WEBSocketURL @"wss://dev.filesbox.cn/websocket/" //测试环境
+//#define WEBSocketURL @"wss://webchat.xx.cn/api/webchat/" //线上地址
+//#define WEBSocketURL @"wss://webchatpre.xx.cn/api/webchat/" //预发环境
+//#define WEBSocketURL @"wss://cqxwxx.xx.cn/api/webchat/"
+//#define WEBSocketURL @"wss://book.sunshine.net:890/api/webchat/"
+//#define WEBSocketURL @"ws://192.168.0.35:890/api/webchat/"
+//#define WEBSocketURL @"ws://101.71.142.213/api/webchat/"
+//#define WEBSocketURL @"ws://webchat.ebh.net:890/api/webchat/"
+//wss://webchat.xx.cn/api/webchat/student/6425735
+//#define WEBSocketURL [VULAccountManager sharedInstance].currentWebSocketUrl
+
+//小班socket地址
+#define SmallClassWebSocketURL @"wss://webchattest.1x.cn/api/smallclass/" //测试环境
+//#define SmallClassWebSocketURL @"wss://webchat.xx.cn/api/smallclass/" //线上地址、
+
+//CDN 地址
+#define kCDNHostUrl @"https://test-static.1x.cn" //测试环境
+//#define kCDNHostUrl @"https://static.wxbig.cn" //线上环境
+//#define kCDNHostUrl @"https://pre-static.ebh.net" //预发环境
+
+#else
+#pragma mark ---------------------- 发布模式 ---------------------
+
+#define IS_DEBUG 0
+#define ISNetLog 1
+//#define NSLog(s, ... )
+#define NetLog(...)
+#define Student_APNS_Key     @"19649af8adc1cc1f6f5f2327"
+// 教师端推送appKey
+#define TH_APNS_Key  @"19649af8adc1cc1f6f5f2327"
+#define WEBSocketURL @"wss://webchat.xx.cn/api/webchat/" //线上地址
+#define SmallClassWebSocketURL @"wss://webchat.xx.cn/api/smallclass/" //线上地址
+#define kCDNHostUrl @"https://static.wxbig.cn" //线上环境
+#define kBaseServiceUrl  @"https://sys.xx.cn"
+#define kSchoolServiceUrl ChooseUrl
+#endif
+#pragma mark ------------------------ 环境配置 END -------------------------
+
+// 屏幕的宽高大小
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 80000 // 要iOS8以上支持
+#define VULSCREEN_WIDTH ([[UIScreen mainScreen] respondsToSelector:@selector(nativeBounds)]?[UIScreen mainScreen].nativeBounds.size.width/[UIScreen mainScreen].nativeScale:[UIScreen mainScreen].bounds.size.width)
+#define VULSCREEN_HEIGHT ([[UIScreen mainScreen] respondsToSelector:@selector(nativeBounds)]?[UIScreen mainScreen].nativeBounds.size.height/[UIScreen mainScreen].nativeScale:[UIScreen mainScreen].bounds.size.height)
+#define VULSCREEN_SIZE ([[UIScreen mainScreen] respondsToSelector:@selector(nativeBounds)]?CGSizeMake([UIScreen mainScreen].nativeBounds.size.width/[UIScreen mainScreen].nativeScale,[UIScreen mainScreen].nativeBounds.size.height/[UIScreen mainScreen].nativeScale):[UIScreen mainScreen].bounds.size)
+#else
+#define VULSCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
+#define VULSCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
+#define VULSCREEN_SIZE [UIScreen mainScreen].bounds.size
+#endif
+
+#define VULSCREEN_WIDTH_VARIABLE [UIScreen mainScreen].bounds.size.width
+#define VULSCREEN_HEIGHT_VARIABLE [UIScreen mainScreen].bounds.size.height
+
+#define KLanguage(key)  [[NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"appLanguage"]] ofType:@"lproj"]] localizedStringForKey:(key) value:nil table:@"Localizable"]
+// 以当前屏幕方向宽高计算
+static inline CGFloat screenWidthRatio(void) {
+    BOOL isPortrait = VULSCREEN_WIDTH_VARIABLE < VULSCREEN_HEIGHT_VARIABLE;
+    CGFloat radio = 1.0;
+    radio = VULSCREEN_WIDTH_VARIABLE / (isPortrait ? 375.0 : 667.0);
+    return radio;
+}
+
+static inline CGFloat screenHeightRatio(void) {
+    BOOL isPortrait = VULSCREEN_WIDTH_VARIABLE < VULSCREEN_HEIGHT_VARIABLE;
+    CGFloat radio = 1.0;
+    radio = VULSCREEN_HEIGHT_VARIABLE / (isPortrait ? 667.0 : 375.0);
+    return radio;
+}
+
+static inline CGFloat fontAuto(CGFloat size) {
+    CGFloat radio = MIN(VULSCREEN_WIDTH_VARIABLE, VULSCREEN_HEIGHT_VARIABLE) / 375.0;
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
+        //ipad 比例
+        radio = 1.2;
+    }
+    CGFloat newSize = size * radio;
+    return roundf(newSize);
+}
+
+
+
+#define AdaptedWidth(x)      roundf((x) * screenWidthRatio())
+#define AdaptedHeight(x)     roundf((x) * screenHeightRatio())
+#define FontAuto(Size)       roundf(fontAuto(Size))
+
+#define kStatusBarHeight       ([UIApplication sharedApplication].statusBarFrame.size.height)
+
+static inline UIWindow * _Nullable topWindow(void) {
+    NSArray *windows = [[UIApplication sharedApplication] windows];
+    windows = [windows sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        UIWindow *window1 = obj1;
+        UIWindow *window2 = obj2;
+        return  window1.windowLevel < window2.windowLevel ? NSOrderedDescending : window1.windowLevel == window2.windowLevel ? NSOrderedSame : NSOrderedAscending;
+    }];
+    
+    return [windows firstObject];
+}
+
+//#ifdef DEBUG
+//
+//#define NSLog(format, ...) \
+//do { \
+//NSLog(@"<%@ : %d : %s>-: %@", \
+//[[NSString stringWithUTF8String:__FILE__] lastPathComponent], \
+//__LINE__, \
+//__FUNCTION__, \
+//[NSString stringWithFormat:format, ##__VA_ARGS__]); \
+//} while(0)
+//#else
+//#define NSLog(format, ...) nil
+//#endif
+
+//选择的url
+#define ChooseUrl [[NSUserDefaults standardUserDefaults] objectForKey:@"baseUrl"] 
+
+#define BtnColor HEXCOLOR(0x654EC3)
+#define BtnCell 45
+
+
+// 通知中心
+#define VULNotificationCenter [NSNotificationCenter defaultCenter]
+// 随机颜色
+#define VULRandomColor [UIColor colorWithRed:arc4random_uniform(256)/255.0 green:arc4random_uniform(256)/255.0 blue:arc4random_uniform(256)/255.0 alpha:1.0]
+//进制颜色 0x333333
+#define HEXCOLOR(c) [UIColor colorWithRed:((c>>16)&0xFF)/255.0 green:((c>>8)&0xFF)/255.0 blue:(c&0xFF)/255.0 alpha:1.0]
+#define Alpha_HEXCOLOR(c) [UIColor colorWithRed:((c>>16)&0xFF)/255.0 green:((c>>8)&0xFF)/255.0 blue:(c&0xFF)/255.0 alpha:0.47]
+// RGB颜色
+#define VULRGBColor(r, g, b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1.0]
+// RGB颜色带透明度
+#define VULRGBAColor(r, g, b, a) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:a]
+#define kLineColor [UIColor colorWithHexString:@"#e5e5e5"] //线条颜色
+//VULRGBColor(38, 150, 240)  导航栏 蓝色
+#define DefaultColor [UIColor colorWithHexString:@"#2796F0"]
+
+#define DefaultTextColor HEXCOLOR(0x73B6F5)
+
+//灰色
+#define VULGrayColor(a) VULRGBAColor(a,a,a,1.0)
+
+#define MyBackGroundColor [UIColor colorWithHexString:@"#f9f9f9"]
+
+#define NSStringIsNotEmpty(string) [NSString nsstringIsNotEmpty:string]
+//kWindow
+#define kWindow  [UIApplication sharedApplication].keyWindow
+// 弱引用/强引用
+#define WeakSelf(type)  __weak typeof(type) weak##type = type;
+#define StrongSelf(type)  __strong typeof(type) type = weak##type;
+// 获取图片资源
+#define VULGetImage(imageName) [UIImage imageNamed:[NSString stringWithFormat:@"%@",imageName]]
+
+// 获取沙盒 Document
+#define PathDocument [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject]
+// 获取沙盒 Cache
+#define PathCache [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject]
+
+//APP 版本
+#define kCurrentVersion  [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]
+#define VULOSTYPE @"FilesBox"
+
+#define kTest [VULchatMemberData shareChatMemberData].isRaisePass
+
+#define IS_IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+
+#define SCALE_FONT (IS_IPAD ? 1.0 : ((VULSCREEN_WIDTH == 320) ? (14.5/20.0) : ((VULSCREEN_WIDTH == 375) ? (15.0/20.0) :(16.0/20.0))))
+//#define SCALE_FONT (IS_IPAD ? 1.0 : ((VULSCREEN_WIDTH == 320) ? (14.0/20.0) : ((VULSCREEN_WIDTH == 375) ? (16.0/20.0) :(18.0/20.0))))
+
+
+//iPhone X以上刘海屏
+#define VUL_IS_IOS_11  ([[[UIDevice currentDevice] systemVersion] floatValue] >= 11.f)
+#define VUL_IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+#define VUL_IS_NOTCH (VUL_IS_IOS_11 && VUL_IS_IPHONE && ((int)((SCREENHEIGHT/SCREENWIDTH) * 100) == 216))
+
+#define SCREENWIDTH [[UIScreen mainScreen] currentMode].size.width
+#define SCREENHEIGHT [[UIScreen mainScreen] currentMode].size.height
+
+// 自定义导航栏的高度，在iPhone X是84，其他的上面是64
+#define K_NavBar_Height ((int)((SCREENHEIGHT/SCREENWIDTH) * 100) == 216 ? 88.0 : 64.0)
+// TabBar高度，在iPhone X是83，其他的上面是49
+#define K_TabBar_Height ((int)((SCREENHEIGHT/SCREENWIDTH) * 100) == 216 ? 83.0 : 49.0)
+//得到statueBar的高度，在iPhone X是44，其他的上面是20
+#define K_StatusBar_Height ((int)((SCREENHEIGHT/SCREENWIDTH) * 100) == 216 ? 44.0 : 20.0)
+//得到statueBar的高度，在iPhone X底部是34
+#define K_BottomBar_Height ((int)((SCREENHEIGHT/SCREENWIDTH) * 100) == 216 ? 34 : 0)
+
+#define kSpace 10
+//#define InteractionSize (IS_IPAD ? CGSizeMake(180, 180.0 * 3 / 4) : CGSizeMake(120, 90))
+#define InteractionSize (IS_IPAD ? CGSizeMake(180, 180.0 * 3 / 4) : CGSizeMake(VULSCREEN_WIDTH*0.4, VULSCREEN_WIDTH*0.3))
+
+//字体
+#define VULPingFangSCLight(fontSize) [UIFont fontWithName:@"PingFangSC-Light" size:fontSize * SCALE_FONT]
+#define VULPingFangSCMedium(fontSize) [UIFont fontWithName:@"PingFangSC-Regular" size:fontSize * SCALE_FONT]
+#define VULPingFangSCHeavy(fontSize) [UIFont fontWithName:@"PingFangSC-Heavy" size:fontSize * SCALE_FONT]
+#define VULPingFangSCBold(fontSize) [UIFont fontWithName:@"PingFangSC-Bold" size:fontSize * SCALE_FONT]
+
+#define SuitScaleW(x) ceil((x) * SCR_W / 1080.0)
+#define SuitScaleH(h) ceil(SCR_H  * ((h) / 1920.0))
+//比例高度
+#define VULPercentageHeight(percentage) (percentage * VULSCREEN_WIDTH / 375)
+
+#define VULPercentageWidth(percentage) (percentage * VULSCREEN_HEIGHT / 667)
+
+
+/*topbar*/
+//输入框的高度
+static CGFloat const TextViewH = 36.5;
+//键盘切换按钮的宽度
+static CGFloat const emotionBtnW = 36.5;
+//键盘切换按钮的高度
+static CGFloat const emotionBtnH = 36.5;
+//顶部工具条的高度
+#define topBarH   TextViewH - 10
+//输入框的宽度
+#define TextViewW VULSCREEN_WIDTH - (VULSCREEN_WIDTH * 55 / 320)
+
+/*keyBoard*/
+//键盘变化时间
+static CGFloat const keyBoardTipTime = 1.5;
+//每一页的按钮数，包括删除按钮
+static CGFloat const emojiCount = 21;
+//每一行的按钮数
+static CGFloat const KrowCount = 7;
+//每一页的行数
+static CGFloat const rows = 3;
+//键盘高度
+#define keyBoardH (4 * VULSCREEN_WIDTH * 0.0875 +(3 + 1) * ((VULSCREEN_WIDTH - 7 * VULSCREEN_WIDTH * 0.0875 ) / 8) - 20)
+//表情按钮宽高
+#define emotionW VULSCREEN_WIDTH * 0.0875
+#define emotionV VULSCREEN_WIDTH * 0.065
+//表情页的高度（第一键盘高度）
+#define pageH (VULSCREEN_WIDTH - KrowCount * emotionW) / (KrowCount + 1)
+
+#define AESENCRYKEY @"njsdearr8h239ay3"
+#define OTHERLOGINAESKEY @"KNAL6GY9bVJR33M8"
+
+#define AgoraAppId @"0e1cbfa07d49477aaa34bf96f862fec8"
+
+// 可操作区域 正常情况 宽 - （状态栏+10）* 2  高充满  ipad情况 减去上面的状态栏高
+#define LANDSCAPEOPERABLESIZE CGSizeMake(VULSCREEN_HEIGHT - (K_StatusBar_Height + 10) * 2,  IS_IPAD ? VULSCREEN_WIDTH - 20  : VULSCREEN_WIDTH)
+
+
+#define kFirstLoginKey @"APPLOGINTYPE"
+
+
+#endif
+
+#endif /* PrefixHeader_pch */
