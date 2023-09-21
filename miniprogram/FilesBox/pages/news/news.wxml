@@ -1,0 +1,147 @@
+<!--pages/messages/messages.wxml-->
+<navBar titleText="资讯" showBack="{{true}}"></navBar>
+<view class="tab-box flex justify-between">
+    <view class="search-box" style="width: calc(100% - 180rpx);">
+        <van-icon name="search" size="18" />
+        <input type="text" placeholder="输入关键词" class="input-box" placeholder-style="color:#666"  value="{{keyword}}" bindconfirm="searchFiles"
+        confirm-type="搜索" />
+    </view>
+    <view style="display: flex;justify-content: flex-end;">
+        <image src="/images/icons/sort_icon.png" class="icon" bindtap="showFilter" data-type="0" style="margin-right: 20rpx;"></image>
+        <image src="/images/icons/icon_rv_mode_grid.png" class="icon" bindtap="choseType" data-type="0" style="margin-right: 20rpx;"></image>
+        <image src="/images/icons/icon_rv_mode_list.png" class="icon" bindtap="choseType" data-type="1"></image>
+    </view>
+</view>
+<scroll-view 
+    scroll-anchoring="{{true}}"
+    scroll-y 
+    refresher-triggered="{{isPullDownRefresh}}" 
+    refresher-enabled
+    bindrefresherrefresh="onPullDownRefresh" 
+    bindscrolltolower="onReachBottom" 
+    style="height:{{scrollHeight}}px;"
+    overflow-anchor>
+    <load-area loadingState="{{loadingState}}" speed="{{uploadProgress}}" list="{{(newsList.length)?[1]:[]}}">
+        <view style="padding:0 30rpx 30rpx;" wx:if="{{newsList}}">
+            <view wx:if="{{isTile}}">
+                <view class="piece" wx:for="{{newsList}}" data-item="{{item}}" bindtap="goToInfoDetail">
+                    <image src="/images/icons/top.png" mode="aspectFit" style="position:absolute;top: 20rpx;width:40rpx;height:40rpx;z-index:99" wx:if="{{item.isTop}}"></image>
+                    <image src="{{item.thumb?item.thumb:imageUrl.newsEmpty}}" style="width:240rpx;height:180rpx" mode="aspectFit"></image>
+                    <image src="/images/icons/infoShare2.png" mode="aspectFit" style="position:absolute;left:200rpx;top: 20rpx;width:40rpx;height:40rpx;z-index:99" wx:if="{{informationShare}}" catchtap="showShare" data-item="{{item}}"></image>
+                    <view class="content flex">
+                        <view class="text-cut-2 margin-bottom-xs" style="font-size: 16px;">{{item.title}}</view>
+                        <view style="width:100%;color: #999;font-size: 12px;text-align: left;height: 50rpx;align-items: center;line-height: 50rpx;" class="flex justify-between">
+                            <view class="flex flex-start" style="width: 100%;">
+                                <text class="text-cut-1" style="margin-right: 20rpx;height: 50%;margin-right: 20rpx;max-width: 60%;">{{item.nickname?item.nickname:item.userName}}</text>
+                                <text>{{item.gmtTime}}</text>
+                            </view>
+                            <!-- <view class="flex justify-between padding-left-xs " style="width:50%;align-items: center">
+                                <view style="margin-right: 10rpx;align-items: center;display: flex;justify-content: space-between;">
+                                    <van-icon name="eye-o" size="15"  />
+                                    <text>{{item.viewCount}}</text>
+                                </view>
+                                <view>
+                                  <van-icon name="good-job-o" size="15" />
+                                  <text>{{item.likeCount}}</text>
+                                </view>
+                            </view> -->
+                        </view>
+                    </view>    
+                </view>
+            </view>
+            <view class="box flex justify-between" wx:else>
+                <view id="left">
+                    <view class="con-box" wx:for="{{ newsList }}" wx:if="{{index%2==0}}" data-item="{{item}}"bindtap="goToInfoDetail">
+                        <image src="/images/icons/top.png" mode="aspectFit" style="position:absolute;top: 20rpx;width:40rpx;height:40rpx;z-index:99" wx:if="{{item.isTop}}"></image>
+                        <image src="/images/icons/infoShare2.png" mode="aspectFit" style="position:absolute;top: 20rpx;right:20rpx;width:40rpx;height:40rpx;z-index:99" wx:if="{{informationShare}}" catchtap="showShare"  data-item="{{item}}"></image>
+                        <image src="{{item.thumb?item.thumb:imageUrl.newsEmpty}}" style="width:100%;height:200rpx" mode="aspectFit"></image>
+                        <view class="text-cut-2" style="width: 100%;text-align: left;">{{item.title}}</view>
+                        <view class="text-cut-2 margin-top-xs" style="width: 100%;text-align: left;color: #666;font-size: 13px;">{{item.introduce}}</view>
+                        <view style="width:100%;color: #999;font-size: 12px;text-align: left" class="flex justify-between margin-top-xs">
+                            <text class="text-cut-1" style="margin-right: 20rpx;width: 50%;height: 50%;">{{item.nickname?item.nickname:item.userName}}</text>
+                            <text style="margin-right: 20rpx;">{{item.gmtTime}}</text>
+                        </view>
+                    </view>
+                </view>
+                <view id="right">
+                    <view class="con-box" wx:for="{{ newsList }}" data-item="{{item}}" bindtap="goToInfoDetail" wx:if="{{index%2==1}}">
+                        <image src="/images/icons/top.png" mode="aspectFit" style="position:absolute;top: 20rpx;width:40rpx;height:40rpx;z-index:99" wx:if="{{item.isTop}}"></image>
+                        <image src="/images/icons/infoShare2.png" mode="aspectFit" style="position:absolute;top: 20rpx;right:20rpx;width:40rpx;height:40rpx;z-index:99" wx:if="{{informationShare}}" catchtap="showShare"  data-item="{{item}}"></image>
+                        <image src="{{item.thumb?item.thumb:imageUrl.newsEmpty}}" style="width:100%;height:200rpx" mode="aspectFit"></image>
+                        <view class="text-cut-2" style="width: 100%;text-align: left;">{{item.title}}</view>
+                        <view class="text-cut-2 margin-top-xs" style="width: 100%;text-align: left;color: #666;font-size: 13px;">{{item.introduce}}</view>
+                        <view style="width:100%;color: #999;font-size: 12px;text-align: left" class="flex justify-between margin-top-xs">
+                            <text class="text-cut-1" style="margin-right: 20rpx;width: 50%;height: 50%;">{{item.nickname?item.nickname:item.userName}}</text>
+                            <text style="margin-right: 20rpx;">{{item.gmtTime}}</text>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </load-area>  
+</scroll-view>
+<!-- 资讯类别 资讯/短视频 -->
+<van-popup
+show="{{ sortShow }}"
+position="right"
+custom-style="height:100%;width:82%;padding-top:91px;display:flex;justify-content:space-between;padding-bottom:calc(env(safe-area-inset-bottom) + 100rpx);"
+bind:close="showFilter"
+>
+    <scroll-view scroll-y scroll-into-view="{{scrollIntoView}}" scroll-with-animation="{{true}}" class="scroll-view" style="height: 100%;">
+        <!-- <view>
+            <view class="padding-sm text-black text-30  text-bold">全部</view>
+            <image src="{{logoImage}}" style="width: calc((100vw - 280rpx) / 3);height: calc((100vw - 280rpx) / 3);background-color: #f6f6f6;border-radius: 6rpx;margin-left: 20rpx;" bindtap="resetCondition"></image>
+        </view> -->
+        <view class="padding-sm text-black text-30  text-bold">分类</view>
+        <view id="mainCateId" class="cate-box">
+            <view class="cate {{threeIndexs.one === index ? 'cate-active':''}}" data-index="{{index}}" data-id="{{item.infoTypeID}}" data-type="one" bindtap="choseCate" wx:for="{{filterItems}}">{{item.typeName}}</view>
+        </view>
+        <block wx:if="{{threeIndexs.one !== '' && filterItems[threeIndexs.one].children && filterItems[threeIndexs.one].children.length>0}}">
+            <view id="subCateId" class="padding-sm text-black text-32  text-bold">{{filterItems[threeIndexs.one].text}}</view>
+            <view class="cate-box">
+                <view class="cate {{threeIndexs.two === index ? 'cate-active':''}}" data-index="{{index}}" data-id="{{item.infoTypeID}}"  data-type="two" bindtap="choseCate" wx:for="{{filterItems[threeIndexs.one].children}}">{{item.typeName}}</view>
+            </view>
+        </block>
+        <block wx:if="{{threeIndexs.two !== '' && filterItems[threeIndexs.one].children[threeIndexs.two].children && filterItems[threeIndexs.one].children[threeIndexs.two].children.length>0}}">
+            <view id="subCateId" class="padding-sm text-black text-32  text-bold">{{filterItems[threeIndexs.one].children[threeIndexs.two].text}}</view>
+            <view class="cate-box">
+                <view class="cate {{threeIndexs.three === index ? 'cate-active':''}}" data-index="{{index}}" data-id="{{item.infoTypeID}}" data-type="three" bindtap="choseCate" wx:for="{{filterItems[threeIndexs.one].children[threeIndexs.two].children}}">{{item.typeName}}</view>
+            </view>
+        </block>
+    </scroll-view>
+</van-popup>
+<!-- 分享弹窗 -->
+<van-popup show="{{ shareShow }}" bind:close="closeShare" position="bottom" custom-style="padding-bottom:0;background-color: #f8f8f8;bottom:{{showTabBar?'calc(100rpx + env(safe-area-inset-bottom))':''}}">
+  <view style="text-align:left;padding:20rpx  30rpx;background-color: #fff;color: #323233;font-weight: 400;font-size: 14px;line-height: 20px;">分享资讯</view>
+  <view class="flex justify-between" style="padding: 0 20rpx;background-color: #fff;">
+    <view wx:for="{{sharePanel}}" wx:key="index" data-index="{{index}}" bindtap="onSelect" style="width: 20%;padding:30rpx 0;text-align: center;">
+      <view wx:if="{{!item.openType}}">
+        <image class="icon"  mode="aspectFit" src="{{item.icon}}" style="width: 48px;height: 48px;margin: 0 auto;display: block;"/>
+        <view class="margin-top-sm text-iGray">{{item.name}}</view>
+      </view>
+      <button wx:else open-type="{{item.openType}}" class="text-df bg-white share-friend"
+      style="min-height: 80rpx;">
+        <image class="icon"  mode="aspectFit" src="{{item.icon}}" style="width: 48px;height: 48px;margin: 0 auto;display: block;"/>
+        <text style="margin-top: 20rpx;height:40rpx !important;line-height:40rpx;" class="text-iGray felx justify-center align-center">{{item.name}}</text>
+    </button>
+    </view>
+  </view>
+  <view class=" padding text-center solid-top" bindtap="closeShare" style="margin-top: 15rpx;background-color: #fff;padding-bottom: {{env(safe-area-inset-bottom)?env(safe-area-inset-bottom):'50rpx'}}">取消</view>
+</van-popup>
+<!-- 分享到朋友圈提示 -->
+<view class="tip text-white flex justify-end"
+      wx:if="{{showTips}}" catchtap="showTips">
+  <view class="text-center" style="margin-top:{{systemInfo.statusBarHeight+44}}px;">
+    <image src="{{imageUrl.shareArrow}}" style="width:99rpx;height:87rpx;"></image>
+    <view>点击右上角 <image src="{{imageUrl.ppp}}" /></view>
+    <view>将它发送给指定的朋友</view>
+    <view>或分享朋友圈</view>
+  </view>
+</view>
+<!-- 二维码 -->
+<view class="mask" bindtouchmove="preventTouchMove" bindtap="closeShareQrcode" wx:if="{{showQrcode}}">
+    <image src="{{shareQrcode}}" style="width: 200px;height: 200px;margin:0 auto;"></image>
+    <view class="save-button" catchtap="saveShareQrcode">保存二维码</view>
+</view>
+<canvas canvas-id="myQrcode" style="width: 200px;height: 200px;position: fixed;left: 1000px;"></canvas>
+<canvas style="position: absolute; top: -1000px; left: -1000px; width: 640px; height: 640px; background: #000" canvas-id="shareCanvas"></canvas>

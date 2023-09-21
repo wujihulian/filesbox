@@ -1,0 +1,32 @@
+<!--pages/personal/personal.wxml-->
+<view style="position: fixed;width: 100%;left: 0;top: 0;z-index: 9999;">
+    <navBar titleText="{{lang['主页']}}"></navBar>
+    <tabNav id="tabNav" showSquare="{{true}}" bind:onSlideShow="showSlide" userInfo="{{userInfo}}" bind:onGetList="getList" bind:onSearch="searchFiles" listArr="{{listArr}}" listArr2="{{listArr2}}" bind:onFilterFile = "filterFile" sourceID="{{sourceID}}" bind:onChoseType="choseType" bind:onChoseSortField="choseSortField" bind:onChoseSortType="choseSortType"></tabNav>
+</view>
+<files-component id="files" scrollViewTopHeight="{{scrollViewTopHeight}}" sourceID="{{sourceID}}" catalogue="{{catalogue}}" bind:onSlideShow="showSlide" rootCatalogue="{{rootCatalogue}}" bind:onSetSearchFilter="setSearchFilter" bind:getRecycleNum="getRecycleNum"></files-component>
+<slideBar id="slideBar" slideShow="{{slideShow}}" bind:onSlideShow="showSlide" moreArr="{{moreArr}}"></slideBar>
+<!-- <tabBar id="tabBar" selected="personal"></tabBar> -->
+<canvas-watermark></canvas-watermark>
+<van-popup
+  show="{{ webviewShow }}"
+  custom-style="border-radius:20rpx;width:600rpx;padding:30rpx;z-index:9999"
+  bind:close="closeWebview"
+>
+    <view style="padding: 20rpx;">
+        <view style="width:100%;text-align: center;color: #333;" class="margin-bottom">新建网址</view>
+        <view>
+          <input type="text" placeholder="请输入应用名" value="{{webnameText}}" style="width: 100%;border: 1px solid #ececec;height: 60rpx;padding-left: 20rpx;color: #333;margin-bottom: 20rpx;" data-type="webnameText" bindinput="webviewInput"/>
+          <input type="text" placeholder="请输入http/https链接" value="{{weburlText}}" style="width: 100%;border: 1px solid #ececec;height: 60rpx;padding-left: 20rpx;color: #333;" data-type="weburlText" bindinput="webviewInput"/>
+            <!-- <view class="flex align-center margin-bottom" style="justify-content: flex-end;color: #333;">
+              <input type="text" placeholder="请输入应用名" value="{{webnameText}}" style="width: 70%;border: 1px solid #ececec;height: 60rpx;padding-left: 20rpx;margin-left: 20rpx;color: #333;" data-type="webnameText" bindinput="webviewInput"/>
+            </view>
+            <view class="flex align-center margin-bottom" style="justify-content: flex-end;color: #333;">
+              <input type="text" placeholder="请输入http/https链接" value="{{weburlText}}" style="width: 70%;border: 1px solid #ececec;height: 60rpx;padding-left: 20rpx;margin-left: 20rpx;color: #333;" data-type="weburlText" bindinput="webviewInput"/>
+            </view> -->
+        </view>
+        <view class="flex-b-c">
+          <view class="button bg-gray text-gray flex-c-c margin-top margin-lr" bindtap="closeWebview">取消</view>
+          <view class="button bg-purple text-white flex-c-c margin-top" hover-class="hover-purple" style="opacity: {{isClick?'1':'0.5'}};" bindtap="{{isClick?'saveWebview':''}}">保存</view>
+        </view>
+    </view>
+</van-popup>

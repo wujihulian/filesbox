@@ -1,0 +1,4 @@
+/* components/page-scroll/page-scroll.wxss */
+/* 页面取消滚动，使用scroll-view */
+.container-sv{position: fixed;left: 0;width: 100%;bottom: calc( 100rpx + env(safe-area-inset-bottom) );overflow-anchor:none;-webkit-overflow-scrolling: touch;}
+.container-sv-n{position: fixed;left: 0;width: 100%;bottom: env(safe-area-inset-bottom);overflow-anchor:none;-webkit-overflow-scrolling: touch;}

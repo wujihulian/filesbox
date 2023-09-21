@@ -1,0 +1,176 @@
+<view style="width:100%;margin-top: 20rpx;" wx:if="{{isTile}}" class="content">
+  <view class="flex-c-c padding-right-sm" hover-class="hover-full" data-item="{{item}}" data-cate="folderList" data-index="{{index}}" bindtap="{{isEdit?'choseFile':'choseFolder'}}" bindlongpress="showEdit" wx:for="{{prop.folderList}}" wx:if="{{item.sort>0}}">
+    <view class="icon-out-tile flex-shrink">
+      <image src="{{item.thumb}}" mode="aspectFit" class="icon" wx:if="{{item.thumb}}"></image>
+      <view style="width: 120rpx;height: 120rpx;border-radius:50%;background: {{item.style}};" wx:if="{{item.style}}"></view>
+      <view class="flex" style="position: absolute;left: 20rpx;bottom:30rpx;z-index:99">
+        <view wx:for="{{item.tagList}}" style="border: 1px solid #fff;margin-left:{{index>0?'-12rpx':'0'}};width:24rpx;height:24rpx;border-radius:50%;background: {{item.style}};"></view>
+      </view>
+    </view>
+    <view class="flex-sub" style="position: relative;">
+      <view class="flex-s-c">
+        <view class="text-cut-1 text-32" style="max-width: calc(100% - 100rpx)">{{item.name}}</view>
+        <image src="/images/icons/top.png" mode="aspectFit" style="margin-left:10rpx;width:40rpx;height:40rpx;z-index:99" wx:if="{{item.sort>0}}"></image>
+        <image src="/images/icons/collected.png" mode="aspectFit" style="margin-left:10rpx;width:40rpx;height:40rpx;z-index:99" wx:if="{{item.isFav}}"></image>
+        <image src="/images/icons/shareIcon.png" mode="aspectFit" style="margin-left:10rpx;width:40rpx;height:40rpx;z-index:99" wx:if="{{item.isShare}}"></image>
+        <image src="/images/icons/shortcut_icon.png" mode="aspectFit" style="margin-left:10rpx;width:40rpx;height:40rpx;z-index:99" wx:if="{{item.oexeContent.type=='lnk'}}"></image>
+      </view>
+      <view class="text-iGray text-26 margin-top-xs">
+        <text wx:if="{{item.gmtCreate}}">{{item.gmtCreate}}</text>
+        <text class="margin-left" wx:if="{{item.fileSize}}">{{item.fileSize}}</text>
+      </view>
+      <view wx:if="{{isEdit}}" style="position: absolute;right: 10rpx;top:20rpx;z-index:99">
+        <van-icon name="checked" wx:if="{{item.checked}}" size="18" color="#9a64ff"  />
+        <van-icon name="checked" size="18" color="#cecece" wx:else/>
+      </view>
+    </view>
+  </view>
+  <view class="flex-c-c padding-right-sm" hover-class="hover-full" data-item="{{item}}" data-cate="fileList" data-index="{{index}}" bindtap="{{isEdit?'choseFile':item.isFolder?'choseFolder':'previewFile'}}" bindlongpress="showEdit" wx:for="{{prop.fileList}}" wx:if="{{item.sort>0&&!item.oexeIsFolder}}">
+    <view class="icon-out-tile flex-shrink">
+      <image src="{{item.thumb}}" mode="aspectFit" class="icon"></image>
+      <image src="{{imageUrl.videoPlay}}" class="video-play" wx:if="{{item.fileType == 'mp4'||item.fileType == 'avi'||item.fileType == 'mov'}}"></image>
+      <view class="flex" style="position: absolute;left: 20rpx;bottom:30rpx;z-index:99">
+        <view wx:for="{{item.tagList}}" style="border: 1px solid #fff;margin-left:{{index>0?'-12rpx':'0'}};width:24rpx;height:24rpx;border-radius:50%;background: {{item.style}};"></view>
+      </view>
+    </view>
+    <view class="flex-sub" style="position: relative;">
+      <view class="flex-s-c">
+        <view class="text-cut-1 text-32" style="max-width: calc(100% - 100rpx)">{{item.name}}</view>
+        <image src="/images/icons/top.png" mode="aspectFit" style="margin-left:10rpx;width:40rpx;height:40rpx;z-index:99" wx:if="{{item.sort>0}}"></image>
+        <image src="/images/icons/collected.png" mode="aspectFit" style="margin-left:10rpx;width:40rpx;height:40rpx;z-index:99" wx:if="{{item.isFav}}"></image>
+        <image src="/images/icons/shareIcon.png" mode="aspectFit" style="margin-left:10rpx;width:40rpx;height:40rpx;z-index:99" wx:if="{{item.isShare}}"></image>
+        <image src="/images/icons/shortcut_icon.png" mode="aspectFit" style="margin-left:10rpx;width:40rpx;height:40rpx;z-index:99" wx:if="{{item.oexeContent.type=='lnk'}}"></image>
+      </view>
+      <view class="text-iGray text-26 margin-top-xs">
+        <text wx:if="{{item.gmtCreate}}">{{item.gmtCreate}}</text>
+        <text class="margin-left" wx:if="{{item.size}}">{{item.fileSize}}</text>
+      </view>
+      <view wx:if="{{isEdit}}" style="position: absolute;right: 10rpx;top:20rpx;z-index:99">
+        <van-icon name="checked" wx:if="{{item.checked}}" size="18" color="#9a64ff"  />
+        <van-icon name="checked" size="18" color="#cecece" wx:else/>
+      </view>
+    </view>
+  </view>
+  <view class="flex-c-c padding-right-sm" hover-class="hover-full" data-item="{{item}}" data-cate="folderList" data-index="{{index}}" bindtap="{{isEdit?'choseFile':'choseFolder'}}" bindlongpress="showEdit" wx:for="{{prop.folderList}}" wx:if="{{!item.sort}}">
+    <view class="icon-out-tile flex-shrink">
+      <image src="{{item.thumb}}" mode="aspectFit" class="icon" wx:if="{{item.thumb}}"></image>
+      <view style="width: 120rpx;height: 120rpx;border-radius:50%;background: {{item.style}};" wx:if="{{item.style}}"></view>
+      <view class="flex" style="position: absolute;left: 20rpx;bottom:30rpx;z-index:99">
+        <view wx:for="{{item.tagList}}" style="border: 1px solid #fff;margin-left:{{index>0?'-12rpx':'0'}};width:24rpx;height:24rpx;border-radius:50%;background: {{item.style}};"></view>
+      </view>
+    </view>
+    <view class="flex-sub" style="position: relative;">
+      <view class="flex-s-c">
+        <view class="text-cut-1 text-32" style="max-width: calc(100% - 100rpx)">{{item.name}}</view>
+        <image src="/images/icons/top.png" mode="aspectFit" style="margin-left:10rpx;width:40rpx;height:40rpx;z-index:99" wx:if="{{item.sort>0}}"></image>
+        <image src="/images/icons/collected.png" mode="aspectFit" style="margin-left:10rpx;width:40rpx;height:40rpx;z-index:99" wx:if="{{item.isFav}}"></image>
+        <image src="/images/icons/shareIcon.png" mode="aspectFit" style="margin-left:10rpx;width:40rpx;height:40rpx;z-index:99" wx:if="{{item.isShare}}"></image>
+        <image src="/images/icons/shortcut_icon.png" mode="aspectFit" style="margin-left:10rpx;width:40rpx;height:40rpx;z-index:99" wx:if="{{item.oexeContent.type=='lnk'}}"></image>
+      </view>
+      <view class="text-iGray text-26 margin-top-xs">
+        <text wx:if="{{item.gmtCreate}}">{{item.gmtCreate}}</text>
+        <text class="margin-left" wx:if="{{item.size}}">{{item.fileSize}}</text>
+      </view>
+      <view wx:if="{{isEdit}}" style="position: absolute;right: 10rpx;top:20rpx;z-index:99">
+        <van-icon name="checked" wx:if="{{item.checked}}" size="18" color="#9a64ff"  />
+        <van-icon name="checked" size="18" color="#cecece" wx:else/>
+      </view>
+    </view>
+  </view>
+  <view class="flex-c-c padding-right-sm" hover-class="hover-full" data-item="{{item}}" data-cate="fileList" data-index="{{index}}" bindtap="{{isEdit?'choseFile':item.isFolder?'choseFolder':'previewFile'}}" bindlongpress="showEdit" wx:for="{{prop.fileList}}" wx:if="{{!item.sort&&!item.oexeIsFolder}}">
+    <view class="icon-out-tile flex-shrink">
+      <image src="{{item.thumb}}" mode="aspectFit" class="icon"></image>
+      <image src="{{imageUrl.videoPlay}}" class="video-play" wx:if="{{item.fileType == 'mp4'||item.fileType == 'avi'||item.fileType == 'mov'}}"></image>
+      <view class="flex" style="position: absolute;left: 20rpx;bottom:30rpx;z-index:99">
+        <view wx:for="{{item.tagList}}" style="border: 1px solid #fff;margin-left:{{index>0?'-12rpx':'0'}};width:24rpx;height:24rpx;border-radius:50%;background: {{item.style}};"></view>
+      </view>
+    </view>
+    <view class="flex-sub" style="position: relative;">
+      <view class="flex-s-c">
+        <view class="text-cut-1 text-32" style="max-width: calc(100% - 100rpx)">{{item.name}}</view>
+        <image src="/images/icons/top.png" mode="aspectFit" style="margin-left:10rpx;width:40rpx;height:40rpx;z-index:99" wx:if="{{item.sort>0}}"></image>
+        <image src="/images/icons/collected.png" mode="aspectFit" style="margin-left:10rpx;width:40rpx;height:40rpx;z-index:99" wx:if="{{item.isFav}}"></image>
+        <image src="/images/icons/shareIcon.png" mode="aspectFit" style="margin-left:10rpx;width:40rpx;height:40rpx;z-index:99" wx:if="{{item.isShare}}"></image>
+        <image src="/images/icons/shortcut_icon.png" mode="aspectFit" style="margin-left:10rpx;width:40rpx;height:40rpx;z-index:99" wx:if="{{item.oexeContent.type=='lnk'}}"></image>
+      </view>
+      <view class="text-iGray text-26 margin-top-xs">
+        <text wx:if="{{item.gmtCreate}}">{{item.gmtCreate}}</text>
+        <text class="margin-left" wx:if="{{item.size}}">{{item.fileSize}}</text>
+      </view>
+      <view wx:if="{{isEdit}}" style="position: absolute;right: 10rpx;top:20rpx;z-index:99">
+        <van-icon name="checked" wx:if="{{item.checked}}" size="18" color="#9a64ff"  />
+        <van-icon name="checked" size="18" color="#cecece" wx:else/>
+      </view>
+    </view>
+  </view>
+</view>
+<view class="flex-s-s flex-wrap content" style="margin-top: 20rpx;" wx:else>
+  <view class="file-item flex-c-c flex-column" hover-class="hover-full" data-item="{{item}}" data-cate="folderList" data-index="{{index}}" bindtap="{{isEdit?'choseFile':'choseFolder'}}" bindlongpress="showEdit" wx:for="{{prop.folderList}}" style="position: relative;{{item.checked?'background-color: #f5efff!important;border: 1px solid #9a64ff;':''}}" wx:if="{{item.sort>0}}">
+    <view class="icon-out" >
+      <image src="{{item.thumb}}" mode="aspectFit" class="icon" wx:if="{{item.thumb}}"></image>
+      <view style="width: 120rpx;height: 120rpx;border-radius:50%;background: {{item.style}};" wx:else></view>
+    </view>
+    <view class="file-name margin-lr-xs">
+      <text class="text-cut-2 text-center" style="word-break: break-all;">{{item.name}}</text>
+    </view>
+    <image src="/images/icons/collected.png" mode="aspectFit" style="width:40rpx;height:40rpx;position:absolute;right:0;top:{{item.isShare?'70rpx':'100rpx'}};z-index:99" wx:if="{{item.isFav}}"></image>
+    <image src="/images/icons/top.png" mode="aspectFit" style="width:40rpx;height:40rpx;position: absolute;left: 0;top:10rpx;z-index:99" wx:if="{{item.sort>0}}"></image>
+    <van-icon name="checked" wx:if="{{item.checked}}" size="18" color="#9a64ff" custom-style="position: absolute;right: 10rpx;top:0rpx;z-index:99" />
+    <view class="flex" style="position: absolute;left: 20rpx;top:110rpx;z-index:99">
+      <view wx:for="{{item.tagList}}" style="border: 1px solid #fff;margin-left:{{index>0?'-12rpx':'0'}};width:24rpx;height:24rpx;border-radius:50%;background: {{item.style}};"></view>
+    </view>
+    <image src="/images/icons/shareIcon.png" mode="aspectFit" style="width:40rpx;height:40rpx;position: absolute;right: 0;top:115rpx;z-index:99" wx:if="{{item.isShare}}"></image>
+    <image src="/images/icons/shortcut_icon.png" mode="aspectFit" style="width:40rpx;height:40rpx;position: absolute;right: 0;top:{{item.isShare&&item.isFav?'30rpx':item.isShare||item.isFav?'70rpx':'100rpx'}};z-index:99" wx:if="{{item.oexeContent.type=='lnk'}}"></image>
+  </view>
+  <view class="file-item flex-c-c flex-column" hover-class="hover-full" data-item="{{item}}" data-cate="fileList" data-index="{{index}}" bindtap="{{isEdit?'choseFile':item.isFolder?'choseFolder':'previewFile'}}" bindlongpress="showEdit" wx:for="{{prop.fileList}}" style="position: relative;{{item.checked?'background-color: #f5efff!important;border: 1px solid #9a64ff;':''}}" wx:if="{{item.sort>0&&!item.oexeIsFolder}}">
+    <view class="icon-out">
+      <image src="{{item.thumb}}" mode="aspectFit" class="icon"></image>
+      <image src="{{imageUrl.videoPlay}}" class="video-play" wx:if="{{item.fileType == 'mp4'||item.fileType == 'avi'||item.fileType == 'mov'}}"></image>
+    </view>
+    <view class="file-name margin-lr-xs">
+      <text class="text-cut-2 text-center" style="word-break: break-all;color: #333;">{{item.name}}</text>
+    </view>
+    <image src="/images/icons/collected.png" mode="aspectFit" style="width:40rpx;height:40rpx;position:absolute;right:0;top:{{item.isShare?'70rpx':'100rpx'}};z-index:99" wx:if="{{item.isFav}}"></image>
+    <image src="/images/icons/top.png" mode="aspectFit" style="width:40rpx;height:40rpx;position: absolute;left: 0;top:10rpx;z-index:99" wx:if="{{item.sort>0}}"></image>
+    <van-icon name="checked" wx:if="{{item.checked}}" size="18" color="#9a64ff" custom-style="position: absolute;right: 10rpx;top:0rpx;z-index:99" />
+    <view class="flex" style="position: absolute;left: 20rpx;top:110rpx;z-index:99">
+      <view wx:for="{{item.tagList}}" style="border: 1px solid #fff;margin-left:{{index>0?'-12rpx':'0'}};width:24rpx;height:24rpx;border-radius:50%;background: {{item.style}};"></view>
+    </view>
+    <image src="/images/icons/shareIcon.png" mode="aspectFit" style="width:40rpx;height:40rpx;position: absolute;right: 0;top:115rpx;z-index:99" wx:if="{{item.isShare}}"></image>
+    <image src="/images/icons/shortcut_icon.png" mode="aspectFit" style="width:40rpx;height:40rpx;position: absolute;right: 0;top:{{item.isShare&&item.isFav?'30rpx':item.isShare||item.isFav?'70rpx':'100rpx'}};z-index:99" wx:if="{{item.oexeContent.type=='lnk'}}"></image>
+  </view>
+  <view class="file-item flex-c-c flex-column" hover-class="hover-full" data-item="{{item}}" data-cate="folderList" data-index="{{index}}" bindtap="{{isEdit?'choseFile':'choseFolder'}}" bindlongpress="showEdit" wx:for="{{prop.folderList}}" style="position: relative;{{item.checked?'background-color: #f5efff!important;border: 1px solid #9a64ff;':''}}" wx:if="{{!item.sort}}">
+    <view class="icon-out" >
+      <image src="{{item.thumb}}" mode="aspectFit" class="icon" wx:if="{{item.thumb}}"></image>
+      <view style="width: 120rpx;height: 120rpx;border-radius:50%;background: {{item.style}};" wx:else></view>
+    </view>
+    <view class="file-name margin-lr-xs">
+      <text class="text-cut-2 text-center" style="word-break: break-all;">{{item.name}}</text>
+    </view>
+    <image src="/images/icons/collected.png" mode="aspectFit" style="width:40rpx;height:40rpx;position:absolute;right:0;top:{{item.isShare?'70rpx':'100rpx'}};z-index:99" wx:if="{{item.isFav}}"></image>
+    <image src="/images/icons/top.png" mode="aspectFit" style="width:40rpx;height:40rpx;position: absolute;left: 0;top:10rpx;z-index:99" wx:if="{{item.sort>0}}"></image>
+    <van-icon name="checked" wx:if="{{item.checked}}" size="18" color="#9a64ff" custom-style="position: absolute;right: 10rpx;top:0rpx;z-index:99" />
+    <view class="flex" style="position: absolute;left: 20rpx;top:110rpx;z-index:99">
+      <view wx:for="{{item.tagList}}" style="border: 1px solid #fff;margin-left:{{index>0?'-12rpx':'0'}};width:24rpx;height:24rpx;border-radius:50%;background: {{item.style}};"></view>
+    </view>
+    <image src="/images/icons/shareIcon.png" mode="aspectFit" style="width:40rpx;height:40rpx;position: absolute;right: 0;top:115rpx;z-index:99" wx:if="{{item.isShare}}"></image>
+    <image src="/images/icons/shortcut_icon.png" mode="aspectFit" style="width:40rpx;height:40rpx;position: absolute;right: 0;top:{{item.isShare&&item.isFav?'30rpx':item.isShare||item.isFav?'70rpx':'100rpx'}};z-index:99" wx:if="{{item.oexeContent.type=='lnk'}}"></image>
+  </view>
+  <view class="file-item flex-c-c flex-column" hover-class="hover-full" data-item="{{item}}" data-cate="fileList" data-index="{{index}}" bindtap="{{isEdit?'choseFile':item.isFolder?'choseFolder':'previewFile'}}" bindlongpress="showEdit" wx:for="{{prop.fileList}}" style="position: relative;{{item.checked?'background-color: #f5efff!important;border: 1px solid #9a64ff;':''}}" wx:if="{{!item.sort&&!item.oexeIsFolder}}">
+    <view class="icon-out">
+      <image src="{{item.thumb}}" mode="aspectFit" class="icon"></image>
+      <image src="{{imageUrl.videoPlay}}" class="video-play" wx:if="{{item.fileType == 'mp4'||item.fileType == 'avi'||item.fileType == 'mov'}}"></image>
+    </view>
+    <view class="file-name margin-lr-xs">
+      <text class="text-cut-2 text-center" style="word-break: break-all;color: #333;">{{item.name}}</text>
+    </view>
+    <image src="/images/icons/collected.png" mode="aspectFit" style="width:40rpx;height:40rpx;position:absolute;right:0;top:{{item.isShare?'70rpx':'100rpx'}};z-index:99" wx:if="{{item.isFav}}"></image>
+    <image src="/images/icons/top.png" mode="aspectFit" style="width:40rpx;height:40rpx;position: absolute;left: 0;top:10rpx;z-index:99" wx:if="{{item.sort>0}}"></image>
+    <van-icon name="checked" wx:if="{{item.checked}}" size="18" color="#9a64ff" custom-style="position: absolute;right: 10rpx;top:0rpx;z-index:99" />
+    <view class="flex" style="position: absolute;left: 20rpx;top:110rpx;z-index:99">
+      <view wx:for="{{item.tagList}}" style="border: 1px solid #fff;margin-left:{{index>0?'-12rpx':'0'}};width:24rpx;height:24rpx;border-radius:50%;background: {{item.style}};"></view>
+    </view>
+    <image src="/images/icons/shareIcon.png" mode="aspectFit" style="width:40rpx;height:40rpx;position: absolute;right: 0;top:115rpx;z-index:99" wx:if="{{item.isShare}}"></image>
+    <image src="/images/icons/shortcut_icon.png" mode="aspectFit" style="width:40rpx;height:40rpx;position: absolute;right: 0;top:{{item.isShare&&item.isFav?'30rpx':item.isShare||item.isFav?'70rpx':'100rpx'}};z-index:99" wx:if="{{item.oexeContent.type=='lnk'}}"></image>
+  </view>
+</view>

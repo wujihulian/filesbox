@@ -1,0 +1,28 @@
+<view style="display: flex;justify-content: space-between;padding:20rpx 30rpx;align-items: flex-end;border-bottom: 1px solid #ececec;">
+    <view class="place-box">
+        <view>
+            <text>一级目录</text>
+            <van-icon name="arrow" />
+        </view>
+        <view>
+            <text style="color: #333;">二级目录</text>
+            <!-- <van-icon name="arrow" color="#333" /> -->
+        </view>
+    </view>
+    <image src="{{imageUrl.icon_sort_down}}" class="icon"></image>
+    <image src="{{isList?imageUrl.icon_rv_mode_list:imageUrl.icon_rv_mode_grid}}" class="icon" bindtap="switchList"></image>
+</view>
+<view style="padding:20rpx 30rpx;display: flex;justify-content: space-between;flex-wrap: wrap;color: #333;" wx:if="{{!isList}}">
+    <view style="width: 25%;text-align: center;margin-bottom:30rpx;position: relative;" wx:for="{{5}}" bindlongpress="showOperate">
+        <image src="{{imageUrl.folder_icon}}" mode="widthFix" class="files-icon"></image>
+        <view class="text-cut-2" style="font-size: 13px;">一级文件夹</view>
+        <van-icon name="checked" custom-style="position:absolute;right:0;bottom:60rpx" size="18"  color="#4F91FF" wx:if="{{item.operateShow}}"/>
+    </view>
+</view>
+<view style="padding:20rpx 40rpx;color: #333;" wx:if="{{isList}}">
+    <view style="margin-bottom:30rpx;display: flex;justify-content: space-between;align-items: flex-start;" wx:for="{{5}}">
+        <image src="{{imageUrl.folder_icon}}" mode="widthFix" class="files-icon"></image>
+        <view class="text-cut-2" style="font-size: 14px;width: calc(100% - 120rpx);padding-left: 30rpx;padding-top: 20rpx;">一级文件夹</view>
+    </view>
+</view>
+<operateBar operateShow="{{operateShow}}" bind:onOperateeShow="showOperate"></operateBar>

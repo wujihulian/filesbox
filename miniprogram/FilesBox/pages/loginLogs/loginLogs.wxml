@@ -1,0 +1,79 @@
+<!--pages/setting/setting.wxml-->
+<view>
+    <!-- <view class="flex justify-between align-center" style="padding:30rpx;">
+        <view>时间范围</view>
+        <view>
+            <text style="color: #888;">近7天</text>
+            <van-icon name="arrow" color='#888' />
+        </view>
+    </view> -->
+    <van-tabs active="{{ tabIndex }}" bind:change="tabChange" color="#722ed1" title-active-color="#722ed1">
+        <van-tab title="{{item}}" wx:for="{{tabList}}"></van-tab>
+    </van-tabs>
+    <view class="flex justify-between align-center margin-sm">
+        <view wx:for="{{timeArr}}" style="padding:10rpx 30rpx;" class="{{timeIndex==index?'timeActive':'time-box'}}" data-index="{{index}}" bindtap="selectNav">{{item.text}}</view>
+    </view>
+    <view>
+        <view class="flex justify-between align-center" style="background:#F6F6F6;padding:15rpx 30rpx;color: #333;">
+            <view wx:for="{{navList}}" style="width: 25%;">{{item}}</view>
+        </view>
+        <scroll-view 
+            bindscroll="onPageScroll"
+            scroll-anchoring="{{true}}"
+            scroll-y 
+            bindscrolltolower="onReachBottom" 
+            style="height:600px;padding-bottom:30rpx;"
+            overflow-anchor
+            data-type="0"
+            wx:if="{{logList.length}}"
+        >
+            <view class="flex justify-between align-center" style="padding:20rpx 30rpx;color: #666;border-bottom: 1px solid #ececec;" wx:for="{{logList}}" wx:if="{{tabIndex==0}}">
+                <view style="width: 25%;">{{item.createTime}}</view>
+                <view style="width: 25%;">{{item.osName}}</view>
+                <view style="width: 25%;">{{item.logDescVo.browser}}</view>
+                <view style="width: 25%;word-break: break-all;">{{item.logDescVo.country}} {{item.logDescVo.network}}</view>
+            </view>
+            <view class="flex justify-between align-center" style="padding:20rpx 30rpx;color: #666;border-bottom: 1px solid #ececec;font-size: 13px;" wx:for="{{logList}}" wx:if="{{tabIndex==1}}">
+                <view style="width: 25%;">{{item.logDescVo.browser}}</view>
+                <view style="width: 25%;">{{item.osName}}</view>
+                <view style="width: 25%;">{{item.createTime}}</view>
+                <view style="width: 25%;word-break: break-all;">{{item.logDescVo.country}} {{item.logDescVo.network}}</view>
+            </view>
+            <view class="flex justify-between align-center" style="padding:20rpx 30rpx;color: #666;border-bottom: 1px solid #ececec;font-size: 13px;" wx:for="{{logList}}" wx:if="{{tabIndex==2}}">
+                <view style="width: 25%;">{{item.createTime}}</view>
+                <view style="width: 25%;">{{item.logDescVo.pathDisplay}}</view>
+                <view style="width: 25%;">{{item.statusText}}</view>
+                <view style="width: 25%;word-break: break-all;">{{item.logDescVo.pathName}}</view>
+            </view> 
+        </scroll-view>
+        <van-empty description="暂无数据" wx:else/>
+    </view>
+</view>
+<van-popup
+  show="{{ false }}"
+  position="bottom"
+  custom-style="height: 40%;padding:30rpx"
+  closeable
+  bind:close="onClose"
+>   
+    <!-- <view style="margin-top: 30rpx;">
+        <view>时间</view>
+        <view class="flex justify-between align-center margin-top-sm">
+            <view wx:for="{{timeArr}}" style="background: #F5F5F5;color: #777777;padding:10rpx 30rpx;">{{item.text}}</view>
+        </view>
+    </view> -->
+    <view style="margin-top: 30rpx;">
+        <view>自定义</view>
+        <view style="display: flex;justify-content:space-between;margin-top: 20rpx;">
+            <view style="display: flex;justify-content:space-between;border: 1px solid #ececec;padding:10rpx 15rpx;width: 47%;border-radius:10rpx;" bindtap="showDate"> 
+                <view style="width: calc(100% - 50rpx);color: #333;">{{dateFrom?dateFrom:'请选择日期'}}</view>
+                <image src="/images/icons/date.png" class="icon"></image>
+            </view>
+            <view style="display: flex;justify-content:space-between;border: 1px solid #ececec;padding:10rpx 15rpx;width: 47%;border-radius:10rpx;" bindtap="showDate"> 
+                <view style="width: calc(100% - 50rpx);color: #333;">{{dateTo?dateTo:'请选择日期'}}</view>
+                <image src="/images/icons/date.png" class="icon"></image>
+            </view>
+        </view>
+    </view>
+</van-popup>
+<van-calendar show="{{ dateShow }}" round="false" position="bottom" min-date="{{ minDate }}" max-date="{{ maxDate }}" default-date="{{timestamp}}" type="range" confirm-text="确定" confirm-disabled-text="请选择结束时间" color="#654EC3" bind:close="showDate" bind:confirm="selectDate" />

@@ -1,0 +1,34 @@
+<!--pages/user-info/user-info.wxml-->
+<wxs module="util">
+  var toPercent = function (val) {
+    var str = (val*100).toFixed(2);
+    str += "%";
+    return str;
+  }
+  module.exports.toPercent = toPercent;
+</wxs>
+<view class="nav-bar" style="color:#9966FF;{{'height:280rpx;background-image: url('+(imageUrl.userBg)+')'}}"></view>
+<view style="width: 92%;margin: -100rpx auto;">
+    <view style="width: 100%;overflow: hidden;border-radius: 20rpx;position: relative;" bindtap="goToEdit">
+        <image src="/images/icons/files_user_card.png" style="width: 100%;" mode="widthFix"></image>
+        <view style="position: absolute;left: 0;top: 0;width: 100%;" class="padding flex justify-between">
+            <image src="{{avatar}}" class="avatar" wx:if="{{avatar}}"></image>
+            <!-- <image src="{{imageUrl.defaultAvatar}}" class="avatar" wx:else></image> -->
+            <view style="width:72%">
+                <view class="flex justify-between align-center margin-bottom-sm">
+                    <view style="width:90%;font-weight:bold;font-size: 18px;color: #7459E3;" class="text-cut-1">{{userInfo.nickname?userInfo.nickname:userInfo.name}}</view>
+                    <van-icon name="arrow" color="#7459E3" />
+                </view>
+                <view style="color: #7459E3;margin: 10rpx 0;">{{sizeUse}}/{{userInfo.sizeMax>0?userInfo.sizeMax+'GB':'不限制'}}</view>
+                <progress style="width:100%;" bgColor="rgba(255,255,255,0.2);" height="20" showColor="-webkit-linear-gradient(#BB60FF,#7459E3)" percent="{{util.toPercent(progress)}}"></progress>
+            </view>
+        </view>
+    </view>
+    <view class="margin-top-sm">
+        <van-cell title="{{lang['站点']}}" icon="{{imageUrl.websiteIcon}}" border="{{false}}" custom-class="grid" title-style="margin-left: 10rpx;"  is-link bind:click="goToPage" data-index="0"/>
+        <van-cell title="{{lang['设置']}}" icon="{{imageUrl.setIcon}}" border="{{false}}" custom-class="grid"  title-style="margin-left: 10rpx;" is-link bind:click="goToPage" data-index="1"/>
+        <van-cell title="日志" icon="/images/icons/log_icon.png" border="{{false}}" custom-class="grid"  title-style="margin-left: 10rpx;" is-link bind:click="goToPage" data-index="2"/>
+        <van-cell title="{{lang['退出']}}" icon="{{imageUrl.exitIcon}}" border="{{false}}" custom-class="grid"  title-style="margin-left: 10rpx;" bind:click="goToPage" data-index="3" is-link />
+    </view>
+</view>
+<!-- <tabBar id="tabBar" selected="userInfo" lang="{{lang}}"></tabBar> -->

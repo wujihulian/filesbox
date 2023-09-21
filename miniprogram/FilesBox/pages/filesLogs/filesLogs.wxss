@@ -1,0 +1,4 @@
+/* pages/setting/setting.wxss */
+.timeActive{border:1px solid #7459E3;color:#7459E3;}
+.time-box{border:1px solid #ececec;color: #666;}
+.icon{width: 40rpx;height: 40rpx;}

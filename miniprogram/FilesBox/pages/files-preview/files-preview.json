@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "文件预览",
+  "usingComponents": {
+    "music-play":"/components/music-play/music-play"
+  }
+}

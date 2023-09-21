@@ -1,0 +1,13 @@
+<!--components/tabBar/tabBar.wxml-->
+<block wx:if="{{tabBar.length>1}}">
+  <view class="shadow"></view>
+  <view class="tabbar" style="background-color:{{backgroundColor}};">
+    <view class="tabbar-inside">
+      <view class="item" data-index="{{index}}" data-url="{{item.pagePath}}" data-item="{{item}}" bindtap="switchTab" wx:for="{{tabBar}}">
+        <image mode="aspectFit" class="icon" src="{{selected == item.cate ?item.selectedIconPath : item.iconPath}}"></image>
+        <view class="red-dot" wx:if="{{item.number>0}}">{{item.number}}</view>
+        <view class="text" style="color:{{selected == item.cate ?selectedColor:(item.color||color)}}">{{lang[item.text]}}</view>
+      </view>
+    </view>
+  </view>
+</block>

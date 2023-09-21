@@ -1,0 +1,3 @@
+/* pages/tagManage/tagManage.wxss */
+.btn-box{width: 200rpx;height: 70rpx;border-radius: 50rpx;text-align: center;line-height: 70rpx;}
+.style-active{border: 2px solid #cecece;}

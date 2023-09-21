@@ -1,0 +1,18 @@
+<van-popup show="{{ slideShow }}" position="left" bind:close="onShowSlide" custom-style="padding-top:{{164+statusBarHeight}}px;height:100%;width:50%;background:none;z-index:39999" overlay-style="z-index:39999">
+    <scroll-view class="scroll-view_H" scroll-y>
+        <view class="scroll-view-box_H">			
+            <view wx:for="{{moreArr}}" wx:key="index" style="margin-bottom: 20rpx;">
+                <view style="padding:10rpx 0;display: flex;justify-content: flex-start;align-items: center;" catchtap="showNext" data-index="{{index}}">
+                    <van-icon name="{{item.show?'arrow-down':'arrow'}}" color="#333"/>
+                    <view style="margin-left: 20rpx;color: #333;">{{lang[item.name]?lang[item.name]:item.name}}</view>
+                </view>
+                <view wx:for="{{item.children.folderList}}" wx:for-item="cell" wx:for-index="indexs" wx:key="index" style="display: flex;justify-content: flex-start;align-items: center;padding:15rpx 0;padding-left:40rpx;" wx:if="{{item.show&&cell.icon!='toolbox'}}" bindtap="cateSelect" data-indexs="{{indexs}}" data-index="{{index}}" data-item="{{cell}}" hover-class="hover-full">
+                    <image src="{{cell.url}}" class="icon" wx:if="{{cell.url}}"></image>
+                    <view style="width: 30rpx;height: 30rpx;background:{{cell.style}};border-radius: 50%;" wx:else></view>
+                    <view style="margin-left: 15rpx;font-size: 15px;">{{lang[cell.name]?lang[cell.name]:cell.name}}</view>
+                    <!-- <view style="color:{{ selectIndex==indexs&&moreIndex==index?'#9a64ff':'#666'}};margin-left: 15rpx;font-size: 13px;">{{lang[cell.name]?lang[cell.name]:cell.name}}</view> -->
+                </view>
+            </view>
+        </view>
+    </scroll-view>  
+</van-popup>

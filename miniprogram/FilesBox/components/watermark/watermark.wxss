@@ -1,0 +1,2 @@
+.water_top{position: fixed;top:0;bottom: 0;left: 0;right: 0;/* background: #999; *//* opacity: 0.9; */z-index: 95;display: flex;flex-wrap: wrap;}
+.water-text{color: rgba(169,169,169,.2);text-align: center;font-size: 15px;max-width: 50%;}

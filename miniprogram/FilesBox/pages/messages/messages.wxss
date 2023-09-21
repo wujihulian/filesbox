@@ -1,0 +1,4 @@
+/* pages/messages/messages.wxss */
+page{background: #fff;}
+.piece{width: 100%;padding:30rpx 0;border-bottom: 1px solid #ececec;display: flex;justify-content: space-between;}
+.content{width: calc(100% - 100rpx);}

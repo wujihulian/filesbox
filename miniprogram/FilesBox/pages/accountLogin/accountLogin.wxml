@@ -1,0 +1,82 @@
+<!-- <view class="padding text-lg">知多宝账号登录</view> -->
+<view class="page" style="background-image:url({{imageUrl.loginPageBg}});">
+  <view class="container">
+    <!-- <view class="avatar-out">
+      <view class="avatar">
+        <image class="avatar" src="{{userInfo.avatar}}" wx:if="{{userInfo}}"></image>
+        <open-data type="userAvatarUrl" wx:else></open-data>
+      </view>
+    </view> -->
+    <image style="width:172rpx;height: 172rpx ;border-radius: 15rpx;box-shadow: 0 0 20rpx rgba(0, 0, 0, 0.06);" src="/images/icons/logo-head.png"></image>
+    <view class="nick-name flex justify-start align-center text-50 text-bold">
+      <text style="margin-right: 10rpx;">{{lang['欢迎您登录']}}</text>
+      <!-- <text style="margin-right: 10rpx;">{{lang['欢迎']}}</text>
+      <text wx:if="{{userInfo}}">{{userInfo.cardName}}</text>
+      <open-data type="userNickName" wx:else></open-data>
+      <text style="margin-left: 10rpx;"> {{lang['登录']}}</text> -->
+    </view>
+    <view class="text-bold text-30" style="margin-top:100rpx;margin-bottom: 20rpx;">{{lang['用户登录']}}</view>
+    <view class="line" wx:if="{{showSite}}">
+      <van-field 
+        title-width="60rpx" 
+        custom-style="flex:1" 
+        value="{{ DOMAIN }}" 
+        data-label="DOMAIN" 
+        bind:change="twoWayBinding" 
+        placeholder="{{lang['请输入服务器地址']}}" 
+        border="{{ false }}" 
+        use-button-slot
+        >
+        <view class="flex flex-start align-center" style="width:60rpx" slot="label">
+          <image src="/images/login_icon/icon_login_website.png" style="width: 40rpx;height:40rpx;"></image>
+          <!-- <text class="" style="color:#646566;margin-left: 10rpx;">{{lang['服务器']}}</text> -->
+        </view>
+      </van-field>
+    </view>
+    <view class="line">
+      <van-field 
+        title-width="60rpx" 
+        custom-style="flex:1" 
+        value="{{ account }}" 
+        data-label="account" 
+        bind:change="twoWayBinding" 
+        placeholder="{{lang['请输入账号或手机号']}}" 
+        border="{{ false }}" 
+        use-button-slot
+        >
+        <view class="flex justify-between align-center" style="width:60rpx" slot="label">
+          <image src="/images/login_icon/icon_login_account.png" style="width: 40rpx;height:40rpx;"></image>
+          <!-- <text class="" style="color:#646566;">{{lang['账号']}}</text> -->
+        </view>
+      </van-field>
+    </view>
+    <view class="line">
+      <van-field 
+        title-width="60rpx" 
+        custom-style="flex:1" 
+        password="{{!showPassword}}" 
+        value="{{ password }}" 
+        data-label="password" 
+        bind:change="twoWayBinding" 
+        placeholder="{{lang['请输入密码']}}" 
+        border="{{ false }}" 
+        right-icon="{{ showPassword ? '/images/login_icon/icon_look_pwd_open.png' : '/images/login_icon/icon_look_pwd_close.png' }}"
+        bind:click-icon="showPassword"
+        >
+        <view class="flex justify-between align-center" style="width:60rpx" slot="label">
+          <image src="/images/login_icon/icon_login_password.png" style="width: 40rpx;height:40rpx;"></image>
+          <!-- <text class="" style="color:#646566;">{{lang['密码']}}</text> -->
+        </view>
+      </van-field>
+    </view>
+    <view class="flex {{showSite?'flex-e-c':'justify-between'}} align-center padding-top padding-bottom">
+      <view class="text-purple" bindtap="switchSite" wx:if="{{!showSite}}">{{lang['切换站点']}}</view>
+      <!-- <navigator hover-class="none" url="../../packageC/pages/reset-password/reset-password" class="text-purple">{{lang['忘记密码']}}</navigator> -->
+    </view>
+  </view>
+  <view class="agreement">
+    <checkbox class="purple" bindtap="switchCheckState" checked="{{readAgreement}}" style="height:44rpx;"></checkbox>
+    <view class="agreement-text flex">{{lang['已经阅读并同意']}}<view class="navigator" bindtap="goServiceAgreement">《{{lang['服务条款']}}》</view><view>{{lang['和']}}</view><view class="navigator" bindtap="goPrivacyAgreement">《{{lang['隐私协议']}}》</view></view>
+  </view>
+  <new-button fn="formSubmit" text="{{lang['登录']}}" forbidden="{{!readAgreement}}" custom-style="margin-top:50rpx"></new-button>
+</view>

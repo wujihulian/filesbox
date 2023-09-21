@@ -1,0 +1,9 @@
+<!--packageB/pages/files/files-preview/files-preview.wxml-->
+<web-view src="{{previewUrl}}" wx:if="{{fileType == 1}}"></web-view>
+<video class="preview-video" autoplay show-center-play-btn="{{false}}" src="{{previewUrl}}" wx:if="{{fileType == 2}}"></video>
+<!-- <audio id="audio" class="audio" src="{{previewUrl}}" controls  wx:if="{{fileType == 3}}"></audio> -->
+<music-play src="{{audioPlayUrl}}" fileName="{{name}}" wx:if="{{fileType == 3}}"></music-play>
+<view class="text-box" wx:if="{{fileType == 4}}">
+  <text>{{srtText}}</text>
+</view>
+<canvas-watermark></canvas-watermark>

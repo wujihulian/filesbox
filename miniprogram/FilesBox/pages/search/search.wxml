@@ -1,0 +1,28 @@
+<!--pages/search/search.wxml-->
+<navBar titleText="{{lang['发现']}}"></navBar>
+<scroll-view 
+    scroll-anchoring="{{true}}"
+    scroll-y 
+    style="height:{{scrollHeight}}px;"
+    overflow-anchor>
+    <view style="padding: 30rpx;" wx:if="{{fileTypeShow}}">
+        <view class="text-bold text-black margin-bottom-sm">常用</view>
+        <view class="main-box">   
+            <view wx:for="{{imageArr1}}" class="piece" style="{{isEn?'justify-content:space-between':'justify-content:space-around'}};background:{{item.bgColor}}" bindtap="goToList" data-item="{{item}}">
+                <view>{{lang[item.name]}}</view>
+                <image src="{{item.url}}"></image>   
+            </view>
+        </view>
+    </view>
+    <view style="padding: 30rpx;">
+        <view class="text-bold text-black margin-bottom-sm">服务</view>
+        <view class="main-box">    
+            <view wx:for="{{imageArr2}}" class="piece" style="{{isEn?'justify-content:space-between':'justify-content:space-around'}};background:{{item.bgColor}}" bindtap="goToList" data-item="{{item}}" wx:if="{{item.show}}">
+                <view>{{lang[item.name]}}</view>
+                <image src="{{item.url}}"></image>   
+            </view>
+        </view>
+    </view>
+</scroll-view>
+
+<!-- <tabBar id="tabBar" selected="search"></tabBar> -->

@@ -1,0 +1,124 @@
+{
+  "pages":[
+    "pages/personal/personal",
+    "pages/accountLogin/accountLogin",
+    "pages/organization/organization",
+    "pages/search/search",
+    "pages/user-info/user-info",
+    "pages/messages/messages",
+    "pages/transmissionCenter/transmissionCenter",
+    "pages/files-preview/files-preview",
+    "pages/files-list/files-list",
+    "pages/tagManage/tagManage",
+    "pages/link/link",
+    "pages/setting/setting",
+    "pages/news/news",
+    "pages/logs/logs",
+    "pages/loginLogs/loginLogs",
+    "pages/deviceLogs/deviceLogs",
+    "pages/filesLogs/filesLogs",
+    "pages/accountSet/accountSet",
+    "pages/setUserInfo/setUserInfo",
+    "pages/userSpace/userSpace",
+    "pages/sharePage/sharePage",
+    "pages/newsLink/newsLink"
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "FilesBox",
+    "navigationBarTextStyle":"black"
+  },
+  "tabBar": {
+    "custom": false,
+    "color": "#333",
+    "selectedColor": "#9a64ff",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "black",
+    "list": [{
+      "pagePath": "pages/personal/personal",
+      "text": "主页",
+      "iconPath": "/images/tabbarIcon/home.png",
+      "selectedIconPath": "/images/tabbarIcon/home1.png"
+    }, {
+      "pagePath": "pages/organization/organization",
+      "iconPath": "/images/tabbarIcon/cloud.png",
+      "selectedIconPath": "/images/tabbarIcon/cloud1.png",
+      "text": "共享"
+    },            {
+      "pagePath": "pages/search/search",
+      "iconPath": "/images/tabbarIcon/search.png",
+      "selectedIconPath": "/images/tabbarIcon/search1.png",
+      "text": "发现"
+    },
+    {
+      "pagePath": "pages/user-info/user-info",
+      "iconPath": "/images/tabbarIcon/user.png",
+      "selectedIconPath": "/images/tabbarIcon/user1.png",
+      "text": "我的"
+    }]
+  },
+  "usingComponents": {
+    "mp-html": "mp-html",
+    "navBar": "/components/navBar/navBar",
+    "tabBar": "/components/tabBar/tabBar",
+    "van-button": "@vant/weapp/button/index",
+    "van-icon": "@vant/weapp/icon/index",
+    "new-button": "/components/new-button/new-button",
+    "van-search": "@vant/weapp/search/index",
+    "progress":"/components/progress/progress",
+    "van-popup": "@vant/weapp/popup/index",
+    "van-empty": "@vant/weapp/empty/index",
+    "page-scroll": "/components/page-scroll/page-scroll",
+    "load-area":"/components/load-area/load-area",
+    "van-action-sheet": "@vant/weapp/action-sheet/index",
+    "van-cell": "@vant/weapp/cell/index",
+    "van-calendar": "@vant/weapp/calendar/index",
+    "van-tab": "@vant/weapp/tab/index",
+    "van-tabs": "@vant/weapp/tabs/index",
+    "van-cell-group": "@vant/weapp/cell-group/index",
+    "van-switch": "@vant/weapp/switch/index",
+    "van-datetime-picker": "@vant/weapp/datetime-picker/index",
+    "canvas-watermark":"/components/watermark/watermark",
+    "van-field":"@vant/weapp/field/index"
+  },
+  "sitemapLocation": "sitemap.json",
+  "supportedMaterials": [
+    {
+        "materialType": "text/plain",
+        "name": "用${nickname}打开",
+        "desc": "文档将保存到云端，防过期防丢失",
+        "path": "pages/personal/personal"
+    },
+    {
+      "materialType": "text/html",
+      "name": "用${nickname}打开",
+      "desc": "文档将保存到云端，防过期防丢失",
+      "path": "pages/personal/personal"
+    },
+    {
+        "materialType": "video/*",
+        "name": "用${nickname}打开",
+        "desc": "视频将保存到云端，防过期防丢失",
+        "path": "pages/personal/personal"
+    },
+    {
+        "materialType": "audio/*",
+        "name": "用${nickname}打开",
+        "desc": "音频将保存到云端，防过期防丢失",
+        "path": "pages/personal/personal"
+    },
+    {
+      "materialType": "image/*",
+      "name": "用${nickname}打开",
+      "desc": "图片将保存到云端，防过期防丢失",
+      "path": "pages/personal/personal"
+    },
+    {
+      "materialType": "application/*",
+      "name": "用${nickname}打开",
+      "desc": "文件将保存到云端，防过期防丢失",
+      "path": "pages/personal/personal"
+    }
+  ]
+}

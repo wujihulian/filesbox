@@ -1,0 +1,97 @@
+<van-popup
+  show="{{ zipShow }}"
+  closeable
+  position="top"
+  custom-style="height: 100%;z-index:19999;top:{{44+statusBarHeight}}px;"
+  bind:close="onClose"
+>
+    <view class="top-box">
+        <view style="display: flex;align-items: center;padding:20rpx 30rpx;border-bottom:1px solid #ececec;">
+            <image src="{{imageUrl.fileIcons+'zip.png'}}" class="icon"></image>
+            <view style="width: calc(100% - 200rpx);padding-left: 10rpx;word-break: break-all;">
+                <view>{{dataList.name}}</view>
+                <view style="margin-top: 10rpx;color: #999;">{{dataList.size}},{{dataList.modifyTime}}</view>
+            </view>
+        </view>
+    </view>
+    <view>
+        <view style="display: flex;justify-content: space-between;background: #f9f9f9;padding: 10rpx 40rpx;">
+            <view style="width: 60%;">名称</view>
+            <view style="width: 30%;text-align: center;">大小</view>
+        </view>
+        <scroll-view bindscroll="onPageScroll"
+            bindscroll="onPageScroll"
+            scroll-anchoring="{{true}}"
+            scroll-y 
+            bindscrolltolower="onReachBottom" 
+            style="height:600px;padding-bottom: 100rpx;"
+            overflow-anchor>
+            <view style="display: flex;justify-content: flex-start;align-items: center;padding: 10rpx;" bindtap="showArrow">
+                <van-icon name="{{showArrow?'arrow-down':'arrow'}}" />
+                <image src="{{imageUrl.fileIcons+'zip.png'}}" style="width: 40rpx;height: 40rpx;margin:0 10rpx"></image>
+                <view>{{dataList.name}}</view>
+            </view>
+            <tree dataTree="{{unzipList}}" id='trees'  isOpenAll="{{false}}" wx:if="{{showArrow}}" bind:unzipFile="unzipFile" bind:showOperate="showOperate"></tree>
+        </scroll-view>  
+    </view>
+</van-popup>
+<van-popup
+  show="{{ operateShow }}"
+  position="bottom"
+  z-index="199999"
+  bind:close="closeOperate"
+>
+    <view style="border-bottom: 1px solid #ececec;" style="padding:20rpx 30rpx;display:flex;justify-content:flex-start" bindtap="previewFile" wx:if="{{checkedItem.sort}}" >
+        <image src="/images/operateMore/icon_file_lastopen.png" style="width: 40rpx;height: 40rpx;margin-right: 20rpx;"></image>
+        <view>打开</view>
+    </view>
+    <view style="padding:20rpx 30rpx;display:flex;justify-content:flex-start" bindtap="showUnzipList" >
+        <image src="/images/operateMore/icon_file_zip.png" style="width: 40rpx;height: 40rpx;margin-right: 20rpx;" ></image>
+        <view>解压到...</view>
+    </view>
+</van-popup>
+<van-popup
+  show="{{ unzipListShow }}"
+  position="bottom"
+  z-index="199999"
+  bind:close="showUnzipList"
+>
+  <view style="padding: 20rpx 30rpx 0;">
+      <view wx:for="{{unzipOperateList}}" bindtap="unzipFile" data-index="{{index}}" style="display:flex;justify-content: flex-start;padding-bottom: 20rpx ;">
+          <image src="/images/operateMore/icon_file_zip.png" style="width: 40rpx;height: 40rpx;"></image>
+          <view style="color: #333;margin-left: 20rpx;">{{item}}</view>
+      </view>
+  </view>
+</van-popup>
+<van-popup
+  show="{{ encryptShow }}"
+  position="center"
+  custom-style="width:80%"
+  z-index="199999"
+  bind:close="showEncrypt"
+>
+  <view style="padding:30rpx;">
+      <view style="display: flex;justify-content: flex-start;margin-bottom: 20rpx;">
+        <van-icon name="warning-o" custom-style="margin-right:20rpx" color="#FCC847" size="20" />
+        <view>该压缩包需要解压密码</view>
+      </view>
+      <view style="border: 1px solid #cecece;">
+        <van-field 
+        custom-style="flex:1" 
+        password="{{!showPassword}}" 
+        value="{{ password }}" 
+        data-label="password" 
+        bind:change="textInput" 
+        placeholder="{{lang['请输入压缩包密码']}}" 
+        border="{{ false }}" 
+        right-icon="{{ showPassword ? '/images/login_icon/icon_look_pwd_open.png' : '/images/login_icon/icon_look_pwd_close.png' }}"
+        bind:click-icon="showPassword"
+        >
+        </van-field>
+      </view>
+      <view style="display: flex;justify-content:space-around;margin-top: 30rpx;padding: 0 80rpx;">
+        <view class="btn-box" style="color: #333;border: 1px solid #cecece;" bindtap="showEncrypt">取消</view>
+        <view class="btn-box" style="color: #fff;background: #722ed1;"  bindtap="confirmUnzip">确认</view>
+      </view>
+  </view>
+</van-popup>

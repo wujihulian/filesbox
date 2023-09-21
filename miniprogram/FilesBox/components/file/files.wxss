@@ -1,0 +1,33 @@
+/* packageB/pages/files/files.wxss */
+page{background-color: #fff !important;}
+.header{width: 100%;height: 80rpx;background-color: #f6f6f6;position: sticky;left: 0;top: 0;z-index: 199;}
+.header-icon-out{width: 70rpx;height: 70rpx;position: relative;}
+.red-dot{position:absolute;bottom: 40rpx;left: 30rpx;background-color: #FF0629;color: #fff;height: 32rpx;min-width: 16rpx;padding: 0 8rpx;border-radius: 32rpx;font-size: 24rpx;z-index: 999;}
+.header-icon{width: 32rpx;height: 32rpx;}
+.h-item{width: 160rpx;}
+
+.transform-90{transform: rotate(90deg);}
+.transform-270{transform: rotate(270deg);}
+
+
+.file-type-modal{position: fixed;top: 80rpx;left: 20rpx;background-color: #fff;border-radius: 10rpx;box-shadow: 0 0 20rpx #dbdbdb;width: 200rpx;}
+.item-list{height: 80rpx;}
+.item-icon{width: 34rpx;height: 34rpx;}
+.filter-type-modal{position: fixed;left: 140rpx;top: 80rpx;background-color: #fff;border-radius: 10rpx;box-shadow: 0 0 20rpx #dbdbdb;width: 200rpx;}
+
+/* 目录 */
+.catalogue{width: 100%;height: 80rpx;display: flex;justify-content: flex-end;align-items: center;}
+.catalogue .scroll-view{width: calc(100% - 20rpx);white-space: nowrap;}
+.catalogue .scroll-view .scroll-item{display: inline-block;}
+
+
+.fixed-add-button{width: 100rpx;height: 100rpx;position: fixed;right: 20rpx;bottom: calc(20rpx + env(safe-area-inset-bottom));background-color: var(--iBlue);border-radius: 50%;} 
+
+
+/* 新增文件夹 */
+.input-folder{border: 1rpx solid #ECECEC;width: 100%;border-radius: 10rpx;padding:0 20rpx;height: 90rpx;margin: 20rpx 0;}
+.button{width: 255rpx;height: 90rpx;border-radius: 90rpx;}
+
+.footer-inside{width: 100%;height: 100rpx;}
+.footer{position: fixed;bottom: 0;left: 0;width: 100%;height: calc(100rpx + env(safe-area-inset-bottom));background-color: #fff;box-shadow: 0 0 20rpx #dbdbdb;padding-bottom: env(safe-area-inset-bottom);}
+.footer-icon{width: 40rpx;height: 40rpx;}

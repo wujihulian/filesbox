@@ -1,0 +1,46 @@
+<!--packageB/pages/files/files-move/files-move.wxml-->
+<van-popup
+  show="{{ true }}"
+  position="bottom"
+  custom-style="height: 100%;background: rgba(0,0,0,0.1);z-index:29999"
+  bind:close="cancelMove"
+>
+  <view class="modal" style="top: {{systemInfo.statusBarHeight + 204}}px;bottom: 0;">
+  <view class="catalogue" style="border-bottom: 1px solid #ececec;">
+    <view bindtap="showSlide" style="padding: 10rpx 10rpx 0 10rpx;">
+        <image src="/images/icons/leftalignment.png" style="width: 40rpx;height: 40rpx;"></image>
+    </view>
+    <scroll-view class="scroll-view" scroll-x>
+      <view class="scroll-item {{index == catalogue.length-1 ? 'text-black':'text-iGray'}}" data-index="{{index}}" bindtap="choseCatelogue" wx:for="{{catalogue}}">
+        <text>{{item.label}}</text>
+        <van-icon name="arrow" size="12" color="#8a8a8a" wx:if="{{index != catalogue.length-1}}" />
+      </view>
+    </scroll-view>
+    <view class="cancel-move"></view>
+  </view>
+  <scroll-view scroll-y class="scroll-view-container flex-s-s flex-wrap">
+    <load-area loadingState="{{loadingState}}" list="{{moveType=='comment'?(dataList.folderList.length || dataList.fileList.length)?[1]:[]:dataList.folderList}}">
+      <view class="file-item" hover-class="hover-full" data-item="{{item}}" data-index="{{index}}" bindtap="choseImage" wx:for="{{dataList.fileList}}" style="position: relative;{{item.checked?'background-color: #f5efff!important;border: 1px solid #9a64ff;':''}}" wx:if="{{item.isSend&&moveType=='comment'}}">
+        <view class="icon-out">
+          <image src="{{item.thumb}}" mode="aspectFit" class="icon"></image>
+          <van-icon name="checked" wx:if="{{item.checked}}" size="18" color="#9a64ff" custom-style="position: absolute;right: 10rpx;top:0rpx;z-index:99" />
+        </view>
+        <view class="text-cut-1 margin-lr-xs">{{item.name}}</view>
+      </view>
+      <view class="file-item" hover-class="hover-full" data-item="{{item}}" data-index="{{index}}" bindtap="choseFolder" wx:for="{{dataList.folderList}}">
+        <view class="icon-out">
+          <image src="{{item.thumb}}" mode="aspectFit" class="icon"></image>
+          <van-checkbox value="{{ item.checked }}" custom-class="check-box" bind:change="onChange" wx:if="{{isEdit}}"></van-checkbox>
+        </view>
+        <view class="text-cut-1 margin-lr-xs">{{item.name}}</view>
+      </view>
+    </load-area>
+  </scroll-view>
+  <view class="footer-area">
+    <view class="create-new-folder" bindtap="cancelMove">取消</view>
+    <view class="move-folder" bindtap="{{isUnzip&&moveType==''?'unzipFile':moveType=='upload'?'uploadWechatFile':(moveType=='comment'?'sendPicture':'moveFileToFolder')}}">{{isUnzip&&moveType==''?'解压到当前':(moveType=='copy'?'复制到此处':(moveType=='upload'?'上传到此处':(moveType=='comment'?'确定':'剪切到此处')))}}</view>
+  </view>
+  </view>
+</van-popup>
+<slideBar id="slideBar" slideShow="{{slideShow}}" bind:onSlideShow="showSlide" moreArr="{{moreArr}}" selectIndex="-1"></slideBar>
+

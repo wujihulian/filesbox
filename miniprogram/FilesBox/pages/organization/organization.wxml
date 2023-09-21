@@ -1,0 +1,12 @@
+<!--pages/organization/organization.wxml-->
+<view style="position: fixed;width: 100%;left: 0;top: 0;z-index: 9999;">
+    <navBar titleText="{{lang['共享']}}"></navBar>
+    <tabNav id="tabNav" showSquare="{{true}}" bind:onSlideShow="showSlide" userInfo="{{userInfo}}" bind:onGetList="getList" bind:onSearch="searchFiles" listArr2="{{listArr2}}" bind:onFilterFile = "filterFile" sourceID="{{sourceID}}" bind:onChoseType="choseType" bind:onChoseSortField="choseSortField" bind:onChoseSortType="choseSortType" ></tabNav>
+</view>
+<files-component id="files" scrollViewTopHeight="{{scrollViewTopHeight}}" sourceID="{{sourceID}}" catalogue="{{catalogue}}" bind:onSlideShow="showSlide" bind:onSetSearchFilter="setSearchFilter" bind:getRecycleNum="getRecycleNum" ></files-component>
+<slideBar id="slideBar" slideShow="{{slideShow}}" bind:onSlideShow="showSlide" moreArr="{{moreArr}}" selectIndex="-1" ></slideBar>
+<!-- <tabBar id="tabBar" selected="organization"></tabBar> -->
+<canvas-watermark ></canvas-watermark>
+
+
+

@@ -1,0 +1,4 @@
+/* pages/setting/setting.wxss */
+page{background: #F6F6F6 !important;}
+.input-box{width: 100%;padding: 20rpx;}
+.button-box{position:fixed;bottom:calc(30rpx + env(safe-area-inset-bottom));left:50%;margin-left:-150rpx;width:300rpx;padding: 20rpx 0;text-align: center;border: 1px solid #722ed1;border-radius: 50rpx;color: #722ed1;}

@@ -1,0 +1,213 @@
+<van-popup
+  show="{{ attributeShow }}"
+  closeable
+  close-icon="/images/icons/close_icon.png"
+  position="top"
+  custom-style="height: 100%;z-index:19999;background:#FAFAFA;top:{{44+statusBarHeight}}px;"
+  bind:close="onClose"
+>
+    <view class="top-box">
+        <view style="display: flex;align-items: center;padding:20rpx 30rpx;border-bottom:1px solid #ececec;" wx:if="{{!isCover}}">
+            <image src="{{dataList.thumb}}" class="icon"></image>
+            <view style="width: calc(100% - 160rpx);padding-left: 10rpx;">
+                <view>{{dataList.name}}</view>
+                <view style="margin-top: 10rpx;color: #999;">{{dataList.size}},{{dataList.modifyTime}}</view>
+            </view>
+        </view>
+        <view style="position: relative;" wx:else>
+            <image src="{{dataList.thumb}}" style="width:100%;height:300rpx;display: block;" mode="aspectFill"></image>
+            <view style="position:absolute;bottom:0;left:0;background: rgba(0,0,0,0.3);width: 100%;color: #fff;height: 60rpx;padding: 10rpx;font-size: 13px;">{{dataList.name}}</view>
+        </view>
+    </view>
+    <view style="padding: 20rpx 30rpx;font-size: #333;">
+        <view style="display: flex;justify-content: flex-start;">
+            <view class="tab-box {{selectTabIndex==index?'tab-active':''}}" wx:for="{{tabList}}" bindtap="selectTab" data-index="{{index}}" wx:if="{{item.show}}">{{item.name}}</view>
+        </view>
+        <view wx:if="{{selectTabIndex==0}}">
+            <view style="border-bottom: 1px solid #ececec;">
+                <view class="cell-box"> 
+                    <view>大小：</view>
+                    <view style="width: 75%;text-align: left;">{{dataList.size}}</view>
+                </view>
+                <view class="cell-box" wx:if="{{dataList.pathDisplay}}">
+                    <view>位置：</view>
+                    <view style="width: 75%;text-align: left;">{{dataList.pathDisplay}}</view>
+                </view>
+                <view class="cell-box">
+                    <view>创建时间：</view>
+                    <view style="width: 75%;text-align: left;">{{dataList.createTime}}</view>
+                </view>
+                <view class="cell-box">
+                    <view>修改时间：</view>
+                    <view style="width: 75%;text-align: left;">{{dataList.modifyTime}}</view>
+                </view>
+            </view>
+            <view style="border-bottom: 1px solid #ececec;">
+                <view class="cell-box">
+                    <view>创建者：</view>
+                    <view style="width: 75%;text-align: left;">{{dataList.createUserJson.nickname?dataList.createUserJson.nickname:dataList.createUserJson.name}}</view>
+                </view>
+                <view class="cell-box">
+                    <view>修改者：</view>
+                    <view style="width: 75%;text-align: left;">{{dataList.modifyUserJson.name}}</view>
+                </view>
+                <view class="cell-box">
+                    <view>描述说明：</view>
+                    <view style="width: 75%;text-align: left;display: flex;justify-content: space-between;align-items: center;">
+                        <input type="text" value="{{dataList.description}}" placeholder="添加文档描述" bindconfirm="addDesc" style="width: calc(100% - 40rpx);"/>
+                        <image src="/images/icons/edit.png" style="width: 40rpx;height: 40rpx;"></image>
+                    </view>
+                </view>
+            </view>
+            <view>
+                <view class="cell-box">
+                    <view>MD5：</view>
+                    <view style="width: 75%;text-align: left;">{{dataList.hashMd5?dataList.hashMd5:'无'}}</view>
+                </view>
+            </view>
+        </view>
+        <view wx:if="{{selectTabIndex==1&&tabList.length==4}}">
+            <view style="margin: 20rpx 0;color: #333;display: flex;justify-content: space-between;align-items: center;">
+                <view>共{{historyTotal}}条记录</view>
+                <view style="display: flex;justify-content: flex-end;">
+                    <view style="border: 1px solid #cecece;width: 60rpx;height: 60rpx;line-height: 60rpx;text-align: center;" bindtap="updateHistory">
+                        <van-icon name="replay" />
+                    </view>
+                    <view style="margin-left:20rpx;height: 60rpx;line-height: 60rpx;border: 1px solid #cecece;padding:0 10rpx;display: flex;justify-content: space-between;" bindtap="updateNewFile">
+                        <van-icon name="upgrade" />
+                        <view>上传新版本</view>
+                    </view>   
+                </view>
+            </view>
+            <scroll-view 
+                bindscroll="onPageScroll"
+                scroll-anchoring="{{true}}"
+                scroll-y 
+                bindscrolltolower="onReachBottom" 
+                style="height:{{scrollHeight+120}}px;padding-bottom:30rpx;"
+                overflow-anchor
+                data-type="0"
+                wx:if="{{historyList.length}}" 
+                >
+                <view style="display: flex;justify-content: space-between;margin-bottom: 20rpx;border: 1px solid #c7b7de;align-items: center;">
+                    <!-- <image src="{{fileList.thumb}}" style="width: 100rpx;height: 100rpx;"></image> -->
+                    <view style="width:100%;">
+                        <view style="display: flex;justify-content: space-between;width: 100%;background: #f5efff;padding:10rpx 20rpx;">
+                            <view style="width: 110rpx;background: rgb(114, 46, 209);color: #fff;text-align: center;height: 50rpx;line-height: 50rpx;font-size: 12px;">当前版本</view>
+                            <view style="width: calc(100% - 110rpx);display: flex;justify-content: space-between;padding:0 10rpx;align-items: center;">
+                                <view style="color: #999;">{{fileList.createTime}}</view>     
+                                <view> {{fileList.size}} </view>   
+                                <image src="{{fileList.avatar}}" style="width: 40rpx;height: 40rpx;border-radius: 50%;"></image>
+                                <image src="/images/list_icon/icon_file_more.png" style="width: 40rpx;height: 40rpx;" bindtap="showMore" data-type="0"></image>
+                            </view>
+                        </view>
+                        <view style="background:#f5efff ;color: rgb(114, 46, 209);font-size: 12px;width: 120rpx;margin: 10rpx 20rpx;text-align: center;border: 1px solid #ececec;">当前版本</view>
+                    </view>
+                </view>
+                <view wx:for="{{historyList}}" style="display: flex;justify-content: space-between;margin-bottom: 20rpx;border: 1px solid #c7b7de;align-items: center;">
+                    <!-- <image src="{{item.downloadUrl}}" style="width: 100rpx;" mode="widthFix" wx:if="{{item.downloadUrl}}"></image> -->
+                    <view style="width:100%;">
+                        <view style="display: flex;justify-content: space-between;width: 100%;background: #f5efff;padding:10rpx 20rpx;">
+                            <view style="width: 50rpx;height:50rpx;line-height: 50rpx;background: rgb(61, 189, 125);color: #fff;text-align: center;">V{{historyList.length-index}}</view>
+                            <view style="width: calc(100% - 50rpx);display: flex;justify-content: space-between;padding:0 10rpx;align-items: center;">
+                                <view style="color: #999;">{{item.createTime}}</view>     
+                                <view> {{item.size}} </view>   
+                                <image src="{{item.avatar}}" style="width: 40rpx;height: 40rpx;border-radius: 50%;"></image>
+                                <image src="/images/list_icon/icon_file_more.png" style="width: 40rpx;height: 40rpx;" bindtap="showMore" data-type="1" data-index="{{index}}"></image>
+                            </view>
+                        </view>
+                        <view style="background:#ececec ;color: #333;font-size: 12px;width:95%;margin: 10rpx 20rpx;text-align: center;display: flex;justify-content: space-between;align-items: center;height: 60rpx;line-height: 60rpx;padding:0 20rpx;" wx:if="{{item.show||item.detail}}">
+                            <input type="text" placeholder="添加版本描述" style="height:100%;width: 92%;text-align: left;" bindconfirm="setVersionIntro" value="{{item.detail}}" data-id="{{item.id}}"/>
+                            <van-icon name="clear" color="#cecece" size="16" bindtap="clearVersionIntro" data-id="{{item.id}}"/>
+                        </view>
+                    </view>
+                </view>
+            </scroll-view>
+            <van-empty description="没有历史版本" wx:else />
+        </view>
+        <view wx:if="{{selectTabIndex==tabList.length-2}}">
+            <view style="margin: 20rpx 0;color: #333;">共{{commentsTotal}}条记录</view>
+            <scroll-view 
+                bindscroll="onPageScroll"
+                scroll-anchoring="{{true}}"
+                scroll-y 
+                scroll-with-animation="{{true}}"
+                bindscrolltolower="onReachBottom" 
+                style="height:{{scrollHeight}}px;padding-bottom: 30rpx;"
+                overflow-anchor
+                data-type="2"
+                wx:if="{{commentsList.length}}" 
+                >
+                <view wx:for="{{commentsList}}" id="view_{{index}}">
+                  <view class="{{item.isMine?'c-right':'c-left'}}">
+                    <image src="{{item.avatar}}" class="avatar" wx:if="{{!item.isMine}}" style="margin:0 20rpx 0 0;"></image>
+                    <view class="text-area-box" style="position: relative;">
+                      <van-icon name="ellipsis" wx:if="{{item.isMine&&mineEdit}}" custom-style="position:absolute;bottom:10rpx;font-size:18px;left:-24px;color:#666" bindtap="showDel" data-id="{{item.commentID}}"/>
+                      <view class="text-area bg-white text-black {{item.isOnlyEmoji?'transparent':''}}">
+                        <mp-html tag-style="{{tagStyle}}" content="{{item.content}}" id="article" bindimgtap="imgtap" preview-img="{{false}}" data-index="{{index}}"></mp-html>
+                      </view>
+                      <van-icon name="ellipsis" wx:if="{{!item.isMine&&delOther}}" custom-style="position:absolute;bottom:40rpx;font-size:18px;right:-24px;color:#666" bindtap="showDel" data-id="{{item.commentID}}"/>
+                    </view> 
+                    <image src="{{item.avatar}}" class="avatar" wx:if="{{item.isMine}}" style="margin:0 0 0 20rpx;"></image>
+                  </view>
+                </view>
+            </scroll-view>
+            <van-empty description="没有记录" wx:else />
+            <view style="position: fixed;border-top: 1px solid #ececec;width: 100%;bottom: 0;left: 0;margin:0 auto;padding: 20rpx;background: #f9f9f9;">
+              <textarea value="{{comments}}" placeholder="{{mineEdit?'请输入':'您没有讨论权限'}}" style="width: 100%;height: 130rpx;padding-left: 10rpx;" bindinput="inputValue" disabled="{{mineEdit?false:true}}"/>
+              <view style="width: 100%;display: flex;justify-content: space-between;align-items: center;padding-top:20rpx;padding-left: 10rpx;">
+                <view>
+                  <image style="width:50rpx;height:50rpx" src="{{imageUrl.sendEmoji}}" bindtap="{{mineEdit?'foldEmoji':''}}"></image>
+                  <image style="width:50rpx;height:50rpx;margin-left: 30rpx;" src="{{imageUrl.sendPicture}}" bindtap="{{mineEdit?'showPicture':''}}"></image>
+                </view>
+                <view style="background:#722ed1;color: #fff;height: 50rpx;line-height: 50rpx;width: 120rpx;text-align: center;opacity: {{mineEdit?'1':'0.5'}};" bindtap="{{mineEdit?'sendComent':''}}">发送</view>
+              </view>
+              <view class="emoji" wx:if="{{showEmoji}}">
+                <emoji bind:delEmoji="delEmoji" bind:changeEmoji="changeEmoji"></emoji>
+              </view>
+            </view>
+        </view>
+        <view wx:if="{{selectTabIndex==tabList.length-1}}">
+            <view style="margin: 20rpx 0;color: #333;">共{{trendsTotal}}条记录</view>
+            <scroll-view 
+                bindscroll="onPageScroll"
+                scroll-anchoring="{{true}}"
+                scroll-y 
+                bindscrolltolower="onReachBottom" 
+                style="height:{{scrollHeight+130}}px;padding-bottom: 30rpx;"
+                overflow-anchor
+                data-type="1"
+                wx:if="{{trendsList.length}}" 
+                >
+                <view wx:for="{{trendsList}}" style="display: flex;justify-content: flex-end;padding-bottom: 20rpx;position: relative;border-left:{{index==trendsList.length-1?'none':'1px solid #cecece'}};margin-left: 20rpx;">
+                    <view style="background: #f9f9f9;position: absolute;top: 0;left: -20rpx;">
+                      <image src="{{item.thumb}}" style="width: 40rpx;height: 40rpx;border-radius: 50%;"></image>
+                    </view>
+                    <view style="width: calc(100% - 40rpx);display: flex;justify-content: space-between;background: #f5efff;color: #789;border: 1px solid #c7b7de;padding: 10rpx;border-radius: 10rpx;">
+                        <image src="{{item.avatar}}" style="width: 80rpx;height: 80rpx;border-radius: 50%;"></image>
+                        <view style="width: calc(100% - 100rpx);">
+                            <view style="display: flex;justify-content: space-between;">
+                                <view>{{item.nickname}}</view>
+                                <view>{{item.time}}</view>
+                            </view>
+                            <view style="word-break: break-all;">{{item.content}}</view>
+                        </view>
+                    </view>
+                </view>
+            </scroll-view>
+            <van-empty description="没有动态" wx:else />
+        </view>
+    </view>
+</van-popup>
+<van-popup
+  show="{{ moreShow&&selectTabIndex==1 }}"
+  position="bottom"
+  custom-style="z-index:29999;box-shadow: 0 0 14rpx rgba(0, 0, 0, 0.1)"
+  bind:close="onCloseShowMore"
+>
+    <view wx:for="{{moreList}}" bindtap="onSelect" style="padding:20rpx 30rpx;display: flex;justify-content: flex-start;color: #333;{{index<moreList.length-1?'border-bottom: 1px solid #ececec;':''}}" data-index="{{index}}" bindtap="{{item.fn}}">
+        <image src="{{item.image}}" style="width:40rpx;height:40rpx" wx:if="{{item.image}}"></image>
+        <view wx:if="{{item.name=='取消'}}" style="text-align: center;width: 100%;">{{item.name}}</view>
+        <view style="margin:0 20rpx;" wx:else>{{item.name}}</view>
+    </view> 
+</van-popup>

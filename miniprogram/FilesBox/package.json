@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@vant/weapp": "^1.10.13",
+    "mp-html": "^2.4.2"
+  }
+}

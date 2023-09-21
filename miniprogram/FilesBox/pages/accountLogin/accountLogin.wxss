@@ -1,0 +1,25 @@
+/* pages/personal-login/personal-login.wxss */
+page{background-color: #fff !important;}
+.container{padding: 50rpx;}
+.avatar-out{width: 188rpx;height: 188rpx;border-radius: 50%;box-shadow: 0 0 20rpx rgba(0, 0, 0, 0.06);display: flex;justify-content: center;align-items: center;background-color: #fff;}
+.avatar-out .avatar{width: 172rpx;height: 172rpx;border-radius: 50%;overflow: hidden;}
+.nick-name{margin-top: 30rpx;}
+.line{padding: 30rpx 0;border-bottom: 1rpx solid #f1f1f1;}
+.eyeImage{width: 40rpx;height: 40rpx;margin-left: auto;}
+.other-login{position: fixed;bottom: calc(20rpx + env(safe-area-inset-bottom));left: 0;width: 100%;}
+.ol-item{width: 80rpx;height: 80rpx;border-radius: 50%;background-color: #07C160;display: flex;justify-content: center;align-items: center;}
+.we-chat-hover{background-color: rgba(7,193,96, 0.6);}
+.van-cell{padding: 0 !important;flex: 1;width: 590rpx;background-color: transparent !important;}
+
+.trans-90{transform: rotate(90deg);}
+
+.get-phone-button{min-height: 0;padding: 0;margin: 0;background-color: transparent;font-size: 28rpx;height: 40rpx;line-height: 40rpx;}
+
+.page{position: fixed;top: 0;left: 0;width: 100%;height: 100%;overflow-y: scroll;background-position: right center;background-size: 349rpx 1040rpx;background-repeat: no-repeat;}
+
+
+.agreement{display: flex;width: 85%;margin: 0 auto;margin-bottom: 40rpx;}
+checkbox{display: inline-block;margin-right: 10rpx;transform: scale(.7);}
+.navigator,.agreement-text{display: flex;color: #8a8a8a;flex-wrap: wrap;line-height: 55rpx;}
+.navigator{color: var(--purple);}
+.block{display:block;}

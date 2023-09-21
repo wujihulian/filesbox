@@ -1,0 +1,136 @@
+<!--packageB/pages/files/files-component/files-component.wxml-->
+<view class="catalogue" style="position:fixed;top:{{showCate?164+statusBarHeight:44+statusBarHeight}}px;z-index: 99;background: #fff;height: 40px;" wx:if="{{showCatalogue}}">
+    <!-- <view bindtap="showSlide" style="padding: 10rpx 10rpx 0 0;" wx:if="{{showCate}}">
+        <image src="/images/icons/leftalignment.png" class="icon"></image>
+    </view> -->
+    <scroll-view class="scroll-view" scroll-into-view="view_{{catalogue.length-1}}" scroll-x>
+        <view id="view_{{index}}" class="scroll-item {{index == catalogue.length-1 ? 'text-black':'text-iGray'}}"
+            data-index="{{index}}" bindtap="choseCatelogue" wx:for="{{catalogue}}">
+            <text>{{lang[item.label]?lang[item.label]:item.label}}</text>
+            <van-icon name="arrow" size="12" color="#8a8a8a" wx:if="{{index != catalogue.length-1}}" />
+        </view>
+    </scroll-view>
+    <view style="display: flex;justify-content: flex-end;" wx:if="{{showSwitch}}">
+        <image src="/images/icons/icon_rv_mode_grid.png" class="icon" bindtap="choseType" data-type="0"></image>
+        <image src="/images/icons/icon_rv_mode_list.png" class="icon" bindtap="choseType" style="margin-left: 20rpx;" data-type="1"></image>
+        <image src="/images/list_icon/icon_file_more.png" class="icon" wx:if="{{showRecyle}}" style="margin-left: 20rpx;rotate:90deg" bindtap="showMoreRecyle"></image>
+    </view>
+    <view style="display: flex;justify-content: flex-end;" wx:if="{{!showSwitch}}">
+        <image src="{{sortTypeIndex?'/images/icons/icon_sort_down.png':'/images/icons/icon_sort_up.png'}}" class="icon" bindtap="showSortList"></image>
+        <image src="/images/icons/icon_rv_mode_grid.png" class="icon" bindtap="choseType" style="margin-left: 20rpx;" data-type="0"></image>
+        <image src="/images/icons/icon_rv_mode_list.png" class="icon" bindtap="choseType" style="margin-left: 20rpx;" data-type="1"></image>
+    </view>
+</view>
+<page-scroll bind:onReachBottom="onReachBottom" bind:onPullDownRefresh="onPullDownRefresh"
+    topHeight="{{showCatalogue?(showCate?204+statusBarHeight:84+statusBarHeight):44+statusBarHeight}}px" hasTabbar="{{showTabBar}}" customStyle="height:calc(env(safe-area-inset-bottom) + {{scrollHeight}})px;bottom:{{isEdit?'125px':'0'}}">
+    <load-area loadingState="{{loadingState}}" speed="{{uploadProgress}}" list="{{(dataList.folderList.length || dataList.fileList.length)?[1]:[]}}">
+        <files-list id="filesList" prop="{{dataList}}" isTile="{{isTile}}" isEdit="{{isEdit}}" catalogue="{{catalogue}}" bind:catalogueChange="onCatalogueChange" bind:longPress="showEditActionSheet" bind:setCheckedFile="setCheckedFile" showRecyle="{{showRecyle}}" bind:onShowZipPreview="showZipPreview"></files-list>
+    </load-area>
+</page-scroll>
+
+<movable-area class="movable-area" style="top:{{top}}px;height:{{height}}px;width:{{width}}px;" wx:if="{{isAddShow&&sourceID!=0&&addAuth}}">
+    <movable-view x="{{x}}" y="{{y}}" direction="all" class="movable-view" bindtap="showActionSheet">
+        <image src="/images/icons/addBtn.png" style="width: 120rpx;height: 120rpx;"></image>
+    </movable-view>
+</movable-area>
+<van-popup
+  show="{{ addShow }}"
+  position="bottom"
+  bind:close="closeAddBox"
+>
+    <view class="add-box">
+        <!-- <view style="width:100%;text-align: center;color: #333;font-weight: bold;">新增</view> -->
+        <view wx:for="{{addArr}}" class="piece" bindtap="addFiles" data-index="{{index}}">
+            <image src="{{item.url}}"></image>   
+             <view>{{item.text}}</view>
+        </view>
+        <view style="width:100%;text-align: center;color: #333;border-top: 1px solid #FAF7FC;padding: 20rpx 0;" bindtap="closeAddBox">{{lang['取消']}}</view>
+    </view>
+</van-popup>
+<van-popup position="center" show="{{showModal}}"
+    custom-style="border-radius:20rpx;width:600rpx;padding:30rpx;z-index:9999" overlay-style="z-index:9998">
+    <view class="padding-sm text-32 text-bold text-center">{{modalFuns[modalFunIndex].title}}</view>
+    <input placeholder="请输入" maxlength="30" value="{{modalFuns[modalFunIndex].value}}" bindinput="twoWayBinding"
+        data-label="{{modalFuns[modalFunIndex].cate}}" auto-focus="{{showModal}}" class="input-folder" />
+    <view class="flex-b-c">
+        <view class="button bg-gray text-gray flex-c-c margin-top" bindtap="{{modalFuns[modalFunIndex].closeFn}}">取消
+        </view>
+        <view class="button bg-purple text-white flex-c-c margin-top" hover-class="hover-purple"
+            bindtap="{{modalFuns[modalFunIndex].confirmFn}}">确定</view>
+    </view>
+</van-popup>
+
+<operateBar id="operateBar" operateShow="{{isEdit}}" bind:onCancelEdit="cancelEdit" bind:onShowRename="showRename" checkedFile="{{checkedFile}}" bind:onDeleteFile="deleteFile" bind:onCollectFile="collectFile" bind:onDownloadFiles="downloadFile" isFav="{{isFav}}" isTop="{{isTop}}" isUpload="{{isUpload}}" formatConvert="{{formatConvert}}" isZip="{{isZip}}" targetType="{{targetType}}" fileAuth="{{fileAuth}}" checkedTagList="{{tagList}}" checkedSum="{{checkedSum}}" filesSum="{{filesSum}}" bind:onMoveFile="moveFile" bind:onChooseTag="chooseTag" bind:onOpenFile="openFile" bind:onShowAttribute="showAttribute" bind:onShowFormat="showFormat" bind:onRepeatFile="repeatFile" bind:onRepeatFileName="repeatFileName" bind:onTopFile="topFile" bind:onZipFile="zipFile" bind:onUnzipFile="unzipFile" bind:onRemoveFile="removeFile" bind:onReductionFile="reductionFile" bind:selectAllFile="selectAllFile" noSelectAll="{{noSelectAll}}" bind:uploadNewFile="uploadNewFile" bind:shareLink="shareLink"  bind:cancelShare="cancelShare" bind:onSendDesktop="sendDesktop" bind:onCreatShortcut="creatShortcut"></operateBar>
+
+<files-move id="moveFiles" number="{{moveNumber}}" bind:cancelMove="cancelEdit" bind:moveFileToFolder="moveFileToFolder" bind:uploadWechatFile="uploadWechatFile" bind:createNewFolder="createNewFolder" wx:if="{{showMoveFile}}" rootCatalogue="{{rootCatalogue}}" moveType="{{moveType}}" isUnzip="{{isZip}}" bind:unzipFileTo="unzipFileTo" bind:sendPicture="sendPicture"></files-move>
+
+<attribute id="attribute" bind:onAddDesc="addDesc" bind:setVersionReturn="setVersionReturn" bind:choosePicture="choosePicture"></attribute>
+<zipPreview id="zipPreview" bind:onUnzipFile="unzipFile"></zipPreview>
+<formatConvert id="formatConvert" bind:onConvertFile="convertFile"></formatConvert>
+<!-- 排序方式 -->
+<van-popup
+  show="{{ sortListShow }}"
+  position="top"
+  custom-style="top:{{204+statusBarHeight}}px;width:40%;left:60%"
+  bind:close="showSortList"
+>
+    <view style="border-bottom: 1px solid #ececec;">
+        <view wx:for="{{sortFieldList}}" style="padding:10rpx 20rpx;display: flex;justify-content: flex-start;color: #333;" data-index="{{index}}" data-item="{{item}}" bindtap="choseSortField">
+            <view style="margin-right:20rpx;">{{lang[item.name]}}</view>
+            <van-icon name="success" size="18" color="#654EC3" wx:if="{{sortFieldIndex==index}}"/>
+        </view> 
+    </view>
+    <view>
+        <view wx:for="{{sortTypeList}}" style="padding:10rpx 20rpx;display: flex;justify-content: flex-start;color: #333;" data-index="{{index}}" data-item="{{item}}" bindtap="choseSortType">
+            <view style="margin-right:20rpx;">{{lang[item.name]}}</view>
+            <van-icon name="success" size="18" color="#654EC3" wx:if="{{sortTypeIndex==index}}"/>
+        </view> 
+    </view> 
+</van-popup>
+<van-popup
+  show="{{ encryptShow }}"
+  position="center"
+  custom-style="width:80%"
+  bind:close="showEncrypt"
+>
+  <view style="padding:30rpx;">
+      <view style="display: flex;justify-content: flex-start;margin-bottom: 20rpx;">
+        <van-icon name="warning-o" custom-style="margin-right:20rpx" color="#FCC847" size="20" />
+        <view>该压缩包需要解压密码</view>
+      </view>
+      <view style="border: 1px solid #cecece;">
+        <van-field 
+        custom-style="flex:1" 
+        password="{{!showPassword}}" 
+        value="{{ password }}" 
+        data-label="password" 
+        bind:change="textInput" 
+        placeholder="{{lang['请输入压缩包密码']}}" 
+        border="{{ false }}" 
+        right-icon="{{ showPassword ? '/images/login_icon/icon_look_pwd_open.png' : '/images/login_icon/icon_look_pwd_close.png' }}"
+        bind:click-icon="showPassword"
+        >
+        </van-field>
+      </view>
+      <view style="display: flex;justify-content:space-around;margin-top: 30rpx;padding: 0 80rpx;">
+        <view class="btn-box" style="color: #333;border: 1px solid #cecece;" bindtap="showEncrypt">取消</view>
+        <view class="btn-box" style="color: #fff;background: #722ed1;"  bindtap="confirmUnzip">确认</view>
+      </view>
+  </view>
+</van-popup>
+<van-popup
+  show="{{ clipboardShow }}"
+  custom-style="width:85%"
+  bind:close="closeClipboard"
+>
+    <view style="padding: 20rpx;">
+        <!-- <view style="width:100%;text-align: center;color: #333;" class="margin-bottom">新建网址</view> -->
+        <view>
+          <textarea value="{{clipboardText}}" placeholder="复制粘贴到此处" bindinput="clipboardTextInput" style="width: 100%;border: 1px solid #cecece;margin-bottom: 20rpx;padding: 20rpx;"/>
+        </view>
+        <view class="flex">
+          <view style="margin:0 auto;width:180rpx;text-align: center;color: #fff;padding: 15rpx 0;background: #654EC3;opacity: {{isWeburl?'1':'0.5'}};" bindtap="{{isWeburl?'saveClipboard':''}}" data-type="1">保存网址</view>
+          <view style="margin:0 auto;width:180rpx;text-align: center;color: #654EC3;padding: 15rpx 0;border:1px solid #654EC3;" bindtap="saveClipboard" data-type="2">保存TXT</view>
+        </view>    
+    </view>
+</van-popup>

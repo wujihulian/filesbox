@@ -1,0 +1,16 @@
+<!--components/page-scroll/page-scroll.wxml-->
+<scroll-view 
+  class="{{hasTabbar?'container-sv':'container-sv-n'}}" 
+  refresher-triggered="{{isPullDownRefresh}}" 
+  refresher-enabled
+  refresher-background="{{refresherBackground}}"
+  bindrefresherrefresh="onPullDownRefresh" 
+  bindscroll="onPageScroll"
+  scroll-anchoring="{{true}}"
+  scroll-y 
+  bindscrolltolower="onReachBottom" 
+  style="top:{{topHeight}};{{customStyle}}"
+  overflow-anchor
+>
+  <slot />
+</scroll-view>

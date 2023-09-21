@@ -1,0 +1,4 @@
+@import "/style/index.wxss";
+.place-box{display: flex;justify-content: flex-start;flex-wrap: nowrap;color: #999;font-size: 13px;width: 80%;}
+.icon{width: 40rpx;height: 40rpx;}
+.files-icon{width: 120rpx;}

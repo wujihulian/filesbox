@@ -1,0 +1,10 @@
+.tab-box{width: 100%;display: flex;justify-content: space-between;align-items: center;position: relative;padding-right: 30rpx;}
+.icon{width:40rpx;height:40rpx;}
+.search-box{width: 65%;background-color: rgba(255,255,255,0.2);display: flex;justify-content: space-between;align-items: center;padding: 10rpx 20rpx;border-radius:10rpx;}
+.input-box{background:none;width: calc(100% - 100rpx );padding-left:10rpx;font-size: 13px;color: #fff;}
+.right-icon-box{width: 23%;display: flex;align-items: center;justify-content: space-between;}
+.icon-count{position: absolute;right: -10rpx;top: -16rpx;color: #fff;background: #ff0000;border-radius: 100%;font-size: 10px;width: 40rpx;height: 40rpx;text-align: center;line-height: 40rpx;}
+.scope-active{background: #654EC3;color: #fff;}
+.action-box{height: 40%;}
+.calendar{height: 40%;}
+.size-btn{background: #fafafa;height: 60rpx;line-height: 60rpx;padding: 0 10rpx;}

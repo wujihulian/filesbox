@@ -1,0 +1,5 @@
+<!--components/new-button/new-button.wxml-->
+<view class="button-padding" wx:if="{{fixedBottom}}"></view>
+<view class="button-out {{fixedBottom?'button-out-fixed':''}}" style="{{outStyle}}">
+  <button class="{{forbidden?'button-frobidden':'button'}}" hover-class="hover-class" bindtap="submit" style="width:{{width}};{{customStyle}}">{{text}}</button>
+</view>

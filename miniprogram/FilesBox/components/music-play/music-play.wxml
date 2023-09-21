@@ -1,0 +1,39 @@
+<!--packageB/components/music-play/music-play.wxml-->
+<wxs module="util">
+    var formatTime = function(val){
+        var hour = parseInt(val/(60*60)),
+            minutes = parseInt((val - hour*60*60)/60),
+            second = parseInt(val - hour*60*60 - minutes*60);
+        return (hour>0?hour+':':'')+(minutes<10?'0'+minutes+':':minutes+':')+(second<10?'0'+second:second)
+    }
+    module.exports.formatTime = formatTime;
+</wxs>
+<view class="page">
+    <view class="file-name">{{fileName}}</view>
+    <view class="record-out">
+        <view class="hand">
+            <image class="hand-image {{isPlay?'hand-active':''}}" src="./images/ic_audio_hand.png"></image>
+        </view>
+        <image class="cd" src="./images/ic_audio_cd.png"></image>
+        <image class="folder {{isPlay?'folder-active':''}}" src="./images/ic_folderaudiopic.png"></image>
+    </view>
+    <view class="progress">
+        <view class="time">{{util.formatTime(currentTime)}}</view>
+        <movable-area class="movable-area flex-sub">
+            <view class="progress-bar-out">
+                <view class="progress-bar-inside" style="width: {{percent*100+'%'}};"></view>
+            </view>
+            <movable-view direction="horizontal" out-of-bounds="{{false}}" disabled="{{isEnded}}" animation="{{false}}" x="{{movableViewX}}" bindchange="onMovableViewChange" class="movable-view"></movable-view>
+        </movable-area>
+        <view class="time">{{util.formatTime(totalTime)}}</view>
+    </view>
+    <view class="control">
+        <image class="back-icon" data-type="0" bindtap="seekAudio" src="./images/ic_audio_back15.png"></image>
+        <view class="play-out" bindtap="onAudioPause">
+            <image class="play-border" src="./images/ic_bg_audio_play.png"></image>
+            <image class="play-icon" src="{{isPlay?'./images/ic_audio_play_on.png':'./images/ic_audio_play_off.png'}}"></image>
+        </view>
+        <image class="back-icon" data-type="1" bindtap="seekAudio" src="./images/ic_audio_foreword.png"></image>
+    </view>
+</view>
+

@@ -1,0 +1,40 @@
+<!--pages/tagManage/tagManage.wxml-->
+<view class="padding">
+    <view>已有标签</view>
+    <view style="display: flex;justify-content: flex-start;flex-wrap: wrap;">
+        <view wx:for="{{tagList}}" style="margin-right: 10rpx;padding:10rpx 15rpx;background: #ececec;border-radius: 50rpx;font-size: 12px;display: flex;justify-content: space-between;margin-top: 20rpx;align-items: center;" bindtap="showAdd" data-item="{{item}}" data-index="{{index}}" data-type="edit" class="{{item.checked?'tag-active':'tag-class'}}">
+            <view style="width: 24rpx;height: 24rpx;border-radius: 50%;margin-right: 10rpx;background: {{item.style}};"></view>
+            <view>{{item.labelName}}</view>
+            <van-icon name="cross" color="#999" custom-style="margin-left:10rpx" data-id="{{item.labelId}}" catchtap="delTag"/>
+        </view>
+        <view style="margin-right: 10rpx;padding:10rpx 15rpx;background: #ececec;border-radius: 20rpx;font-size: 12px;display: flex;justify-content: space-between;margin-top: 20rpx;align-items: center;" bindtap="showAdd" data-type="add" >
+            <van-icon name="add" color="#ccc" size="14" custom-style="margin-right:10rpx" />
+            <view>添加</view>
+        </view>
+    </view>
+</view>
+<van-popup show="{{ editShow }}" bind:close="showAdd" custom-style="width:70%;border-radius:10rpx;">
+    <view class="padding">
+        <view class="text-center" style="font-size: 18px;">{{editTitle}}</view>
+        <view style="border:1px solid #ececec;border-radius:10rpx;display:flex;justify-content:space-between;margin-top: 20rpx;align-items: center;">
+            <input type="text" style="height: 80rpx;padding-left: 20rpx;" value="{{editName}}" bindinput="inputValue" />
+            <view class="flex justify-between" style="background: #ececec;padding:0 20rpx;height:80rpx;width:120rpx;align-items: center;" bindtap="showColor">
+                <view style="border-radius:50%;width: 30rpx;height: 30rpx;background: {{editStyle?editStyle:colorList[colorList.length-1]}};"></view>
+                <image src="/images/icons/pull.png" style="width: 40rpx;height: 40rpx;"></image>
+            </view>
+        </view>
+        <view class="flex" style="justify-content:space-around;margin-top: 40rpx;">
+            <view class="btn-box" style="background:#ECECEC;color: #666;" bindtap="showAdd">取消</view>
+            <view class="btn-box" style="background:#654EC3;color: #fff;" bindtap="{{operateTag}}">确定</view>
+        </view>
+    </view>
+</van-popup>
+<van-popup show="{{ colorListShow }}" position="bottom" bind:close="showColor">
+    <view>
+        <view style="display: flex;justify-content:space-between;flex-wrap: wrap;" class="padding">
+            <view wx:for="{{colorList}}" style="margin-bottom:20rpx;width: 50rpx;height: 50rpx;border-radius: 50%;margin-right: 20rpx;background: {{item}};" data-item="{{item}}" bindtap="selectColor" class="{{editStyle==item?'style-active':''}}"></view>
+        </view> 
+        <view style="padding: 8rpx 0;background: #ececec;"></view>
+        <view style="text-align: center;padding: 20rpx;" bindtap="showColor">返回</view>
+    </view>
+</van-popup>

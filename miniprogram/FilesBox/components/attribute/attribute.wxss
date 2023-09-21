@@ -1,0 +1,15 @@
+
+@import "/app.wxss";
+.icon{width: 120rpx;height:120rpx;}
+.tab-box{width: 60rpx;padding-bottom: 10rpx;text-align: center;color:#999;margin-right: 20rpx;}
+.tab-active{border-bottom: 1px solid #333;color:#333}
+.cell-box{display: flex;justify-content: space-between;align-items: center;    margin: 20rpx 0;}
+.c-left{margin-right: 130rpx;margin-bottom: 30rpx;display: flex;justify-content: flex-start;align-items: flex-start;}
+.avatar{width: 90rpx;height: 90rpx;border-radius: 50%;margin: 0 20rpx;background-color: #fff;flex-shrink: 0;}
+.c-left .text-area{min-height: 90rpx;padding: 20rpx;border-radius: 4rpx 10rpx 10rpx 10rpx;font-size: 16px;}
+.transparent{background:transparent !important;}
+
+.c-right{margin-left: 130rpx;margin-bottom: 30rpx;display: flex;justify-content: flex-end;align-items: flex-start;}
+.c-right .text-area{min-height: 90rpx;padding: 20rpx;border-radius: 10rpx 4rpx 10rpx 10rpx;background-color: #BEDAFF;font-size: 30rpx;word-break: break-all;}
+.text{min-height: 50rpx;line-height: 50rpx;}
+rich-text{line-height: 50rpx;font-size: 16px;}

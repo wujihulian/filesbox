@@ -1,0 +1,10 @@
+/* components/tabBar/tabBar.wxss */
+.tabbar-space{width: 100%;height: calc(env(safe-area-inset-bottom) + 100rpx);}
+.tabbar{width: 100%;position: fixed;bottom: 0;left: 0;z-index: 98;display: flex;justify-content: flex-start;align-items: flex-start;height: calc(env(safe-area-inset-bottom) + 100rpx);}
+.tabbar-inside{width: 100%;height: 100rpx;display: flex;justify-content: space-between;align-items: center;position: fixed;left: 0;bottom: env(safe-area-inset-bottom);padding-top: 10rpx;}
+.tabbar .item{flex: 1;display: flex;justify-content: center;align-items: center;flex-direction: column;height: 100%;position: relative;}
+.tabbar .item .icon-out{width: 50rpx;height: 50rpx;}
+.tabbar .item .icon{width: 50rpx;height: 50rpx;}
+.tabbar .item .red-dot{width: 30rpx;height: 30rpx;line-height: 30rpx;text-align: center;border-radius: 30rpx;background-color: #F9250F;color: #fff;font-size: 22rpx;position: absolute;left: 50%;bottom: 65rpx;margin-left: 10rpx;}
+.tabbar .item .text{box-sizing: border-box;font-size: 26rpx;margin-top: 5rpx;}
+.shadow{width: 100%;position: fixed;bottom: 0;left: 0;box-shadow: 0 0 14rpx rgba(0, 0, 0, 0.1);z-index: 98;height: calc(env(safe-area-inset-bottom) + 100rpx);}

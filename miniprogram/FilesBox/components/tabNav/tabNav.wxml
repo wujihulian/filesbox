@@ -1,0 +1,144 @@
+<wxs module="util">
+  var toPercent = function (val) {
+    var str = (val*100).toFixed(2);
+    str += "%";
+    return str;
+  }
+  module.exports.toPercent = toPercent;
+</wxs>
+<view style="background-image:url({{imageUrl.tabBg}});background-size: 100% 100%;background-repeat: no-repeat;">
+    <view class="tab-box" style="height: 50px;">
+        <!-- <view style="width: 200rpx;">
+            <view style="width: 100%;text-align: center;font-size: 11px;color: #fff;" wx:if="{{ShowSquare}}">
+                <view style="margin-bottom: 10rpx;">{{userInfo.sizeUse}} / {{userInfo.sizeMax>0?userInfo.sizeMax+'GB':'不限制'}}</view>
+                <progress style="width:100%;" bgColor="#9E7BFA" showColor="#fff" percent="{{util.toPercent(userInfo.progress)}}"></progress>
+            </view>
+        </view> -->
+        <!-- <view bindtap="showSlide" style="padding: 10rpx 10rpx 0 0;">
+            <image src="/images/icons/slide_icon.png" class="icon" style="width: 100rpx;height: 100rpx;" bindtap="showSlide"></image>
+        </view> -->
+        <image src="/images/icons/slide_icon.png" class="icon" style="width: 100rpx;height: 100rpx;" bindtap="showSlide"></image>
+        <view class="search-box" style="width: calc(100% - 100rpx);">
+            <image src="/images/icons/search_files_icon.png"  style="width: 50rpx;height: 50rpx;"></image>
+            <input type="text" placeholder="{{lang['搜索']}}" class="input-box" placeholder-style="color:#fff"  value="{{keyword}}" bindconfirm="searchFiles"
+            confirm-type="搜索" />
+            <image src="/images/icons/pull-down.png" class="icon" bindtap="showFilter" style="{{filterShow?'transform: rotate(180deg);':''}}"></image>
+        </view>
+        <!-- <view class="right-icon-box">
+            <view wx:for="{{iconArr}}" wx:key="index" style="position:relative" bindtap="goToPage" data-index='{{index}}' data-item='{{item}}'>
+                <image src="{{item.url}}" class="icon" style="{{item.url==imageUrl.ellipsis?'width: 9rpx;margin:0 10rpx':''}}"></image>
+                <text class="icon-count" wx:if="{{recycleTotal&&index==0}}">{{recycleTotal>99?'99+':recycleTotal}}</text>
+            </view>  
+        </view> -->
+    </view>
+    <view style="width:100%;display: flex;justify-content:space-around;padding:20rpx 0;height: 70px;">
+        <view wx:for="{{iconArr}}" wx:key="index" style="position:relative;text-align: center;color: #fff;" bindtap="goToPage" data-index='{{index}}' data-item='{{item}}' wx:if="{{(index==0&&favShow)||index!=0&&index!=3||(index==3&&listArr.length>0)||(index==3&&listArr2Show)}}">
+            <view style="position:relative">
+                <image src="{{item.url}}" class="icon" style="width: 50rpx;height: 50rpx;"></image>
+                <text class="icon-count" wx:if="{{favTotal&&index==0}}">{{favTotal>99?'99+':favTotal}}</text>
+                <text class="icon-count" wx:if="{{recycleTotal&&index==1}}">{{recycleTotal>99?'99+':recycleTotal}}</text>
+                <text class="icon-count" wx:if="{{noticeTotal&&index==2}}">{{noticeTotal>99?'99+':noticeTotal}}</text>
+            </view>
+            <view>{{item.text}}</view>
+        </view> 
+    </view>
+</view>
+
+<van-popup
+  show="{{ moreShow }}"
+  position="top"
+  custom-style="top:{{164+statusBarHeight}}px;width: 40%;left: 60%;"
+  bind:close="onCloseMore"
+>
+    <view style="padding:20rpx 0;">
+        <view style="padding-bottom: 10rpx;" wx:if="{{listArr.length>0}}">
+            <view wx:for="{{listArr}}" style="display: flex;justify-content: flex-start;color: #333;padding: 10rpx 30rpx;align-items: center;" bindtap="getList" data-item="{{item}}" data-index="{{index}}" data-type="top"> 
+                <image src="{{item.url}}" style="width: 40rpx;height: 40rpx;"></image>
+                <view style="margin-left: 30rpx;color: {{selectIndex==index&&type=='top'?'#9a64ff':'#333'}};">{{lang[item.name]}}</view>
+            </view>
+        </view>
+        <view style="{{listArr.length>0?'border-top: 1px solid #cecece;padding-top: 10rpx;':''}}" wx:if="{{listArr2Show}}">
+            <view wx:for="{{listArr2}}" style="display: flex;justify-content: flex-start;color: #333;padding: 10rpx 30rpx;align-items: center;" bindtap="getList" data-item="{{item}}" data-index="{{index}}" data-type="bottom"> 
+                <image src="{{item.url}}" style="width: 40rpx;height: 40rpx;"></image>
+                <view style="margin-left: 30rpx;color: {{selectIndex==index&&type=='bottom'?'#9a64ff':'#333'}}">{{lang[item.name]}}</view>
+            </view>
+        </view>
+    </view>
+</van-popup>
+<van-popup
+  show="{{ filterShow }}"
+  position="top"
+  custom-style="top:{{94+statusBarHeight}}px;"
+  bind:close="showFilter"
+>
+    <view style="padding:20rpx;">
+        <view>
+            <view>搜索范围</view>
+            <view style="display: flex;border: 1px solid #ececec;margin-top: 10rpx;width: 402rpx;border-radius:10rpx;overflow: hidden;">
+                <view wx:for="{{searchScope}}" style="text-align:center;padding:15rpx;width: 200rpx;{{index==0?'border-right:1px solid #ececec':''}}" class="{{index==selectScopeIndex?'scope-active':''}}" bindtap="selectScope" data-index="{{index}}">{{item}}</view>
+            </view>
+        </view>
+        <view style="margin-top: 20rpx;" wx:for="{{actionArr}}">
+            <view>{{item.name}}</view>
+            <view style="display: flex;justify-content:space-between;border: 1px solid #ececec;padding:10rpx 15rpx;margin-top: 20rpx;border-radius:10rpx;overflow: hidden;" bindtap="showActionList" data-index="{{index}}">
+                <view style="font-size: 13px;">{{item.value}}</view>
+                <van-icon name="arrow-down" />
+            </view>
+            <view style="display: flex;justify-content:space-between;border: 1px solid #ececec;padding:10rpx 15rpx;margin-top: 20rpx;border-radius:10rpx;overflow: hidden;" bindtap="showCustomFileTypeList" wx:if="{{index==0&&customFileTypeIndex==8}}">
+                <view style="display: flex;justify-content: flex-start;" wx:if="{{checkedCustom}}">
+                    <view wx:for="{{customFileTypeArr}}" style="margin-right:10rpx;background:#ececec;padding: 6rpx;border-radius: 10rpx;color: #333;font-size: 12px;" wx:if="{{item.checked}}">{{item.name}}</view>
+                </view>
+                <view style="color: #333;font-size: 12px;" wx:else>请选择</view>
+                <van-icon name="arrow-down" />
+            </view>
+            <view style="display: flex;justify-content:space-between;margin-top: 20rpx;" wx:if="{{index==1&&customDateIndex==5}}">
+                <view style="display: flex;justify-content:space-between;border: 1px solid #ececec;padding:10rpx 15rpx;width: 47%;border-radius:10rpx;" bindtap="showDate"> 
+                    <view style="width: calc(100% - 50rpx);color: #333;">{{dateFrom?dateFrom:'请选择日期'}}</view>
+                    <image src="/images/icons/date.png" class="icon"></image>
+                </view>
+                <view style="display: flex;justify-content:space-between;border: 1px solid #ececec;padding:10rpx 15rpx;width: 47%;border-radius:10rpx;" bindtap="showDate"> 
+                    <view style="width: calc(100% - 50rpx);color: #333;">{{dateTo?dateTo:'请选择日期'}}</view>
+                    <image src="/images/icons/date.png" class="icon"></image>
+                </view>
+            </view>
+            <view style="display: flex;justify-content:space-between;margin-top: 20rpx;" wx:if="{{index==2&&customSizeIndex==7}}">
+                <view style="display: flex;justify-content:space-between;border: 1px solid #ececec;width: 47%;border-radius:10rpx;align-items: center;color: #333;"> 
+                    <view class="size-btn">大于</view>
+                    <input type="number" style="width: 150rpx;" bindinput="setCustomSize" data-type="min"/>
+                    <view class="size-btn">MB</view>
+                </view>
+                <view style="display: flex;justify-content:space-between;border: 1px solid #ececec;width: 47%;border-radius:10rpx;align-items: center;color: #333;"> 
+                    <view class="size-btn">小于</view>
+                    <input type="number" style="width: 150rpx;" bindinput="setCustomSize" data-type="max"/>
+                    <view class="size-btn">MB</view>
+                </view>
+            </view>
+            <view style="color: #999;margin-top: 10rpx;font-size: 12px;" wx:if="{{index==3}}">按创建者/修改者搜索</view>
+        </view>
+        <view style="display: flex;justify-content: space-around;width:300rpx;margin: 20rpx auto;">
+            <view style="color: #fff;background:#654EC3;padding: 10rpx 30rpx;border-radius: 15rpx;border: 1px solid #654EC3;" bindtap="filterFile">搜索</view>
+            <view style="color: #333;padding: 10rpx 30rpx;border-radius: 15rpx;border: 1px solid #ccc;" bindtap="resetFile">重置</view>
+        </view>
+    </view>   
+</van-popup>
+<van-popup
+  show="{{ actionShow }}"
+  position="bottom"
+  round
+  bind:close="showActionList"
+>
+    <scroll-view scroll-y="{{true}}" style="width:100%;height: 600rpx" bindscrolltolower="onReachBottom" wx:if="{{isUserList}}">
+        <view wx:for="{{actionList}}" bindtap="onSelect" style="padding:20rpx;text-align: center;" data-item="{{item}}" data-index="{{index}}">{{item.name}}</view>
+    </scroll-view>
+    <view wx:for="{{actionList}}" bindtap="onSelect" style="padding:20rpx;text-align: center;" data-item="{{item}}" data-index="{{index}}" wx:if="{{!isUserList}}">{{item.name}}</view>
+</van-popup>
+<van-popup
+  show="{{ customFileTypeShow }}"
+  position="bottom"
+  custom-style="height:35%;"
+  bind:close="showCustomFileTypeList"
+>
+    <view wx:for="{{customFileTypeArr}}" bindtap="choseCustomType" style="padding:20rpx;text-align: center;margin-bottom: 10rpx;{{item.checked?'background:#E0DCF3;color:#fff':''}}" data-item="{{item}}" data-index="{{index}}">{{item.name}}</view> 
+</van-popup>
+<van-calendar show="{{ dateShow }}" round="false" position="bottom" min-date="{{ minDate }}" max-date="{{ maxDate }}" type="range" confirm-text="确定" confirm-disabled-text="请选择结束时间" color="#654EC3" bind:close="showDate" bind:confirm="selectDate" />
+

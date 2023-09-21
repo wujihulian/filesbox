@@ -1,0 +1,15 @@
+{
+    "component": true,
+    "usingComponents": {
+        "files-list":"../files-list/files-list",
+        "van-popup":"@vant/weapp/popup/index",
+        "van-overlay": "@vant/weapp/overlay/index",
+        "van-search": "@vant/weapp/search/index",
+        "files-move":"../files-move/files-move",
+        "van-share-sheet": "@vant/weapp/share-sheet/index",
+        "operateBar":"/components/operateBar/operateBar",
+        "attribute":"/components/attribute/attribute",
+        "formatConvert":"/components/formatConvert/formatConvert",
+        "zipPreview":"/components/zipPreview/zipPreview"
+    }
+}

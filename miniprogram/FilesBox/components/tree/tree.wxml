@@ -1,0 +1,79 @@
+<view wx:for="{{tree}}" wx:key="id" class="tree_container">
+  <!-- 一级菜单 -->
+  <view style="margin-left: {{treeListIndex*30}}rpx;" class="tree-item">
+    <view class="tree-item-onOff" wx:if="{{item.childList && item.childList.length > 0}}" bindtap="isOpen" data-index="{{index}}">
+        <van-icon name="{{item.open ? 'arrow-down' : 'arrow'}}" custom-style="margin-right:10rpx"/>
+        <!-- <image src="../../image/zhankai.svg" class="{{item.open ? 'expand' : 'collapse'}}" /> -->
+    </view>
+    <view class="tree-item-onOff" wx:else>
+    </view>
+    <image src="{{item.thumb?item.thumb:imageUrl.fileIcons+'file.png'}}" style="width: 40rpx;height: 40rpx;"></image>
+    <view class="tree-item-name" data-item="{{item}}" data-index="{{index}}">
+      <text class="tree-item-title">{{item.originName}}</text>
+    </view>
+    <view style="width:30%;text-align: center;">{{item.size?item.size:''}}</view>
+    <van-icon name="ellipsis" bindtap="showOperate" data-item="{{item}}" size="18" />
+  </view>
+  <!-- 二级菜单 -->
+  <tree wx:if="{{item.childList && item.childList.length > 0 && item.open }}" id="tree_{{treeListIndex}}" data-parent="{{item}}" dataTree='{{ item.childList }}' isOpenAll="{{isOpenAll}}" treeListIndex="{{treeListIndex+1}}" bind:unzipFile="childUnzipFile" bind:showOperate="setCheckedItem"/>
+</view>
+<van-popup
+  show="{{ operateShow }}"
+  position="right"
+  custom-style="margin-right:30rpx;"
+  z-index="{{treeListIndex+19999}}"
+  bind:close="closeOperate"
+>
+    <view style="border-bottom: 1px solid #ececec;" class="cell-box" bindtap="previewFile" wx:if="{{checkedItem.sort}}" >
+        <image src="/images/operateMore/icon_file_lastopen.png" style="width: 40rpx;height: 40rpx;margin-right: 20rpx;"></image>
+        <view>打开</view>
+    </view>
+    <view class="cell-box" bindtap="showUnzipList" >
+        <image src="/images/operateMore/icon_file_zip.png" style="width: 40rpx;height: 40rpx;margin-right: 20rpx;" ></image>
+        <view>解压到...</view>
+    </view>
+</van-popup>
+<van-popup
+  show="{{ unzipListShow }}"
+  position="right"
+  custom-style="margin-right:30rpx"
+  bind:close="showUnzipList"
+>
+  <view style="padding: 20rpx 30rpx 0;">
+      <view wx:for="{{unzipList}}" bindtap="unzipFile" data-index="{{index}}" style="display:flex;justify-content: flex-start;padding-bottom: 20rpx ;">
+          <image src="/images/operateMore/icon_file_zip.png" style="width: 40rpx;height: 40rpx;"></image>
+          <view style="color: #333;margin-left: 20rpx;">{{item}}</view>
+      </view>
+  </view>
+</van-popup>
+<van-popup
+  show="{{ encryptShow }}"
+  position="center"
+  custom-style="width:80%"
+  bind:close="showEncrypt"
+>
+  <view style="padding:30rpx;">
+      <view style="display: flex;justify-content: flex-start;margin-bottom: 20rpx;">
+        <van-icon name="warning-o" custom-style="margin-right:20rpx" color="#FCC847" size="20" />
+        <view>该压缩包需要解压密码</view>
+      </view>
+      <view style="border: 1px solid #cecece;">
+        <van-field 
+        custom-style="flex:1" 
+        password="{{!showPassword}}" 
+        value="{{ password }}" 
+        data-label="password" 
+        bind:change="textInput" 
+        placeholder="{{lang['请输入压缩包密码']}}" 
+        border="{{ false }}" 
+        right-icon="{{ showPassword ? '/images/login_icon/icon_look_pwd_open.png' : '/images/login_icon/icon_look_pwd_close.png' }}"
+        bind:click-icon="showPassword"
+        >
+        </van-field>
+      </view>
+      <view style="display: flex;justify-content:space-around;margin-top: 30rpx;padding: 0 80rpx;">
+        <view class="btn-box" style="color: #333;border: 1px solid #cecece;" bindtap="showEncrypt">取消</view>
+        <view class="btn-box" style="color: #fff;background: #722ed1;"  bindtap="confirmUnzip">确认</view>
+      </view>
+  </view>
+</van-popup>

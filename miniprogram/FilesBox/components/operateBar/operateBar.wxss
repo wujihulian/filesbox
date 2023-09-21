@@ -1,0 +1,7 @@
+@import "/app.wxss";
+.box{background: #fff;width: 100%;display: flex;justify-content: space-around;text-align: center;color: #333;margin-top: 30rpx;}
+.icon{width: 40rpx;height: 40rpx;}
+.tag-active{background-color: #f5efff!important;border: 1px solid #9a64ff;}
+.tag-class{border:1px solid #ececec}
+.tab-box{padding:10rpx 20rpx;}
+.more-box{display: flex;justify-content: flex-start;padding: 20rpx;color: #333;align-items: center;border-bottom: 1px solid #ececec;}

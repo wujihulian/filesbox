@@ -1,0 +1,6 @@
+/* pages/personal/personal.wxss */
+.add-icon{background: #7B53E8;width: 100rpx;height: 100rpx;border-radius: 100%;line-height: 100rpx;text-align: center;position: fixed;right: 30rpx;bottom: calc(env(safe-area-inset-bottom) + 220rpx)}
+.add-box{display: flex;justify-content: space-between;flex-wrap: wrap;width: 100%;padding: 30rpx 30rpx 0;position: fixed;bottom: calc(env(safe-area-inset-bottom));z-index: 999;background: #fff;}
+.piece{display: flex;width: 48%;background: #FAFAFA;align-items: center;margin-bottom: 20rpx;padding:40rpx 30rpx;border-radius: 20rpx;color: #333;}
+.piece image{width:80rpx;height: 80rpx;}
+.icon{width: 40rpx;height: 40rpx;}

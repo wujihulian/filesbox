@@ -1,0 +1,103 @@
+<!--packageB/pages/files/files.wxml-->
+<!-- <van-empty description="暂未开放，功能即将上线"></van-empty> -->
+<view class="header flex-b-c" wx:if="{{!showSearch}}">
+  <view class="flex-c-c">
+    <view class="flex-c-c margin-left-sm" style="width:120rpx" bindtap="showFileTypeSheet">
+      <text class="{{showFileTypeModal?'text-iBlue':'text-iGray'}} margin-right-5">{{fileTypeActions[fileTypeIndex].label}}</text>
+      <van-icon class="{{showFileTypeModal?'transform-90':'transform-270'}}" color="{{showFileTypeModal?'#4f91ff':'#8a8a8a'}}" size="12" name="play" />
+    </view>
+    <view class="flex-c-c margin-left-sm" style="width:160rpx" bindtap="showFilterTypeSheet">
+      <text class="{{showFilterTypeModal?'text-iBlue':'text-iGray'}}  margin-right-5">{{filterTypeActions[filterTypeIndex].label}}</text>
+      <van-icon class="{{showFilterTypeModal?'transform-90':'transform-270'}}" color="{{showFilterTypeModal?'#4f91ff':'#8a8a8a'}}" size="12" name="play" />
+    </view>
+  </view>
+  <view class="flex-c-c padding-right-sm">
+    <view class="header-icon-out flex-c-c">
+      <image class="header-icon" mode="aspectFit" src="{{imageUrl.fileSearch}}" bindtap="foldSearch"></image>
+    </view>
+    <!-- <view class="header-icon-out flex-c-c">
+      <view class="red-dot flex-c-c">99</view>
+      <image class="header-icon" mode="aspectFit" src="{{imageUrl.filetransfer}}"></image>
+    </view> -->
+  </view>
+</view>
+
+<van-search 
+  value="{{ keyword }}" 
+  placeholder="请输入搜索关键词" 
+  wx:if="{{showSearch}}"
+  input-class="bg-white"
+  bind:change="inputSearchWord"
+  bind:search="onSearchBegin"
+  show-action
+  bind:cancel="foldSearch"
+/>
+<view style="width:100%;height:20rpx;background-color:#f6f6f6" wx:if="{{showSearch}}"></view>
+
+<view class="catalogue">
+  <scroll-view class="scroll-view" scroll-x>
+    <view class="scroll-item {{index == catalogue.length-1 ? 'text-iBlue':'text-iGray'}}" data-index="{{index}}" bindtap="choseCatelogue" wx:for="{{catalogue}}">
+      <text>{{item.label}}</text>
+      <van-icon name="arrow" size="12" color="#8a8a8a" wx:if="{{index != catalogue.length-1}}" />
+    </view>
+  </scroll-view>
+</view>
+
+<load-area loadingState="{{loadingState}}" speed="{{uploadProgress}}" list="{{(dataList.directoryList.length || dataList.fileList.length)?[1]:[]}}">
+  <files-list prop="{{dataList}}" isTile="{{isTile}}" isEdit="{{isEdit}}"></files-list>
+</load-area>
+
+<van-overlay
+  show="{{ showFilterTypeModal || showFileTypeModal }}"
+  bind:click="onClickHide"
+  custom-style="background: transparent;"
+  >
+  <view class="file-type-modal" wx:if="{{showFileTypeModal}}">
+    <view class="item-list flex-c-c" hover-class="hover-full" data-index="{{index}}" data-cate="fileTypeIndex" bindtap="choseType" wx:for="{{fileTypeActions}}">
+      <image src="{{item.icon}}" mode="aspectFit" class="item-icon"></image>
+      <text class="{{fileTypeIndex == index ? 'text-iBlue':''}} margin-left-sm">{{item.label}}</text>
+    </view>
+  </view>
+  <view class="filter-type-modal" wx:if="{{showFilterTypeModal}}">
+    <view class="item-list flex-c-c" hover-class="hover-full" data-index="{{index}}" data-cate="filterTypeIndex" bindtap="choseType" wx:for="{{filterTypeActions}}">
+      <image src="{{item.icon}}" mode="aspectFit" class="item-icon"></image>
+      <text class="{{filterTypeIndex == index ? 'text-iBlue':''}} margin-left-sm">{{item.label}}</text>
+    </view>
+  </view>
+</van-overlay>
+
+<view class="fixed-add-button flex-c-c" bindtap="showActionSheet" wx:if="{{isSchoolManager}}">
+  <van-icon name="plus" color="#ffffff" size="24" />
+</view>
+<van-popup
+  position="center"
+  show="{{showModal}}"
+  custom-style="border-radius:20rpx;width:600rpx;padding:30rpx;z-index:9999"
+  overlay-style="z-index:9998"
+>
+  <view class="padding-sm text-32 text-bold text-center">{{modalFuns[modalFunIndex].title}}</view>
+  <input placeholder="请输入" maxlength="30" value="{{modalFuns[modalFunIndex].value}}" bindinput="twoWayBinding" data-label="{{modalFuns[modalFunIndex].cate}}" auto-focus="{{showModal}}" class="input-folder" />
+  <view class="flex-b-c">
+    <view class="button bg-gray text-gray flex-c-c margin-top" bindtap="{{modalFuns[modalFunIndex].closeFn}}">取消</view>
+    <view class="button bg-blue text-white flex-c-c margin-top" hover-class="hover-blue" bindtap="{{modalFuns[modalFunIndex].confirmFn}}">确定</view>
+  </view>
+</van-popup>
+
+<!-- <view class="footer-inside" wx:if="{{isEdit}}"></view>
+<view class="footer flex-s-c" wx:if="{{isEdit}}">
+  <view class="flex-sub flex-c-c flex-column" bindtap="{{item.fn}}" wx:for="{{panelBar}}">
+    <image mode="aspectFill" class="footer-icon" src="{{item.icon}}"></image>
+    <text class="text-26 text-black margin-top-5">{{item.label}}</text>
+  </view>
+</view> -->
+
+<files-move id="moveFiles" number="{{moveNumber}}" wx:if="{{showMoveFile}}"></files-move>
+
+<!-- 分享框 -->
+<van-share-sheet
+  show="{{ sharePanel.isShow }}"
+  title="立即分享给好友"
+  options="{{ sharePanel.options }}"
+  bind:select="onSelect"
+  bind:close="onClose"
+/>

@@ -1,0 +1,41 @@
+<van-popup
+  show="{{ formatShow }}"
+  round
+  custom-style="width: 90%;"
+  bind:close="onClose"
+>
+    <view style="padding: 20rpx;">
+        <view class="flex justify-between margin-bottom align-center">
+            <text class="text-name">文件名称</text>
+            <text class="text-cut-1 con-box">{{dataList.name}}</text>
+        </view>
+        <view class="flex justify-between margin-bottom align-center">
+            <text class="text-name">文件大小</text>
+            <text class="con-box">{{dataList.fileSize}}</text>
+        </view>
+        <view class="flex justify-between margin-bottom align-center">
+            <text class="text-name">文件类型</text>
+            <text class="con-box">{{dataList.fileType}}</text>
+        </view>
+        <view class="flex justify-between margin-bottom align-center">
+            <text class="text-name">转换为...</text>
+            <view class="input-box flex justify-between" bindtap="showAction">
+                <view>{{formatFileType}}</view>
+                <van-icon name="arrow-down" />
+            </view>
+        </view>
+        <view class="flex align-center" style="justify-content: space-around;">
+            <view class="button-box" bindtap="onClose">取消</view>
+            <view class="button-box" style="background: #722ed1;color: #fff;" bindtap="confirm">确认</view>
+        </view>
+    </view>
+</van-popup>
+<van-action-sheet
+  show="{{ actionShow }}"
+  actions="{{ actions }}"
+  cancel-text="取消"
+  safe-area-inset-bottom="{{false}}"
+  bind:close="showAction"
+  bind:select="onSelect"
+  bind:cancel="showAction"
+/>

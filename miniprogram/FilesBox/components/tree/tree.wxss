@@ -1,0 +1,68 @@
+.tree_container {
+    width: auto;
+    box-sizing: border-box;
+    overflow: scroll;
+    background: #fff;
+    color: #333;
+}
+
+.tree-item {
+    width: auto;
+    box-sizing: border-box;
+    overflow-x: scroll;
+    padding: 10rpx 0;
+    padding-right: 20rpx;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.tree-item-name {
+    width:55%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    /* flex: 8; */
+}
+
+.tree-item-title {
+    margin-left: 24rpx;
+    color: #1c2438;
+    font-size: 32rpx;
+    word-break: break-all;
+    flex: 1 1;
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.tree-item-onOff {
+    width: 40rpx;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.collapse {
+    width: 36rpx;
+    height: 20rpx;
+    transform: rotate(-90deg);
+}
+
+.expand {
+    width: 36rpx;
+    height: 20rpx;
+}
+
+.check-box {
+    height: 32rpx;
+    width: 32rpx;
+    margin-left: 30rpx;
+}
+
+.tree-item-name-select {
+    color: #0079FE;
+}
+.cell-box{display: flex;justify-content: flex-start;padding: 20rpx 30rpx;width: 100%;}
+.btn-box{padding: 10rpx 30rpx;border: 1px solid #722ed1;border-radius: 10rpx;}

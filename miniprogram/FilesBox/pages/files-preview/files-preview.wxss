@@ -1,0 +1,5 @@
+/* packageB/pages/files/files-preview/files-preview.wxss */
+page{background: #ffffff !important;}
+.preview-video{width: 100%;position: fixed;left: 0;top: 0;height: calc(100% - env(safe-area-inset-bottom));}
+.audio{width: 100%;height: 100%;position: fixed;top: 0;left: 0; display: flex;justify-content: center;align-items: center;}
+.text-box{width: 100%;padding: 20rpx;}

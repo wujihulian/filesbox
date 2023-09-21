@@ -1,0 +1,141 @@
+<!--pages/sharePage/sharePage.wxml-->
+<view wx:if="{{isShare==0}}">
+  <view style="display: flex;justify-content: flex-start;;padding: 30rpx;align-items: center;background: #fff;">
+    <image src="{{dataList.thumb}}" style="width:120rpx;height:120rpx;" mode="aspectFit"></image>
+    <view style="width: calc(100% - 300rpx);padding: 0 20rpx;">
+        <view style="margin-bottom: 10rpx;color: #333;" class="text-cut-1">{{dataList.name}}</view>
+        <view style="margin-bottom: 10rpx;color: #999;">到期时间：{{dataList.timeTo?dataList.timeTo:'永久有效'}}</view>
+        <view style="color: #999;">
+            <text>下载次数：{{numDownload}}</text>
+            <text style="margin-left: 10rpx;">浏览次数：{{numView}}</text>
+        </view>
+    </view>
+    <view style="width: 180rpx;text-align: center;border: 1px solid #722ed1;padding: 6rpx 0;color:#722ed1;border-radius: 10rpx;" bindtap="cancelShare" wx:if="{{shareID}}">取消分享</view>
+  </view>
+  <view class="margin-top-sm" style="background: #fff;">
+      <view>
+          <view class="flex justify-between bg-white" style="width: 100%;padding:20rpx 30rpx;align-items: center;border-bottom: 1px solid #eee;">
+              <view >外链分享：</view>
+              <view style="width: 60%;" class="text-cut-1">{{shareLink}}</view>
+              <view>
+                  <image src="/images/rootIcon/shareLink.png" class="icon" bindtap="showShare" data-type="0"></image>
+                  <image src="/images/icons/copy.png" class="icon" style="margin-left:10rpx" bindtap="showShare" data-type="1"></image>
+              </view>
+          </view>
+          <view class="flex justify-between bg-white" style="width: 100%;padding:20rpx 30rpx;align-items: center;">
+              <view style="width: 150rpx;">提取密码：</view>
+              <input type="text" placeholder="为空则不设置密码" style="border:1px solid #cecece;padding:0 10rpx;min-height: 60rpx;line-height: 60rpx;border-radius: 10rpx;width: calc(100% - 340rpx);" value="{{password}}" data-label="password" bindinput="inputValue"/>
+              <view style="border:1px solid #cecece;padding:0 10rpx;height: 60rpx;line-height: 60rpx;border-radius: 10rpx;width: 150rpx;" bindtap="getRandomNum">随机生成</view>
+          </view>
+      </view>
+  </view>
+  <view style="color:#722ed1;text-align: center;margin-top: 30rpx;" bindtap="showMore">
+      更多设置
+      <van-icon name="{{moreShow?'arrow-up':'arrow-down'}}" color="#722ed1"/>
+  </view>
+  <view class="margin-top-sm" style="background: #fff;" wx:if="{{moreShow}}">
+      <view>
+          <view class="flex justify-between bg-white" style="width: 100%;padding:20rpx 30rpx;align-items: center;border-bottom: 1px solid #eee;">
+              <view >分享标题：</view>
+              <input type="text" value="{{title}}" style="width: 75%;" data-label="title" bindinput="inputValue"/>
+          </view>
+          <view class="flex justify-between bg-white" style="width: 100%;padding:20rpx 30rpx;align-items: center;" bindtap="showTime">
+              <view>到期时间：</view>
+              <view>
+                  <text style="margin-right: 20rpx;">{{timeToText}}</text>
+                  <van-icon name="arrow" />
+              </view>
+          </view>
+          <view class="flex justify-between bg-white" style="width: 100%;padding:20rpx 30rpx;align-items: center;" bindtap="showDown">
+              <view>下载次数：</view>
+              <view>
+                  <text style="margin-right: 20rpx;">{{dataList.options.down==0?'禁止下载':(dataList.options.downNum>0?dataList.options.downNum:'不限制')}}</text>
+                  <van-icon name="arrow" />
+              </view>
+          </view>
+          <view class="flex justify-between bg-white" style="width: 100%;padding:20rpx 30rpx;align-items: center;">
+              <view>仅登录用户可用：</view>
+              <van-switch checked="{{ (dataList.options.login||shareLinkAllowGuest==0)?true:false }}" active-color="#722ed1" size="20px" bind:change="onSwitchChange" data-label="login" disabled="{{shareLinkAllowGuest==0}}" />
+          </view>
+          <view class="flex justify-between bg-white" style="width: 100%;padding:20rpx 30rpx;align-items: center;">
+              <view>禁止预览：</view>
+              <van-switch checked="{{ dataList.options.preview==0?true:false }}" active-color="#722ed1" size="20px" bind:change="onSwitchChange" data-label="preview"/>
+          </view>
+          <view class="flex justify-between bg-white" style="width: 100%;padding:20rpx 30rpx;align-items: center;">
+              <view>禁用下载：</view>
+              <van-switch checked="{{ dataList.options.down==0?true:false }}" active-color="#722ed1" size="20px" bind:change="onSwitchChange" data-label="down"/>
+          </view>
+      </view>
+  </view>
+  <view class="flex button-block bg-white">
+      <view class="button-box" bindtap="showShare" data-type="3">保存设置</view>
+      <view class="button-box" style="background: #722ed1;color: #fff;" bindtap="showShare" data-type="0">立即分享</view>
+  </view>
+</view>
+<van-empty
+  class="custom-image"
+  description="{{isShare==1?'点击右下角前往小程序查看完整内容':'跳转中，请稍后'}}"
+  wx:else
+/>
+<!-- 到期时间设置 -->
+<van-popup show="{{ timeShow }}" bind:close="showTime" position="bottom" custom-style="padding-bottom:0;background-color: #f8f8f8;bottom:{{showTabBar?'calc(100rpx + env(safe-area-inset-bottom))':''}}">
+  <view style="text-align:center;padding:20rpx  30rpx;background-color: #fff;color: #323233;font-weight: 400;font-size: 14px;line-height: 20px;">到期时间</view>
+  <view style="position: absolute;right: 30rpx;top: 20rpx;color:#722ed1;" bindtap="timeConfirm">确定</view>
+  <view wx:for="{{timeArr}}"  wx:key="index" data-index="{{index}}" style="background-color: #fff;padding: 20rpx;display: flex;justify-content:space-between" bindtap="selectTime">
+    <view>{{item.name}}</view>
+    <view wx:if="{{index==3}}" style="width: 50%;">
+        <picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}">
+            <input name="endtime" class="chosetime" value='{{customTime}}' placeholder='选择时间' placeholder-class="chosetime-style" style="color:#666"/>
+        </picker>
+    </view>
+    <van-icon name="success" color="#fff" wx:if="{{selectTimeIndex!=index}}"/>
+    <van-icon name="success" color="#722ed1" wx:if="{{selectTimeIndex==index}}"/>
+  </view>
+  <view class=" padding text-center solid-top" bindtap="showTime" style="margin-top: 15rpx;background-color: #fff;padding-bottom: {{env(safe-area-inset-bottom)?env(safe-area-inset-bottom):'50rpx'}}">取消</view>
+</van-popup>
+<!-- 下载次数限制 -->
+<van-popup show="{{ downShow }}" bind:close="showDown" position="bottom" custom-style="padding-bottom:0;background-color: #f8f8f8;bottom:{{showTabBar?'calc(100rpx + env(safe-area-inset-bottom))':''}}">
+  <view style="text-align:center;padding:20rpx  30rpx;background-color: #fff;color: #323233;font-weight: 400;font-size: 14px;line-height: 20px;">下载次数限制</view>
+  <view style="position: absolute;right: 30rpx;top: 20rpx;color:#722ed1;" bindtap="downConfirm">确定</view>
+  <view wx:for="{{downArr}}"  wx:key="index" data-index="{{index}}" style="background-color: #fff;padding: 20rpx;display: flex;justify-content:space-between" bindtap="selectDown">
+    <view>{{item.name}}</view>
+    <input type="number" value='{{downNum}}' placeholder='请输入下载次数' style="color:#666;border: 1px solid #ececec;padding-left: 20rpx;" bindinput="customDownNum" wx:if="{{index==2}}"/>
+    <van-icon name="success" color="#fff" wx:if="{{downIndex!=index}}"/>
+    <van-icon name="success" color="#722ed1" wx:if="{{downIndex==index}}"/>
+  </view>
+  <view class=" padding text-center solid-top" bindtap="showDown" style="margin-top: 15rpx;background-color: #fff;padding-bottom: {{env(safe-area-inset-bottom)?env(safe-area-inset-bottom):'50rpx'}}">取消</view>
+</van-popup>
+<!-- 分享弹窗 -->
+<van-popup show="{{ shareShow }}" bind:close="closeShare" position="bottom" custom-style="padding-bottom:0;background-color: #f8f8f8;bottom:{{showTabBar?'calc(100rpx + env(safe-area-inset-bottom))':''}}">
+  <view style="text-align:left;padding:20rpx  30rpx;background-color: #fff;color: #323233;font-weight: 400;font-size: 14px;line-height: 20px;">分享文件</view>
+  <view class="flex justify-between" style="padding: 0 20rpx;background-color: #fff;">
+    <view wx:for="{{sharePanel}}" wx:key="index" data-index="{{index}}" bindtap="onSelect" style="width: 20%;padding:30rpx 0;text-align: center;">
+      <view wx:if="{{!item.openType}}">
+        <image class="icon"  mode="aspectFit" src="{{item.icon}}" style="width: 48px;height: 48px;margin: 0 auto;display: block;"/>
+        <view class="margin-top-sm text-iGray">{{item.name}}</view>
+      </view>
+      <button wx:else open-type="{{item.openType}}" class="text-df bg-white share-friend"
+      style="min-height: 80rpx;">
+        <image class="icon"  mode="aspectFit" src="{{item.icon}}" style="width: 48px;height: 48px;margin: 0 auto;display: block;"/>
+        <text style="margin-top: 20rpx;height:40rpx !important;line-height:40rpx;" class="text-iGray felx justify-center align-center">{{item.name}}</text>
+    </button>
+    </view>
+  </view>
+  <view class=" padding text-center solid-top" bindtap="closeShare" style="margin-top: 15rpx;background-color: #fff;padding-bottom: {{env(safe-area-inset-bottom)?env(safe-area-inset-bottom):'50rpx'}}">取消</view>
+</van-popup>
+<!-- 分享到朋友圈提示 -->
+<view class="tip text-white flex justify-end"
+      wx:if="{{showTips}}" catchtap="showTips">
+  <view class="text-center" style="margin-top:{{systemInfo.statusBarHeight+44}}px;">
+    <image src="{{imageUrl.shareArrow}}" style="width:99rpx;height:87rpx;"></image>
+    <view>点击右上角 <image src="{{imageUrl.ppp}}" /></view>
+    <view>将它发送给指定的朋友</view>
+    <view>或分享朋友圈</view>
+  </view>
+</view>
+<!-- 二维码 -->
+<view class="mask" bindtouchmove="preventTouchMove" bindtap="closeShareQrcode" wx:if="{{showQrcode}}">
+    <image src="{{shareQrcode}}" style="width: 200px;height: 200px;margin:0 auto;"></image>
+    <view class="save-button" catchtap="saveShareQrcode">保存二维码</view>
+</view>
+<canvas canvas-id="myQrcode" style="width: 200px;height: 200px;position: fixed;left: 1000px;"></canvas>

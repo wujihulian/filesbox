@@ -1,0 +1,21 @@
+/* packageB/pages/files/files-move/files-move.wxss */
+@import "../files.wxss";
+@import "/app.wxss";
+
+.modal{position: fixed;left: 0;bottom: calc(env(safe-area-inset-bottom) + 100rpx); width: 100%;background-color: #fff;z-index: 199;}
+
+.file-item{width: 25%;padding-bottom: 20rpx;display: inline-flex;justify-content: center;align-items: center;flex-direction: column;}
+.icon-out{width: 187.5rpx;height: 187.5rpx;display: flex;justify-content: center;align-items: center;position: relative;}
+.icon-out .icon{width: 130rpx;height: 130rpx;}
+.icon-out .check-box{position: absolute;top: 20rpx;right: 20rpx;}
+
+.icon-out-tile{width: 140rpx;height: 140rpx;display: flex;justify-content: center;align-items: center;}
+.icon-out-tile .icon{width: 90rpx;height: 90rpx;}
+
+.scroll-view-container{width: 100%;height: calc(100% - 80rpx - 120rpx);}
+
+.footer-area{width: 100%;height: 120rpx;display: flex;justify-content: center;align-items: center;border-top: 1px solid #ececec;}
+.create-new-folder{width: 300rpx;height: 80rpx;border: 1rpx solid #9a64ff;color: #9a64ff;font-size: 30rpx;display: flex;justify-content: center;align-items: center;margin-right: 20rpx;border-radius: 80rpx;}
+.move-folder{width: 300rpx;height: 80rpx;border: 1rpx solid #9a64ff;color: #fff;background-color: #9a64ff;font-size: 30rpx;display: flex;justify-content: center;align-items: center;margin-right: 20rpx;border-radius: 80rpx;}
+.scroll-view{width: calc(100% - 120rpx) !important;}
+.cancel-move{width: 100rpx;height: 100%;display: flex;justify-content: center;align-items: center;font-size: 26rpx;color: #8a8a8a;}

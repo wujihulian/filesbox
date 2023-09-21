@@ -1,0 +1,5 @@
+/* pages/search/search.wxss */
+page{background: #fff;}
+.main-box{display: flex;justify-content: space-between;flex-wrap: wrap;width: 100%;}
+.piece{display: flex;width: 48%;background: #FAFAFA;align-items: center;margin-bottom: 20rpx;padding:30rpx;border-radius: 20rpx;color: #333;}
+.piece image{width:120rpx;height: 120rpx;}

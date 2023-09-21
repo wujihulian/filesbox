@@ -1,0 +1,38 @@
+<!--components/load-area/load-area.wxml-->
+
+<view class="spinner" id="spinner" style='margin-top:{{loadingTop}};' wx:if="{{loadingState == 1}}">
+    <view style="background-color:{{loadingColor}};" class="view rect1"></view>
+    <view style="background-color:{{loadingColor}};" class="view rect2"></view>
+    <view style="background-color:{{loadingColor}};" class="view rect3"></view>
+    <view style="background-color:{{loadingColor}};" class="view rect4"></view>
+    <view style="background-color:{{loadingColor}};" class="view rect5"></view>
+</view>
+<van-empty description="暂无数据" wx:if="{{!list.length && loadingState == 0}}"></van-empty>
+<slot  wx:if="{{loadingState != 1 && loadingState != 200}}" />
+<view class='loadMore' wx:if="{{loadingState == 2}}">
+  <view class="image"></view>
+  <text>拼命加载中…</text>
+</view>
+<view class='loadMore' wx:if="{{loadingState == 3}}">
+  <text>没有更多了~</text>
+</view>
+
+<van-empty description="商品不存在" wx:if="{{loadingState == 4}}"></van-empty>
+
+<view class="no-login" style="padding-bottom: 200rpx;" wx:if="{{loadingState == '200'}}">
+  <view class="no-login-icon"></view>
+  <text class="nl-tips">您还未登录，请先去登录</text>
+  <view class="login-button" bindtap="goLogin">去登录</view>
+</view> 
+
+<van-popup
+  show="{{ loadingState ==  99}}"
+  position="center"
+  custom-style="border-radius:20rpx;z-index:99999"
+  overlay-style="z-index:99998"
+>
+  <view class="center">
+    <van-loading color="#1989fa" />
+    <text style="margin-top:40rpx;color:#8a8a8a;font-size: 26rpx;">上传中…{{speed}}%</text>
+  </view>
+</van-popup>

@@ -1,0 +1,31 @@
+/* packageB/components/music-play/music-play.wxss */
+.page{position: fixed;width: 100vw;height: 100vh;display: flex;justify-content: flex-start;align-items: center;flex-direction: column;}
+.file-name{font-size: 34rpx;color: #333;text-align: center;padding: 60rpx;font-weight: bold;}
+.record-out{width: 397rpx;position: relative;margin-top: 50rpx;}
+.cd{width: 397rpx;height: 406rpx;}
+.folder{position: absolute;width: 237rpx;height: 237rpx;left: 80rpx;top: 197rpx;}
+.hand{width: 100%;height: 127rpx;position: relative;}
+.hand-image{width: 207rpx;height: 125rpx;left: 50%;margin-left: -15rpx;z-index: 100;transform-origin: 0% 0%;transform: rotate(0deg);transition-duration: .3s;}
+.hand-active{transform-origin: 0% 0%;transform: rotate(30deg);transition-duration: .3s;}
+.folder-active{animation: rotate360 10s linear infinite;}
+@keyframes rotate360{
+    0%{
+        transform: rotate(0);
+    }
+    100%{
+        transform: rotate(360deg);
+    }
+}
+
+.progress{position: fixed;bottom: calc(env(safe-area-inset-bottom) + 220rpx);width: 100%;display: flex;justify-content: center;align-items: center;}
+.time{width: 120rpx;display: flex;justify-content: center;align-items: center;font-size: 26rpx;color: #333}
+.movable-area{width: 510rpx;height: 30rpx;display: flex;justify-content: center;align-items: center;}
+.progress-bar-out{width: 480rpx;height: 8rpx;border-radius: 8rpx;background-color: #DBDBDB;position: relative;}
+.progress-bar-inside{position: absolute;left: 0;height: 8rpx;background-color: #4f91ff;border-radius: 8rpx;}
+.movable-view{width: 30rpx;height: 30rpx;background-color: #4f91ff;border-radius: 30rpx;}
+
+.control{display: flex;justify-content: center;align-items: center;height: 220rpx;width: 100%;position: fixed;bottom: env(safe-area-inset-bottom);}
+.back-icon{width: 49rpx;height: 44rpx;margin: 0 100rpx;}
+.play-out{width: 120rpx;height: 120rpx;position: relative;}
+.play-border{width: 100%;height: 100%;}
+.play-icon{position: absolute;left: 50%;top: 50%;width: 38rpx;height: 45rpx;margin-left: -19rpx;margin-top: -22.5rpx;}

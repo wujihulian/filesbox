@@ -1,0 +1,30 @@
+<!--pages/setting/setting.wxml-->
+<view>
+    <view class="flex justify-between align-center margin-sm">
+        <view wx:for="{{timeArr}}" style="padding:10rpx 30rpx;" class="{{timeIndex==index?'timeActive':'time-box'}}" data-index="{{index}}" bindtap="selectNav">{{item.text}}</view>
+    </view>
+    <view>
+        <view class="flex justify-between align-center" style="background:#F6F6F6;padding:15rpx 30rpx;color: #333;font-size: 13px;">
+            <view wx:for="{{navList}}" style="width: 25%;">{{item}}</view>
+        </view>
+        <scroll-view 
+            bindscroll="onPageScroll"
+            scroll-anchoring="{{true}}"
+            scroll-y 
+            bindscrolltolower="onReachBottom" 
+            style="height:600px;padding-bottom:30rpx;"
+            overflow-anchor
+            data-type="0"
+            wx:if="{{logList.length}}"
+        >
+            <view class="flex justify-between align-center" style="padding:20rpx 30rpx;color: #666;border-bottom: 1px solid #ececec;font-size: 13px;" wx:for="{{logList}}">
+                <view style="width: 25%;">{{item.logDescVo.browser}}</view>
+                <view style="width: 25%;">{{item.osName}}</view>
+                <view style="width: 25%;">{{item.createTime}}</view>
+                <view style="width: 25%;word-break: break-all;">{{item.logDescVo.country}} {{item.logDescVo.network}}</view>
+            </view>
+        </scroll-view>
+        <van-empty description="暂无数据" wx:else/>
+    </view>
+</view>
+<van-calendar show="{{ dateShow }}" round="false" position="bottom" min-date="{{ minDate }}" max-date="{{ maxDate }}" default-date="{{timestamp}}" type="range" confirm-text="确定" confirm-disabled-text="请选择结束时间" color="#654EC3" bind:close="showDate" bind:confirm="selectDate" />

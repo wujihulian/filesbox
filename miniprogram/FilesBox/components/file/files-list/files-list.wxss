@@ -1,0 +1,14 @@
+/* packageB/pages/files/files-list/files-list.wxss */
+@import "/app.wxss";
+
+.file-item{width: 23%;padding-top: 20rpx;margin:0 1% 10rpx;box-sizing: border-box;border: 1px solid #fff;}
+.icon-out{width: 187.5rpx;display: flex;justify-content: center;align-items: center;position: relative;}
+.icon-out .icon{width: 130rpx;height: 130rpx;}
+.icon-out .check-box{position: absolute;top: 20rpx;right: 20rpx;}
+
+.icon-out-tile{width: 140rpx;height: 140rpx;display: flex;justify-content: center;align-items: center;position: relative;}
+.icon-out-tile .icon{width: 90rpx;height: 90rpx;}
+
+.video-play{width: 60rpx;height: 60rpx;position: absolute;left: 50%;top: 50%;margin-top: -30rpx;margin-left: -30rpx;}
+
+.file-name{height: 60rpx;display: flex;justify-content: center;align-items: center;font-size: 14px;margin-bottom: 10rpx;margin-top: 6rpx;}

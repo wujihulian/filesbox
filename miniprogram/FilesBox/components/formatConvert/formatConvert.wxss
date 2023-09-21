@@ -1,0 +1,5 @@
+@import "/app.wxss";
+.text-name{width: 25%;}
+.con-box{width: calc(100% - 25%);}
+.input-box{width: calc(100% - 25%);border: 1px solid #ececec;padding: 10rpx;}
+.button-box {width: 43%;padding: 20rpx 0;text-align: center;border: 1px solid #722ed1;border-radius: 50rpx;color: #722ed1;}

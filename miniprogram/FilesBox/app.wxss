@@ -1,0 +1,87 @@
+/**app.wxss**/
+@import './style/index.wxss';
+@import '/miniprogram_npm/@vant/weapp/common/index.wxss';
+button::after{border: none;padding: 0;margin: 0;}
+.normal-hover{background: rgba(0, 0, 0, 0.1);}
+.hover-blue{
+  background-color: #79B0FC;
+}
+.hover-circle{
+  position: relative;
+}
+.hover-circle::before{
+  position:absolute;
+  content: '';
+  left:50%;
+  top:50%;
+  width:220rpx;
+  height:220rpx;
+  border-radius: 50%;
+  margin-left:-110rpx;
+  margin-top:-110rpx;
+  animation: transCircle 0.1s linear;
+  animation-iteration-count: 1;
+  background-color: #e6e6e6;
+  z-index: 1;
+}
+@keyframes transCircle{
+  0%{
+    left:50%;
+    top:50%;
+    width:20rpx;
+    height:20rpx;
+    margin-left: -10rpx;
+    margin-top: -10rpx;
+  }
+  100%{
+    left:50%;
+    top:50%;
+    width:220rpx;
+    height:220rpx;
+    border-radius: 50%;
+    margin-left:-110rpx;margin-top:-110rpx;
+  }
+}
+
+.hover-full{
+  position: relative;
+  overflow: hidden;
+}
+.hover-full::before{
+  position:absolute;
+  content: '';
+  left:0;
+  top:0;
+  bottom: 0;
+  right: 0;
+  animation: transFull 0.1s linear;
+  animation-iteration-count: 1;
+  background-color: rgba(0, 0, 0, .06);
+  z-index: 0;
+}
+@keyframes transFull{
+  0%{
+    left:50%;
+    top:50%;
+    width:1rpx;
+    height:1rpx;
+  }
+  100%{
+    left:0;
+    top:0;
+    bottom: 0;
+    right: 0;
+  }
+}
+@font-face {
+  font-weight: normal;
+  font-family: 'vant-icon-temp';
+  font-style: normal;
+  font-display: auto;
+  src: url('https://test-static.1x.cn/appstatic/font/font_2553510_3bs9b5licix.woff2') format('woff2'),
+    url('https://test-static.1x.cn/appstatic/font/font_2553510_3bs9b5licix.woff') format('woff'),
+    url('https://test-static.1x.cn/appstatic/font/font_2553510_3bs9b5licix.ttf') format('truetype');
+}
+.van-icon {
+  font-family: 'vant-icon-temp' !important;
+} 

@@ -1,0 +1,30 @@
+<!--pages/setting/setting.wxml-->
+<view style="padding: 0 30rpx 30rpx;border-top: 1px solid #ececec;">
+    <!-- <view class="flex justify-between" style="border-bottom: 1px solid #ececec;padding:30rpx 0" bindtap="showLanguage">
+        <view>{{lang['语言设置']}}</view>
+        <view>
+            <text style="margin-right: 20rpx;">{{lang[languageText]}}</text>
+            <van-icon name="arrow" />
+        </view>
+    </view> -->
+    <view class="flex justify-between" style="border-bottom: 1px solid #ececec;padding:30rpx 0" bindtap="goToPage" data-url="https://test.1x.cn/pages/schoolRegister/fbxAppPolicy.html">
+        <view>{{lang['服务条款']}}</view>
+        <view>
+            <van-icon name="arrow" />
+        </view>
+    </view>
+    <view class="flex justify-between" style="border-bottom: 1px solid #ececec;padding:30rpx 0" bindtap="goToPage" data-url="https://test.1x.cn/pages/schoolRegister/fbxAppProtocol.html">
+        <view>{{lang['隐私协议']}}</view>
+        <view>
+            <van-icon name="arrow" />
+        </view>
+    </view>
+</view>
+<van-popup
+  show="{{ languageShow }}" 
+  bind:close="showLanguage"
+  custom-style="width:90%;"
+>   
+    <view style="text-align: center;padding: 30rpx;border-bottom: 1px solid #ececec;">语言设置</view>
+    <view wx:for="{{languageList}}" bindtap="onSelect" style="width:100%;padding:30rpx;color: #333;text-align: center;{{index<languageList.length-1?'border-bottom: 1px solid #ececec;':''}}" data-index="{{index}}" bindtap="setLanguage">{{item}}</view> 
+</van-popup>

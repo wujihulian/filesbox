@@ -1,0 +1,6 @@
+{
+    "component": true,
+    "usingComponents": {
+        "operateBar":"/components/operateBar/operateBar"
+    }
+}

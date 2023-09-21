@@ -1,0 +1,12 @@
+{
+  "navigationBarTitleText": "文件",
+  "usingComponents": {
+    "van-empty":"@vant/weapp/empty/index",
+    "files-list":"./files-list/files-list",
+    "van-popup":"@vant/weapp/popup/index",
+    "van-overlay": "@vant/weapp/overlay/index",
+    "van-search": "@vant/weapp/search/index",
+    "files-move":"./files-move/files-move",
+    "van-share-sheet": "@vant/weapp/share-sheet/index"
+  }
+}

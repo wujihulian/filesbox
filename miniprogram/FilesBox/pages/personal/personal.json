@@ -1,0 +1,10 @@
+{
+  "navigationStyle":"custom",
+  "backgroundColor": "#ffffff",
+  "navigationBarTextStyle": "white",
+  "usingComponents": {
+    "tabNav": "/components/tabNav/tabNav",
+    "files-component":"/components/file/files-component/files-component",
+    "slideBar":"/components/slideBar/slideBar"
+  }
+}

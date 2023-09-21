@@ -1,0 +1,98 @@
+<!--pages/setting/setting.wxml-->
+<view style="padding: 0 30rpx 30rpx;border-top: 1px solid #ececec;">
+    <view class="flex justify-between align-center" style="border-bottom: 1px solid #ececec;padding:30rpx 0" bindtap="choseImage">
+        <view>头像</view>
+        <view class="flex flex-end align-center">
+            <image src="{{account.avatar}}" style="margin-right: 10rpx;width: 80rpx;height: 80rpx;border-radius: 50%;"></image>
+            <van-icon name="arrow" color="#777" />
+        </view>
+    </view>
+    <view class="flex justify-between" style="border-bottom: 1px solid #ececec;padding:30rpx 0">
+        <view>账号</view>
+        <view style="color: #777;margin-right: 38rpx;">{{account.name}}</view>
+    </view>
+    <view class="flex justify-between" style="border-bottom: 1px solid #ececec;padding:30rpx 0" bindtap="goToPage" data-type="nickname" data-title="昵称">
+        <view>昵称</view>
+        <view class="flex align-center" style="justify-content: flex-end ;width: 80%;">
+            <view style="margin-right: 10rpx;color: #777;" class="text-cut-1">{{account.nickname}}</view>
+            <van-icon name="arrow" color="#777" />
+        </view>
+    </view>
+    <view class="flex justify-between" style="border-bottom: 1px solid #ececec;padding:30rpx 0" bindtap="goToSpace">
+        <view>空间</view>
+        <view class="flex flex-end align-center">
+            <view style="margin-right: 10rpx;color: #777;">{{sizeUse}}/{{account.sizeMax>0?account.sizeMax+'GB':'不限制'}}</view>
+            <van-icon name="arrow" color="#777" />
+        </view>
+    </view>
+    <view class="flex justify-between" style="border-bottom: 1px solid #ececec;padding:30rpx 0" bindtap="showSex">
+        <view>性别</view>
+        <view class="flex flex-end align-center">
+            <view style="margin-right: 10rpx;color: #777;">{{account.sex==0?'女':'男'}}</view>
+            <van-icon name="arrow" color="#777" />
+        </view>
+    </view>
+    <view class="flex justify-between" style="border-bottom: 1px solid #ececec;padding:30rpx 0" bindtap="goToPage" data-type="email" data-title="邮箱">
+        <view>邮箱</view>
+        <view class="flex flex-end align-center">
+            <view style="margin-right: 10rpx;color: #777;">{{account.email}}</view>
+            <van-icon name="arrow" color="#777" />
+        </view>
+    </view>
+    <view class="flex justify-between" style="border-bottom: 1px solid #ececec;padding:30rpx 0" bindtap="goToPage" data-type="phone" data-title="手机号">
+        <view>手机号</view>
+        <view class="flex flex-end align-center">
+            <view style="margin-right: 10rpx;color: #777;">{{account.phone}}</view>
+            <van-icon name="arrow" color="#777" />
+        </view>
+    </view>
+    <view class="flex justify-between" style="border-bottom: 1px solid #ececec;padding:30rpx 0" bindtap="goToPage" data-type="password" data-title="密码">
+        <view>密码</view>
+        <view class="flex flex-end align-center">
+            <view style="margin-right: 10rpx;color: #777;">重置密码</view>
+            <van-icon name="arrow" color="#777" />
+        </view>
+    </view>
+    <view wx:if="{{thirdLoginConfig.length>0}}">
+        <view class="margin-top-sm" style="color:#999999">第三方登录</view>
+        <view class="flex justify-between" style="border-bottom: 1px solid #ececec;padding:30rpx 0" bindtap="goToBind" wx:for="{{thirdLoginConfig}}">
+            <view>{{item.name}}</view>
+            <view class="flex flex-end align-center">
+                <view style="margin-right: 10rpx;color: {{item.bind==1?'#777':'#999'}};">{{item.bind==1?'已绑定':'未绑定'}}</view>
+                <van-icon name="arrow" color="#777" />
+            </view>
+        </view>
+    </view>
+    <!-- <view wx:if="{{thirdLogin}}">
+        <view class="margin-top-sm" style="color:#999999">第三方登录</view>
+        <view class="flex justify-between" style="border-bottom: 1px solid #ececec;padding:30rpx 0" bindtap="goToBind" wx:if="{{wechatFlag}}">
+            <view>微信</view>
+            <view class="flex flex-end align-center">
+                <view style="margin-right: 10rpx;color: {{wechatOpenId?'#777':'#999'}};">{{wechatOpenId?'已绑定':'未绑定'}}</view>
+                <van-icon name="arrow" color="#777" />
+            </view>
+        </view>
+        <view class="flex justify-between" style="border-bottom: 1px solid #ececec;padding:30rpx 0" bindtap="goToBind" wx:if="{{dingdingFlag}}">
+            <view>钉钉</view>
+            <view class="flex flex-end align-center">
+                <view style="margin-right: 10rpx;color:{{dingOpenId?'#777':'#999'}}">{{dingOpenId?'已绑定':'未绑定'}}</view>
+                <van-icon name="arrow" color="#777" />
+            </view>
+        </view>
+        <view class="flex justify-between" style="border-bottom: 1px solid #ececec;padding:30rpx 0" bindtap="goToBind" wx:if="{{enWechatFlag}}">
+            <view>企业微信</view>
+            <view class="flex flex-end align-center">
+                <view style="margin-right: 10rpx;color: {{enWechatOpenId?'#777':'#999'}}">{{enWechatOpenId?'已绑定':'未绑定'}}</view>
+                <van-icon name="arrow" color="#777" />
+            </view>
+        </view>
+    </view> -->
+</view>
+<van-action-sheet
+  show="{{ sexShow }}"
+  actions="{{ sexArr }}"
+  bind:close="showSex"
+  bind:cancel="showSex"
+  bind:select="onSelect"
+  cancel-text="取消"
+/>

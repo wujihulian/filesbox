@@ -1,0 +1,106 @@
+<van-popup show="{{ operateShow }}" position="bottom"  custom-style="box-shadow: 0 0 14rpx rgba(0, 0, 0, 0.2);padding:30rpx 0 0;" overlay="{{false}}"> 
+    <view style="display: flex;justify-content: space-between;color: #333;padding: 0 40rpx;" wx:if="{{targetType!=0}}">
+        <view>{{checkedSum}}/{{filesSum}}</view>
+        <view style="color: #9a64ff;">
+            <text bindtap="selectAllFile">{{!isSelectAll?lang['全选']:lang['全不选']}}</text>
+            <text style="margin-left: 20rpx;" bindtap="cancel">{{lang['取消']}}</text>
+        </view>
+    </view>
+    <view class="box" wx:if="{{targetType==0}}">
+        <view style="text-align: center;display: flex;justify-content: flex-start;padding: 20rpx 30rpx;" bindtap="goToTagManage">
+            <image src="/images/operateMore/icon_file_tag.png" class="icon" style="margin-right: 10rpx;"></image>
+            <view>标签管理</view>
+        </view>
+    </view>
+    <view class="box" style="background:#654EC3;color:#fff;padding: 20rpx 0;">
+        <view wx:for="{{opreateArr}}" bindtap="{{!item.show?'':item.fn}}" class="tab-box" data-type="{{item.type}}" style="{{!item.show?'opacity:0.5':''}}" data-text="{{item.text}}">
+            <image src="{{item.image}}" class="icon"></image>
+            <view>{{lang[item.text]}}</view>
+        </view>
+    </view>
+    <!-- <view class="box" wx:if="{{targetType==2}}" style="background:#654EC3;color:#fff;padding: 20rpx 0;">
+        <view wx:for="{{opreateArr}}" bindtap="{{((((index==0||index==1)&&!adminMove)||(index==2&&!adminRemove)||(index==3&&!adminEdit))&&!showRecyle&&!isLinkShare)||noSelectAll?'':item.fn}}" class="tab-box" data-type="{{item.type}}" style="{{((((index==0||index==1)&&!adminMove)||(index==2&&!adminRemove)||(index==3&&!adminEdit))&&!showRecyle&&!isLinkShare)||noSelectAll?'opacity:0.5':''}}" data-text="{{item.text}}">
+            <image src="{{item.image}}" class="icon"></image>
+            <view>{{lang[item.text]}}</view>
+        </view>
+    </view> -->
+</van-popup>
+<van-popup
+  show="{{ operateMoreShow }}"
+  position="bottom"
+  custom-style="max-height:60%"
+  bind:close="onCloseMore"
+>
+  <view>
+    <view wx:for="{{moreArr}}" class="more-box" bindtap="{{(!item.show)?'':(isZip&&item.text=='解压到...'?'showZipList':item.fn)}}" style="{{!item.show?'opacity:0.5':''}}" data-text="{{isFav&&item.text=='收藏'?'取消收藏':item.text}}" wx:if="{{item.show&&item.text!='解压到...'||item.show&&item.text=='解压到...'&&isZip}}"> 
+        <image src="{{item.image}}" class="icon"></image>
+        <view style="margin-left: 20rpx;" wx:if="{{item.text=='收藏'}}">{{isFav?lang['取消收藏']:lang[item.text]}}</view>
+        <view style="margin-left: 20rpx;" wx:if="{{item.text=='置顶'}}">{{isTop?lang['取消置顶']:lang[item.text]}}</view>
+        <view style="margin-left: 20rpx;" wx:if="{{item.text=='创建压缩包'}}">{{isZip?lang['解压到...']:lang[item.text]}}</view>
+        <view style="margin-left: 20rpx;" wx:if="{{item.text=='解压到...'&&isZip}}">{{isZip?lang['解压到...']:lang[item.text]}}</view>
+        <view style="margin-left: 20rpx;" wx:if="{{item.text!='收藏'&&item.text!='置顶'&&item.text!='创建压缩包'&&item.text!='解压到...'}}">{{lang[item.text]}}</view>
+      </view>
+  </view>
+    <!-- <view wx:if="{{targetType==1}}">
+        <view wx:for="{{moreArr}}" class="more-box" bindtap="{{((index==0)&&!role['explorer.view'])||(index==1&&!role['explorer.download'])||(index==4&&!role['explorer.share'])||((index==2||index==3||index==5)&&!role['explorer.edit'])?'':(isZip&&item.text=='创建压缩包'?'showZipList':item.fn)}}" style="{{((index==0)&&!role['explorer.view'])||(index==1&&!role['explorer.download'])||(index==4&&!role['explorer.share'])||((index==2||index==3||index==5)&&!role['explorer.edit'])?'opacity:0.5':''}}" data-text="{{isFav&&item.text=='收藏'?'取消收藏':item.text}}" wx:if="{{(item.text!='上传新版本'&&item.text!='格式转换'&&item.text!='分享'&&item.text!='文件查重'&&item.text!='文件名查重'&&item.show)||(item.text=='上传新版本'&&isUpload)||(formatConvert&&item.text=='格式转换')||(shareLinkAllow==1&&item.text=='分享')}}"> 
+            <image src="{{item.image}}" class="icon"></image>
+            <view style="margin-left: 20rpx;" wx:if="{{item.text=='收藏'}}">{{isFav?lang['取消收藏']:lang[item.text]}}</view>
+            <view style="margin-left: 20rpx;" wx:if="{{item.text=='置顶'}}">{{isTop?lang['取消置顶']:lang[item.text]}}</view>
+            <view style="margin-left: 20rpx;" wx:if="{{item.text=='创建压缩包'}}">{{isZip?lang['解压到...']:lang[item.text]}}</view>
+            <view style="margin-left: 20rpx;" wx:if="{{item.text!='收藏'&&item.text!='置顶'&&item.text!='创建压缩包'}}">{{lang[item.text]}}</view>
+        </view>
+    </view>
+    <view wx:if="{{targetType==2}}">
+        <view wx:for="{{moreArr}}" class="more-box" bindtap="{{((index==0)&&!adminView&&!role['explorer.view'])||(index==1&&!adminDownload&&!role['explorer.download'])||(index==4&&!adminShare&&!role['explorer.share'])||((index==2||index==3||index==5)&&!adminEdit&&!role['explorer.edit'])?'':(isZip&&item.text=='创建压缩包'?'showZipList':item.fn)}}" style="{{((index==0)&&!adminView&&!role['explorer.view'])||(index==1&&!adminDownload&&!role['explorer.download'])||(index==4&&!adminShare&&!role['explorer.share'])||((index==2||index==3||index==5)&&!adminEdit&&!role['explorer.edit'])?'opacity:0.5':''}}" data-text="{{isFav?'取消收藏':item.text}}" wx:if="{{(item.text!='上传新版本'&&item.text!='格式转换'&&item.text!='分享'&&item.text!='文件查重'&&item.text!='文件名查重'&&item.show)||(item.text=='上传新版本'&&isUpload)||(formatConvert&&item.text=='格式转换')||(shareLinkAllow==1&&item.text=='分享')}}"> 
+            <image src="{{item.image}}" class="icon"></image>
+            <view style="margin-left: 20rpx;" wx:if="{{item.text=='收藏'}}">{{isFav?lang['取消收藏']:lang[item.text]}}</view>
+            <view style="margin-left: 20rpx;" wx:if="{{item.text=='置顶'}}">{{isTop?lang['取消置顶']:lang[item.text]}}</view>
+            <view style="margin-left: 20rpx;" wx:if="{{item.text=='创建压缩包'}}">{{isZip?lang['解压到...']:lang[item.text]}}</view>
+            <view style="margin-left: 20rpx;" wx:if="{{item.text!='收藏'&&item.text!='置顶'&&item.text!='创建压缩包'}}">{{lang[item.text]}}</view>
+        </view>
+    </view> -->
+</van-popup>
+<van-popup
+  show="{{ tagListShow }}"
+  position="bottom"
+  bind:close="cancelChoose"
+>
+    <view>
+        <view style="display: flex;justify-content: flex-start;flex-wrap: wrap;border-bottom: 1px solid #ececec;padding:20rpx 30rpx;">
+            <view wx:for="{{tagList}}" style="margin-right: 10rpx;padding:10rpx 15rpx;background: #ececec;border-radius: 50rpx;font-size: 12px;display: flex;justify-content: space-between;margin-top: 20rpx;align-items: center;" wx:if="{{index<13}}" bindtap="chooseTag" data-item="{{item}}" data-index="{{index}}" class="{{item.checked?'tag-active':'tag-class'}}">
+                <view style="width: 24rpx;height: 24rpx;border-radius: 50%;margin-right: 10rpx;background: {{item.style}};"></view>
+                <view>{{item.labelName}}</view>
+            </view>
+        </view>
+        <view style="text-align: center;display: flex;justify-content: flex-start;padding: 20rpx 30rpx;" bindtap="goToTagManage">
+            <image src="/images/operateMore/icon_file_tag.png" class="icon" style="margin-right: 10rpx;"></image>
+            <view>标签管理</view>
+        </view>
+        <view style="padding: 8rpx 0;background: #ececec;"></view>
+        <view style="text-align: center;padding: 20rpx;" bindtap="cancelChoose">返回</view>
+    </view>
+</van-popup>
+<van-popup
+  show="{{ pressedWayShow }}"
+  position="bottom"
+  bind:close="cancelPressed"
+>
+    <view style="padding: 20rpx 30rpx 0;">
+        <view wx:for="{{pressedList}}" bindtap="zipFile" data-index="{{index}}" style="display:flex;justify-content: flex-start;padding-bottom: 20rpx ;">
+            <image src="/images/operateMore/icon_file_zip.png" class="icon"></image>
+            <view style="color: #333;margin-left: 20rpx;">{{item}}</view>
+        </view>
+    </view>
+</van-popup>
+<van-popup
+  show="{{ unzipListShow }}"
+  position="bottom"
+  bind:close="cancelUnzip"
+>
+    <view style="padding: 20rpx 30rpx 0;">
+        <view wx:for="{{unzipList}}" bindtap="unzipFile" data-index="{{index}}" style="display:flex;justify-content: flex-start;padding-bottom: 20rpx ;">
+            <image src="/images/operateMore/icon_file_zip.png" class="icon"></image>
+            <view style="color: #333;margin-left: 20rpx;">{{item}}</view>
+        </view>
+    </view>
+</van-popup>

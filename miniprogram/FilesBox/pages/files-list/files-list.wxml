@@ -1,0 +1,19 @@
+<!--pages/personal/personal.wxml-->
+<view style="position: fixed;width: 100%;left: 0;top: 0;z-index: 9999;">
+    <navBar titleText="{{lang[title]}}" showBack="{{true}}"></navBar>
+</view>
+<files-component id="files" scrollViewTopHeight="{{scrollViewTopHeight}}" sourceID="{{sourceID}}" catalogue="{{catalogue}}" showCatalogue="{{true}}" showCate="{{false}}" showSwitch="{{true}}" showRecyle="{{showRecyle}}" bind:showMoreRecyle="showMoreRecyle" wx:if="{{catalogue[0].type!='news'}}"></files-component>
+<view style="padding-top: {{44+statusBarHeight}}px;">
+    <van-empty description="暂无资讯" wx:if="{{catalogue[0].type=='news'}}"/>
+</view>
+<van-popup
+  show="{{ morelListShow }}"
+  position="bottom"
+  bind:close="showMoreRecyle"
+>
+    <view wx:for="{{showList}}" bindtap="onSelect" style="padding:20rpx;display: flex;justify-content: flex-start;color: #333;" data-index="{{index}}" bindtap="choseType">
+        <image src="{{item.image}}" class="icon"></image>
+        <view style="margin:0 20rpx;">{{item.name}}</view>
+    </view> 
+</van-popup>
+<canvas-watermark></canvas-watermark>

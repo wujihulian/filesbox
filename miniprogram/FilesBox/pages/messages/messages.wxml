@@ -1,0 +1,24 @@
+<!--pages/messages/messages.wxml-->
+<navBar titleText="{{lang['消息']}}" showBack="{{true}}"></navBar>
+<scroll-view 
+    scroll-anchoring="{{true}}"
+    scroll-y 
+    refresher-triggered="{{isPullDownRefresh}}" 
+    refresher-enabled
+    bindrefresherrefresh="onPullDownRefresh" 
+    bindscrolltolower="onReachBottom" 
+    style="height:{{scrollHeight}}px;"
+    overflow-anchor>
+    <view style="padding:30rpx;" wx:if="{{messageList}}">
+        <view class="piece" wx:for="{{messageList}}" style="{{item.isRead?'opacity:0.6':''}}" data-id="{{item.id}}" bindtap="getNoticeInfo">
+            <image src="/images/icons/notice_icon.png" style="width: 80rpx;height: 80rpx;"></image>
+            <view class="content">
+                <view class="text-cut-1 margin-bottom-xs" style="font-size: 16px;font-weight: bold;">{{item.title}}</view>
+                <view style="color: #999;">
+                    <text style="margin-right: 20rpx;">{{item.sendTime}}</text>
+                </view>
+            </view>    
+        </view>
+    </view>
+<van-empty description="暂无内容" wx:else></van-empty>
+</scroll-view>

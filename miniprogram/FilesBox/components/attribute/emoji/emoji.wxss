@@ -1,0 +1,11 @@
+/* pages/chat/emoji/emoji.wxss */
+.list{display: flex;justify-content: flex-start;align-items: flex-start;flex-wrap: wrap;}
+.item{width: 107.14rpx;height: 107.14rpx;display: flex;justify-content: center;align-items: center;flex-shrink: 0;}
+.item image{width: 70rpx;height: 70rpx;}
+.emoji,.swiper{width: 100%;height: 321.42rpx;}
+.emoji{position: relative;}
+.delete-icon{
+  position: absolute;bottom: 0;right: 0;
+  width: 107.14rpx;height: 107.14rpx;background-position: center center;background-size: 70rpx 70rpx;background-repeat: no-repeat;
+  background-image: url("data:image/svg+xml,%3Csvg t='1623839560826' class='icon' viewBox='0 0 1024 1024' version='1.1' xmlns='http://www.w3.org/2000/svg' p-id='3447' width='200' height='200'%3E%3Cpath d='M896 160H332.8c-16 0-32 6.4-44.8 19.2L28.8 444.8C9.6 460.8 0 486.4 0 512s9.6 51.2 28.8 67.2L288 844.8c12.8 12.8 28.8 19.2 44.8 19.2H896c70.4 0 128-57.6 128-128V288c0-70.4-57.6-128-128-128z m64 576c0 35.2-28.8 64-64 64H332.8L73.6 534.4C67.2 528 64 521.6 64 512s3.2-16 9.6-22.4L332.8 224H896c35.2 0 64 28.8 64 64v448zM758.4 361.6c-12.8-12.8-32-12.8-44.8 0L608 467.2 502.4 361.6c-12.8-12.8-32-12.8-44.8 0-12.8 12.8-12.8 32 0 44.8L563.2 512 457.6 617.6c-12.8 12.8-12.8 32 0 44.8 12.8 12.8 32 12.8 44.8 0L608 556.8l105.6 105.6c12.8 12.8 32 12.8 44.8 0 12.8-12.8 12.8-32 0-44.8L652.8 512l105.6-105.6c12.8-12.8 12.8-32 0-44.8z' p-id='3448' fill='%238a8a8a'%3E%3C/path%3E%3C/svg%3E");
+}

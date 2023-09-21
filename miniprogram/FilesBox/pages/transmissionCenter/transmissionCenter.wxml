@@ -1,0 +1,46 @@
+<!--pages/messages/messages.wxml-->
+<navBar titleText="{{lang['传输中心']}}" showBack="{{true}}"></navBar>
+<view style="padding: 0 30rpx;">
+    <view class="margin-top-sm">
+        <view style="font-weight: bold;font-size: 15px;">下载列表</view>
+        <view>
+            <view class="piece flex justify-between">
+                <image src="{{imageUrl.headBg}}" style="width: 160rpx;height: 160rpx;"></image>
+                <view class="piece-right">
+                    <view>星球大战：异等小队.Mkv</view>
+                    <view class="flex justify-between" style="align-items: flex-end;">
+                        <view style="width:60%;">
+                            <view style="color: #999;margin-bottom: 10rpx;">100M/889M</view>
+                            <progress style="width:100%;"></progress>
+                        </view>
+                        <view>
+                            <text class="margin-right-sm" style="color: #4D92EF;">开始</text>
+                            <text style="color: #999;">删除</text>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view class="margin-top-sm">
+        <view style="font-weight: bold;font-size: 15px;">上传列表</view>
+        <view>
+            <view class="piece flex justify-between">
+                <image src="{{imageUrl.headBg}}" style="width: 160rpx;height: 160rpx;"></image>
+                <view class="piece-right">
+                    <view>星球大战：异等小队.Mkv</view>
+                    <view class="flex justify-between" style="align-items: flex-end;">
+                        <view style="width:60%;">
+                            <view style="color: #999;margin-bottom: 10rpx;">100M/889M</view>
+                            <progress style="width:100%;"></progress>
+                        </view>
+                        <view>
+                            <text class="margin-right-sm" style="color: #4F91FF;">开始</text>
+                            <text style="color: #999;">删除</text>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>

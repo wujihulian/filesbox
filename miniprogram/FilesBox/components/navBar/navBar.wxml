@@ -1,0 +1,4 @@
+<view class="nav-bar" style="padding-top:{{statusBarHeight+10}}px ;height: {{44+statusBarHeight}}px;background-image:url({{imageUrl.headBg}})">
+    <van-icon name="arrow-left" custom-style="position:absolute;left:30rpx;top:{{statusBarHeight+10}}px" size="22" bindtap="goBack" wx:if="{{showBack}}"/>
+    {{titleText}}
+</view>

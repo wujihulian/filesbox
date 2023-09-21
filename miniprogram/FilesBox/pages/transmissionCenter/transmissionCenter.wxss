@@ -1,0 +1,5 @@
+/* pages/messages/messages.wxss */
+page{background: #fff;}
+.piece{width: 100%;padding:30rpx 0;border-bottom: 1px solid #ececec;color: #333;}
+.content{font-size: 16px;font-weight: bold;}
+.piece-right{width: calc((100% - 160rpx));padding-left: 20rpx;display: flex;flex-direction: column;justify-content:space-between;}

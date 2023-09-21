@@ -1,0 +1,28 @@
+<!--pages/setting/setting.wxml-->
+<wxs module="util">
+  var toPercent = function (val) {
+    var str = (val*100).toFixed(2);
+    str += "%";
+    return str;
+  }
+  module.exports.toPercent = toPercent;
+</wxs>
+<view style="padding:30rpx;">
+  <progress style="width:100%;" bgColor="#F6F6F6" height="40" showColor="-webkit-linear-gradient(#7459E3,#AC92F3)" percent="{{util.toPercent(progress)}}"></progress>
+  <view class="flex margin-top-sm" style="justify-content:flex-end">
+    <view><text style="color: #333;">{{sizeUse}}</text><text style="color: #B1B1B0;">/{{account.sizeMax>0?account.sizeMax+'GB':'不限制'}}</text></view>
+  </view>
+</view>
+<view class="left">
+	<cover-view class="white"></cover-view>
+	<canvas style="width: 300px; height: 300px;" canvas-id="Canvas"></canvas>
+</view>
+<view class="flex justify-between" style="flex-wrap: wrap;">
+  <view wx:for="{{messarr}}" style="width:45%;padding:30rpx" class="flex justify-between align-center">
+    <view class="flex flex-start align-center">
+      <view style="border:6rpx solid {{item.color}};width:30rpx;height:30rpx;border-radius: 50%;margin-right: 20rpx;"></view>
+      <view>{{item.text}}</view>
+    </view>
+    <view>{{item.percent}}%</view>
+  </view>
+</view>

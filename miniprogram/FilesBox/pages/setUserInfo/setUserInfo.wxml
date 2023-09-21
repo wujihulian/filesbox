@@ -1,0 +1,50 @@
+<!--pages/setting/setting.wxml-->
+<van-cell-group wx:if="{{type!='password'}}">
+  <van-field
+    value="{{ value }}"
+    placeholder="请输入{{title}}"
+    border="{{ false }}"
+    auto-focus="{{ true }}"
+    maxlength = "{{type=='nickname'?'30':'-1'}}"
+    show-word-limit = "{{type=='nickname'?true:false}}"
+    focus = "{{true}}"
+    clearable
+    bind:change="onChange"
+  />
+</van-cell-group>
+<van-cell-group wx:else>
+  <van-field
+    value="{{ oldPassword}}"
+    placeholder="请输入原密码"
+    border="{{ false }}"
+    auto-focus="{{ true }}"
+    focus = "{{true}}"
+    data-type="oldPassword"
+    bind:change="inputPassword"
+    password="{{!oldShow}}" 
+    right-icon="{{oldShow?'eye-o':'closed-eye'}}"
+    bind:click-icon="convertEye"
+  />
+  <van-field
+    value="{{newPassword}}"
+    placeholder="请输入新的密码"
+    border="{{ false }}"
+    data-type="newPassword"
+    bind:change="inputPassword"
+    password="{{!newShow}}" 
+    right-icon="{{newShow?'eye-o':'closed-eye'}}"
+    bind:click-icon="convertEye"
+  />
+  <van-field
+    value="{{againPassword}}"
+    placeholder="请再次输入密码"
+    border="{{ false }}"
+    data-type="againPassword"
+    bind:change="inputPassword"
+    password="{{!againShow}}" 
+    right-icon="{{againShow?'eye-o':'closed-eye'}}"
+    bind:click-icon="convertEye"
+  />
+</van-cell-group>
+<view style="color: #722ed1;padding: 20rpx 30rpx;font-size: 12px;" bindtap="forgetPassword" wx:if="{{type=='password'}}">忘记密码，其他方式验证</view>
+<view class="button-box" style="background: var(--purple);color: #fff;" bindtap="setUserInfo">保存</view>

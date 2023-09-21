@@ -1,0 +1,21 @@
+<!--pages/setting/setting.wxml-->
+<view style="padding: 0 30rpx 30rpx;border-top: 1px solid #ececec;">
+    <view class="flex justify-between" style="border-bottom: 1px solid #ececec;padding:30rpx 0" bindtap="goToPage" data-index="0">
+        <view>登录日志</view>
+        <view>
+            <van-icon name="arrow" />
+        </view>
+    </view>
+    <view class="flex justify-between" style="border-bottom: 1px solid #ececec;padding:30rpx 0" bindtap="goToPage" data-url="https://test.1x.cn/pages/schoolRegister/fbxAppPolicy.html" data-index="1">
+        <view>登录设备</view>
+        <view>
+            <van-icon name="arrow" />
+        </view>
+    </view>
+    <view class="flex justify-between" style="border-bottom: 1px solid #ececec;padding:30rpx 0" bindtap="goToPage" data-url="https://test.1x.cn/pages/schoolRegister/fbxAppProtocol.html" data-index="2">
+        <view>文件传输</view>
+        <view>
+            <van-icon name="arrow" />
+        </view>
+    </view>
+</view>

@@ -1,6 +1,0 @@
-framework module TYPagerController {
-  umbrella header "TYPagerController-umbrella.h"
-
-  export *
-  module * { export * }
-}

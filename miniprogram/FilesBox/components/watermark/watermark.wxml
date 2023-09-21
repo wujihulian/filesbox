@@ -1,0 +1,13 @@
+<wxs module="util">
+  var fixedNum = function (val) {
+    var str = (parseInt(val)/100).toFixed(2);
+    return str;
+  }
+  module.exports.fixedNum = fixedNum;
+</wxs>
+<view class="water_top" style="pointer-events: none;">
+    <view class="water-text" wx:for="{{12}}" style="margin-bottom: {{markConfig.wmMargin?markConfig.wmMargin:'10rpx'}};">
+        <view style="transform:rotate(-{{markConfig.wmRotate}}deg); color:{{markConfig.wmColor}}; font-family:{{markConfig.wmFont}}; font-size:{{markConfig.wmSize+'px'}}; opacity:{{util.fixedNum(markConfig.wmTransparency)}};">{{markConfig.wmTitle}}</view>
+        <view style="transform:rotate(-{{markConfig.wmRotate}}deg); color:{{markConfig.wmSubColor}}; font-family:{{markConfig.wmSubFont}}; font-size:{{markConfig.wmSubSize+'px'}}; opacity:{{util.fixedNum(markConfig.wmTransparency)}};" wx:if="{{markConfig.wmSubTitle}}">{{markConfig.wmSubTitle}}</view>
+    </view>
+</view>

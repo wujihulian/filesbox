@@ -1,0 +1,15 @@
+<!--pages/chat/emoji/emoji.wxml-->
+<view class="emoji">
+  <swiper class="swiper">
+    <block wx:for="{{3}}">
+      <swiper-item>
+        <view class="list">
+          <view class="item" data-index="{{index}}" data-indexs="{{indexs}}" bindtap="choseEmoji" wx:for-item="items" wx:for-index="indexs" wx:for="{{20}}">
+            <image src="{{STATIC_DOMAIN}}/appstatic/images/emoji/new_{{index*20+indexs}}.png"></image>
+          </view>
+        </view>
+      </swiper-item>
+    </block>
+  </swiper>
+  <view class="delete-icon" bindtap="deleteEmoji"></view>
+</view>
