@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.svnlan.user.dao.GroupSourceDao" >
+
+    <insert id="insert" >
+        insert into group_source (groupID, sourceID, createTime)
+        values
+            (
+            #{groupID}, #{sourceID}, unix_timestamp(now())
+            )
+    </insert>
+    <select id="getGroupSourceList" resultType="com.svnlan.user.domain.GroupSource">
+        select groupID, sourceID from `group_source`
+        where `sourceID` in
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="checkIsGroup" resultType="java.lang.Long">
+        select groupID from `group_source`
+        where `sourceID` in
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+        limit 1
+    </select>
+    <select id="getGroupSourceIDs" resultType="java.lang.Long">
+        SELECT gs.sourceID
+        from group_source gs
+        join io_source io ON gs.sourceID = io.sourceID
+        where io.parentID = #{sourceID}
+    </select>
+
+    <select id="getGroupAuthBySourceList" resultType="com.svnlan.user.domain.GroupSource">
+        select gs.groupID, gs.sourceID
+        from `group_source` gs
+        left
+        where gs.`sourceID` in
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </select>
+</mapper>

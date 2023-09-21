@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.svnlan.home.dao.ShareDao" >
+
+    <insert id="insert"  useGeneratedKeys="true" keyProperty="shareID" >
+        insert into share (title, shareHash, `userID`, `sourceID`, `sourcePath` , url, isLink, isShareTo, password, timeTo, numView, numDownload, options
+        , createTime, modifyTime )
+        values (#{title}, #{shareHash}, #{userID}, #{sourceID}, #{sourcePath}, #{url}, #{isLink}, #{isShareTo}, #{password}, #{timeTo}, #{numView}, #{numDownload}
+        , #{options} , unix_timestamp(now()), unix_timestamp(now()))
+    </insert>
+    <update id="update" >
+        update `share`
+        set `title` = #{title},
+        `password` = #{password},
+        `options` = #{options},
+        `timeTo` = #{timeTo},
+        `status` = #{status},
+        modifyTime = unix_timestamp(now())
+        where shareID = #{shareID}
+    </update>
+    <select id="getShare" resultType="com.svnlan.home.vo.ShareVo">
+        select s.shareID, s.title, s.shareHash, s.`userID`, s.`sourceID`, s.`sourcePath` , s.url, s.isLink, s.isShareTo, s.password, s.timeTo, s.numView, s.numDownload, s.options
+        , s.createTime
+        from `share` s
+        where s.userID = #{userID} and s.sourceID = #{sourceID} and s.isShareTo = #{isShareTo} and s.isLink = #{isLink}
+        limit 1
+    </select>
+    <select id="getShareById" resultType="com.svnlan.home.vo.ShareVo">
+        select s.shareID, s.title, s.shareHash, s.`userID`, s.`sourceID`, s.`sourcePath` , s.url, s.isLink, s.isShareTo, s.password, s.timeTo, s.numView, s.numDownload, s.options
+        , s.createTime
+        from `share` s
+        where shareID = #{shareID}
+    </select>
+    <select id="getShareList" resultType="com.svnlan.home.vo.HomeExplorerVO">
+
+       select io.sourceID,io.sourceHash,io.targetType,io.targetID,io.createUser,io.modifyUser,io.isFolder,io.`name`,io.fileType,io.parentID,
+        io.parentLevel,io.fileID,io.isDelete,io.`size`,f.path,fm.`value`, f.hashMd5, io.description
+        , s.title, s.`sourcePath`, s.createTime, s.timeTo, s.numView, s.numDownload, s.shareHash, s.shareID, f.isExistFile, io.canShare
+        from `share` s
+        inner join io_source io  on io.sourceID = s.sourceID
+        left join `io_file` f on io.fileID = f.fileID
+        left join `io_file_meta` fm on io.fileID = fm.fileID and fm.`key` = 'fileInfoMore'
+        where s.userID = #{userID}
+        and s.isLink = #{isLink}
+        and s.isShareTo = #{isShareTo}
+        and io.isDelete = 0
+        <if test="keyword != null">
+            and ( io.name like concat('%', #{keyword}, '%') OR io.`name_pinyin` LIKE CONCAT('%',#{keyword}, '%')
+            OR io.`name_pinyin_simple` LIKE CONCAT('%',#{keyword}, '%')
+            )
+        </if>
+        order by ${sortField} ${sortType}
+    </select>
+    <delete id="delete">
+        delete from share where shareID = #{shareID}
+    </delete>
+    <delete id="deleteList">
+        delete from share where shareID in
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </delete>
+    <select id="checkUserIsShare" resultType="java.lang.Long">
+        select sourceID
+        from `share`
+        where `userID` = #{userID} and isLink = 1 and status = 1
+    </select>
+    <update id="updateNumView" >
+        update `share` set `numView` = numView + 1 where shareID = #{shareID}
+    </update>
+    <update id="updateNumDownload" >
+        update `share` set `numDownload` = numDownload + 1 where shareID = #{shareID}
+    </update>
+    <update id="updateStatus">
+        update `share` set status = #{operateType}
+        WHERE shareID IN
+        <foreach collection="ids" item="_id" open="(" separator="," close=")">
+            #{_id}
+        </foreach>
+    </update>
+    <select id="getShareByCode" resultType="com.svnlan.home.vo.ShareVo">
+        select s.shareID, s.title, s.shareHash, s.`userID`, s.`sourceID`, s.`sourcePath` , s.url, s.isLink, s.isShareTo, s.password, s.timeTo, s.numView, s.numDownload, s.options
+        , s.createTime, u.avatar, IFNULL(u.nickname,u.`name`) nickname, s.status,u.`name` userName
+        from `share` s
+        LEFT JOIN `user` u ON s.userID = u.userID
+        where s.shareHash = #{shareCode} AND s.status = 1
+    </select>
+
+    <select id="getLinkShareInfo" resultType="com.svnlan.home.vo.HomeExplorerVO">
+       select io.sourceID,io.sourceHash,io.targetType,io.targetID,io.createUser,io.modifyUser,io.isFolder,io.`name`,io.fileType,io.parentID,
+        io.parentLevel,io.fileID,io.isDelete,io.`size`,f.path,fm.`value`, f.hashMd5, io.description, io.createTime, f.isExistFile
+        from io_source io
+        left join `io_file` f on io.fileID = f.fileID
+        left join `io_file_meta` fm on io.fileID = fm.fileID and fm.`key` = 'fileInfoMore'
+        where io.sourceID = #{sourceID}
+        and io.isDelete = 0
+    </select>
+
+    <select id="getLinkShareList" resultType="com.svnlan.home.vo.HomeExplorerVO">
+       select io.sourceID,io.sourceHash,io.targetType,io.targetID,io.createUser,io.modifyUser,io.isFolder,io.`name`,io.fileType,io.parentID,
+        io.parentLevel,io.fileID,io.isDelete,io.`size`,f.path,fm.`value`, f.hashMd5, io.description, f.isExistFile
+        from io_source io
+        left join `io_file` f on io.fileID = f.fileID
+        left join `io_file_meta` fm on io.fileID = fm.fileID and fm.`key` = 'fileInfoMore'
+        where io.parentID = #{parentID}
+        <if test="isFolder != null"> and io.isFolder = #{isFolder}</if>
+        and io.isDelete = 0
+        order by ${sortField} ${sortType}
+    </select>
+
+    <select id="getShareToMeList" resultType="com.svnlan.home.vo.HomeExplorerVO">
+       select sto.shareID, sto.authID, sto.targetID, sto.targetType, io.sourceID,io.sourceHash,io.createUser,io.modifyUser,io.isFolder,io.`name`,io.fileType,io.parentID,
+        io.parentLevel,io.fileID,io.isDelete,io.`size`,f.path,fm.`value`, f.hashMd5, io.description
+        , s.title, s.`sourcePath`, s.createTime, s.timeTo, s.numView, s.numDownload, r.role_name authName, r.auth, f.isExistFile
+        from `share_to` sto
+        inner join `share` s on s.shareID = sto.shareID
+        inner join io_source io  on io.sourceID = s.sourceID
+        left join `io_file` f on io.fileID = f.fileID
+        left join `io_file_meta` fm on io.fileID = fm.fileID and fm.`key` = 'fileInfoMore'
+        left JOIN `role` r ON sto.authID = r.roleID and role_type = '2'
+        where sto.targetID = #{userID}
+        and sto.targetType = 0
+        and s.isLink = 0
+        and s.isShareTo = 1
+        and io.isDelete = 0
+
+        <if test="list != null">
+            union ALL
+
+            select sto.shareID, sto.authID, sto.targetID, sto.targetType, io.sourceID,io.sourceHash,io.createUser,io.modifyUser,io.isFolder,io.`name`,io.fileType,io.parentID,
+            io.parentLevel,io.fileID,io.isDelete,io.`size`,f.path,fm.`value`, f.hashMd5, io.description
+            , s.title, s.`sourcePath`, s.createTime, s.timeTo, s.numView, s.numDownload, r.role_name authName, r.auth, f.isExistFile
+            from `share_to` sto
+            inner join `share` s on s.shareID = sto.shareID
+            inner join io_source io  on io.sourceID = s.sourceID
+            left join `io_file` f on io.fileID = f.fileID
+            left join `io_file_meta` fm on io.fileID = fm.fileID and fm.`key` = 'fileInfoMore'
+            left JOIN `role` r ON sto.authID = r.roleID and role_type = '2'
+            where sto.targetID in
+            <foreach collection="list" item="item" open="(" close=")" separator=",">
+                #{item}
+            </foreach>
+            and sto.targetType = 1
+            and s.isLink = 0
+            and s.isShareTo = 1
+            and io.isDelete = 0
+        </if>
+        order by ${sortField} ${sortType}
+    </select>
+
+    <select id="getNotGroupUserListByParam" resultType="com.svnlan.user.vo.UserVo">
+        select DISTINCT u.userID, u.`name`, u.nickname, u.lastLogin, u.phone, u.email, u.`status`, u.sex, u.avatar, u.roleID
+        , u.sizeMax, u.sizeUse, u.is_system isSystem
+        from `user` u
+        <if test="keyword != null and keyword !='' ">
+            left join `user_meta` um on u.userID = um.userID and um.`key` in ('namePinyin','namePinyinSimple')
+        </if>
+        where u.status = 1
+        <if test="keyword != null and keyword !='' ">
+            and (u.name LIKE CONCAT(#{keyword}, '%') OR u.nickname LIKE CONCAT(#{keyword}, '%') OR u.phone LIKE CONCAT(#{keyword}, '%')
+            OR u.email LIKE CONCAT(#{keyword}, '%') OR um.`value` LIKE CONCAT('%',#{keyword}, '%')
+            )
+        </if>
+        <if test="keyword == null or keyword =='' ">
+          and not exists (select userID from user_group ug where u.userID = ug.userID )
+        </if>
+    </select>
+
+    <select id="getSelectUserListByParam" resultType="com.svnlan.user.vo.UserVo">
+        select DISTINCT u.userID, u.`name`, u.nickname, u.lastLogin, u.phone, u.email, u.`status`, u.sex, u.avatar, u.roleID
+        , u.sizeMax, u.sizeUse, u.is_system isSystem
+        from `user` u
+        <if test="groupID != null ">
+            left join `user_group` ug on u.userID = ug.userID
+        </if>
+        <if test="keyword != null and keyword !='' ">
+            left join `user_meta` um on u.userID = um.userID and um.`key` in ('namePinyin','namePinyinSimple')
+        </if>
+        where u.status = 1
+        <if test="groupID != null ">
+            and ug.groupID = #{groupID}
+        </if>
+        <if test="keyword != null and keyword !='' ">
+            and (u.name LIKE CONCAT(#{keyword}, '%') OR u.nickname LIKE CONCAT(#{keyword}, '%') OR u.phone LIKE CONCAT(#{keyword}, '%')
+            OR u.email LIKE CONCAT(#{keyword}, '%') OR um.`value` LIKE CONCAT('%',#{keyword}, '%')
+            )
+        </if>
+        <if test="groupID == null ">
+            and not exists (select userID from user_group ug where u.userID = ug.userID )
+        </if>
+    </select>
+    <select id="getShareByIdList" resultType="com.svnlan.home.vo.ShareVo">
+        select s.shareID, s.title, s.shareHash, s.`userID`, s.`sourceID`, s.`sourcePath` , s.url, s.isLink, s.isShareTo, s.password, s.timeTo, s.numView, s.numDownload, s.options
+        , s.createTime
+        from `share` s
+        where shareID in
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </select>
+</mapper>

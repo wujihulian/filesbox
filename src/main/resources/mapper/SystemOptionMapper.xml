@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.svnlan.user.dao.SystemOptionDao" >
+
+    <select id="getSystemConfig" resultType="com.svnlan.user.vo.OptionVo">
+        select `key`, `value`
+        from `system_option`
+        where `type` = ''
+    </select>
+    <select id="getSystemOtherConfig" resultType="com.svnlan.user.vo.OptionVo">
+        select id, `key`, `value`
+        from `system_option`
+        where `type` = #{type}
+    </select>
+
+    <select id="getSystemConfigByKey" resultType="java.lang.String">
+        select `value`
+        from `system_option`
+        where `type` = '' and `key` = #{key}
+        limit 1
+    </select>
+    <select id="getSystemOtherConfigByKey" resultType="com.svnlan.user.vo.OptionVo">
+        select id, `key`, `value`
+        from `system_option`
+        where `type` = #{type} and `key` = #{key}
+        limit 1
+    </select>
+
+    <update id="updateSystemOption" >
+        update `system_option`
+        <trim prefix="set" suffixOverrides=",">
+            <trim prefix=" `value` = case " suffix=" end, ">
+                <foreach collection="list" item="item">
+                    <if test="item.value != null">
+                        when `key` = #{item.key} then #{item.value}
+                    </if>
+                </foreach>
+            </trim>
+        </trim>
+        where `type` = #{type}
+        and `key` in
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            #{item.key}
+        </foreach>
+    </update>
+
+    <select id="getSystemConfigByKeyList" resultType="com.svnlan.user.vo.OptionVo">
+        select `key`, `value`
+        from `system_option`
+        where `type` = '' and `key` in
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="getSystemOtherConfigById" resultType="com.svnlan.user.vo.OptionVo">
+        select id, `key`, `value`
+        from `system_option`
+        where `id` = #{id}
+    </select>
+    <update id="updateSystemOptionById" >
+        update `system_option`
+        set `value` = #{value}
+        where `id` = #{id}
+    </update>
+    <insert id="batchInsert" >
+        INSERT INTO `system_option` (`type`, `key`, `value`, `createTime`, `modifyTime`)
+        values
+        <foreach collection="list" index="index" item="item" open="" separator="," close="">
+            (
+            '', #{item.key}, #{item.value}, unix_timestamp(now()), unix_timestamp(now())
+            )
+        </foreach>
+    </insert>
+    <select id="checkSystemConfigByKeyList" resultType="java.lang.String">
+        select `key`
+        from `system_option`
+        where `type` = '' and `key` in
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </select>
+</mapper>

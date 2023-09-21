@@ -1,0 +1,6 @@
+framework module ZXSDK {
+  umbrella header "ZXSDK.h"
+
+  export *
+  module * { export * }
+}

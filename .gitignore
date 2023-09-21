@@ -1,0 +1,15 @@
+# Default ignored files
+/target/
+/log/
+/.idea/
+/*.iml
+/.fastRequest/
+/staticServer
+
+fastRequest/
+.fastRequest/
+/file_data/
+/old_webdav/
+/docker/
+
+

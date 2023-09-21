@@ -1,0 +1,942 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "31E48EFF-C81E-4E7C-A414-9726779D0D56"
+   type = "0"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.ExceptionBreakpoint">
+         <BreakpointContent
+            uuid = "975F1A57-96ED-4EB2-A377-CB803FCBA428"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            breakpointStackSelectionBehavior = "1"
+            scope = "1"
+            stopOnStyle = "0">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "70AFE732-1D2A-4AAD-914D-A0C45BF3D185"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FilesBox/Home/ViewController/FileFolder/View/FBFileNodeCell.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "227"
+            endingLineNumber = "227"
+            landmarkName = "-titleLabel"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "6C8731A1-1DB9-4BD9-AF84-4C6A3678C4E8"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FilesBox/Home/ViewController/FileFolder/View/FBNavgationOperateView.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "97"
+            endingLineNumber = "97"
+            landmarkName = "-setView"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A2C3B18A-D2D4-4FAE-98D4-FA1842528C40"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FilesBox/Home/ViewController/FileFolder/View/FBShareOpenCell.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "23"
+            endingLineNumber = "23"
+            landmarkName = "-initWithStyle:reuseIdentifier:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "149C097A-CA23-4041-985E-1DBD6802ACCE"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FilesBox/BaseClass/Tool/ZFPlayer/Classes/ControlView/OLDZFPortraitControlView.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "175"
+            endingLineNumber = "175"
+            landmarkName = "-backBtnClickAction:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F9FB22AE-82B5-4EA2-9808-7E14C23BC7DA"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FilesBox/Home/ViewController/FileFolder/FBFileVersionManagentVC.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "846"
+            endingLineNumber = "846"
+            landmarkName = "-getCurrentInfo"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "F9FB22AE-82B5-4EA2-9808-7E14C23BC7DA - b8fbdf65e81447"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[FBFileVersionManagentVC getCurrentInfo]"
+                  moduleName = "FilesBox"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/wujihulian/filesbox_ios/FilesBox/FilesBox/Home/ViewController/FileFolder/FBFileVersionManagentVC.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "846"
+                  endingLineNumber = "846"
+                  offsetFromSymbolStart = "84">
+               </Location>
+               <Location
+                  uuid = "F9FB22AE-82B5-4EA2-9808-7E14C23BC7DA - b8fbdf65e81447"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[FBFileVersionManagentVC getCurrentInfo]"
+                  moduleName = "FilesBox"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/wujihulian/filesbox_ios/FilesBox/FilesBox/Home/ViewController/FileFolder/FBFileVersionManagentVC.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "846"
+                  endingLineNumber = "846"
+                  offsetFromSymbolStart = "344">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "192C02D6-9B7E-47E1-B9A8-43DBE8F9788E"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FilesBox/Home/ViewController/FileFolder/View/FBOperationView.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "235"
+            endingLineNumber = "235"
+            landmarkName = "-setDataArray:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E6536B55-ACB0-4BDE-99EA-401BB0C09344"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FilesBox/Home/ViewController/FileFolder/View/WatermarkWindow.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "17"
+            endingLineNumber = "17"
+            landmarkName = "-initWithFrame:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "923F1974-E626-4D97-85CF-0EA2FA9F1D96"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FilesBox/Home/ViewController/FileFolder/FBHomeViewController.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "3712"
+            endingLineNumber = "3712"
+            landmarkName = "-hiddenView"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "923F1974-E626-4D97-85CF-0EA2FA9F1D96 - 36208edcd18299f2"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__34-[FBHomeViewController hiddenView]_block_invoke_2"
+                  moduleName = "FilesBox"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/wujihulian/filesbox_ios/FilesBox/FilesBox/Home/ViewController/FileFolder/FBHomeViewController.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "2339"
+                  endingLineNumber = "2339"
+                  offsetFromSymbolStart = "884">
+               </Location>
+               <Location
+                  uuid = "923F1974-E626-4D97-85CF-0EA2FA9F1D96 - 36208edcd1a299d2"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__34-[FBHomeViewController hiddenView]_block_invoke_3"
+                  moduleName = "FilesBox"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/wujihulian/filesbox_ios/FilesBox/FilesBox/Home/ViewController/FileFolder/FBHomeViewController.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "2340"
+                  endingLineNumber = "2340"
+                  offsetFromSymbolStart = "44">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "FB57D4CB-AAAE-4C9C-850E-2A889C238F81"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FilesBox/BaseClass/Tool/VULUIToolkit.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1182"
+            endingLineNumber = "1182"
+            landmarkName = "changeToken()"
+            landmarkType = "9">
+            <Locations>
+               <Location
+                  uuid = "FB57D4CB-AAAE-4C9C-850E-2A889C238F81 - 873614ca748c5f28"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__changeToken_block_invoke"
+                  moduleName = "FilesBox"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/wujihulian/filesbox_ios/FilesBox/FilesBox/BaseClass/Tool/VULUIToolkit.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1182"
+                  endingLineNumber = "1182"
+                  offsetFromSymbolStart = "1212">
+               </Location>
+               <Location
+                  uuid = "FB57D4CB-AAAE-4C9C-850E-2A889C238F81 - 873614ca748c5f28"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__changeToken_block_invoke"
+                  moduleName = "FilesBox"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/wujihulian/filesbox_ios/FilesBox/FilesBox/BaseClass/Tool/VULUIToolkit.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1182"
+                  endingLineNumber = "1182"
+                  offsetFromSymbolStart = "788">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "37FC0E61-BC38-4C0E-A0F1-C8F10DC8A1D8"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FilesBox/Home/ViewController/FileFolder/View/FBWatermarkView.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "66"
+            endingLineNumber = "66"
+            landmarkName = "-addWaterMarkView"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4CAAA98A-9992-4F89-BF8A-3EDB4A76DC7F"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FilesBox/Home/ViewController/FileFolder/View/FBDiscussCell.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "144"
+            endingLineNumber = "144"
+            landmarkName = "-setModel:"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "4CAAA98A-9992-4F89-BF8A-3EDB4A76DC7F - 61deb91a0d78e0bf"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[FBDiscussCell setModel:]"
+                  moduleName = "FilesBox"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/wujihulian/filesbox_ios/FilesBox/FilesBox/Home/ViewController/FileFolder/View/FBDiscussCell.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "144"
+                  endingLineNumber = "144"
+                  offsetFromSymbolStart = "8312">
+               </Location>
+               <Location
+                  uuid = "4CAAA98A-9992-4F89-BF8A-3EDB4A76DC7F - 61deb91a0d78e0bf"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[FBDiscussCell setModel:]"
+                  moduleName = "FilesBox"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/wujihulian/filesbox_ios/FilesBox/FilesBox/Home/ViewController/FileFolder/View/FBDiscussCell.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "144"
+                  endingLineNumber = "144"
+                  offsetFromSymbolStart = "8608">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "06239BF1-DD70-43E6-8C2D-CE93BDBC5FA8"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FilesBox/Home/ViewController/FileFolder/Model/ChunkUploader.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "614"
+            endingLineNumber = "614"
+            landmarkName = "-backupFile"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "06239BF1-DD70-43E6-8C2D-CE93BDBC5FA8 - f4226bc6289af8c8"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[ChunkUploader backupFile]"
+                  moduleName = "FilesBox"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/wujihulian/filesbox_ios/FilesBox/FilesBox/Home/ViewController/FileFolder/Model/ChunkUploader.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "598"
+                  endingLineNumber = "598"
+                  offsetFromSymbolStart = "1564">
+               </Location>
+               <Location
+                  uuid = "06239BF1-DD70-43E6-8C2D-CE93BDBC5FA8 - 65ad4ef0cec2e2a6"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__27-[ChunkUploader backupFile]_block_invoke_2"
+                  moduleName = "FilesBox"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/wujihulian/filesbox_ios/FilesBox/FilesBox/Home/ViewController/FileFolder/Model/ChunkUploader.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "600"
+                  endingLineNumber = "600"
+                  offsetFromSymbolStart = "72">
+               </Location>
+               <Location
+                  uuid = "06239BF1-DD70-43E6-8C2D-CE93BDBC5FA8 - d231a885670e0e28"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__27-[ChunkUploader backupFile]_block_invoke.377"
+                  moduleName = "FilesBox"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/wujihulian/filesbox_ios/FilesBox/FilesBox/Home/ViewController/FileFolder/Model/ChunkUploader.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "598"
+                  endingLineNumber = "598"
+                  offsetFromSymbolStart = "396">
+               </Location>
+               <Location
+                  uuid = "06239BF1-DD70-43E6-8C2D-CE93BDBC5FA8 - d231a885660a0d24"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__27-[ChunkUploader backupFile]_block_invoke.382"
+                  moduleName = "FilesBox"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/wujihulian/filesbox_ios/FilesBox/FilesBox/Home/ViewController/FileFolder/Model/ChunkUploader.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "598"
+                  endingLineNumber = "598"
+                  offsetFromSymbolStart = "396">
+               </Location>
+               <Location
+                  uuid = "06239BF1-DD70-43E6-8C2D-CE93BDBC5FA8 - d231a8866c070930"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__27-[ChunkUploader backupFile]_block_invoke.405"
+                  moduleName = "FilesBox"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/wujihulian/filesbox_ios/FilesBox/FilesBox/Home/ViewController/FileFolder/Model/ChunkUploader.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "614"
+                  endingLineNumber = "614"
+                  offsetFromSymbolStart = "396">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F739AFC2-D348-48EA-BDA4-0B2EDF4BAD85"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FilesBox/Home/ViewController/FileFolder/Model/ChunkUploader.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "662"
+            endingLineNumber = "662"
+            landmarkName = "-startUpload"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "F739AFC2-D348-48EA-BDA4-0B2EDF4BAD85 - ad4170b962103b1a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[ChunkUploader startUpload]"
+                  moduleName = "FilesBox"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/wujihulian/filesbox_ios/FilesBox/FilesBox/Home/ViewController/FileFolder/Model/ChunkUploader.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "646"
+                  endingLineNumber = "646"
+                  offsetFromSymbolStart = "804">
+               </Location>
+               <Location
+                  uuid = "F739AFC2-D348-48EA-BDA4-0B2EDF4BAD85 - ad4170b962103b1a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[ChunkUploader startUpload]"
+                  moduleName = "FilesBox"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/wujihulian/filesbox_ios/FilesBox/FilesBox/Home/ViewController/FileFolder/Model/ChunkUploader.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "646"
+                  endingLineNumber = "646"
+                  offsetFromSymbolStart = "832">
+               </Location>
+               <Location
+                  uuid = "F739AFC2-D348-48EA-BDA4-0B2EDF4BAD85 - cbded083dc114184"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__28-[ChunkUploader startUpload]_block_invoke"
+                  moduleName = "FilesBox"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/wujihulian/filesbox_ios/FilesBox/FilesBox/Home/ViewController/FileFolder/Model/ChunkUploader.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "646"
+                  endingLineNumber = "646"
+                  offsetFromSymbolStart = "152">
+               </Location>
+               <Location
+                  uuid = "F739AFC2-D348-48EA-BDA4-0B2EDF4BAD85 - cbded083dc115fb4"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__28-[ChunkUploader startUpload]_block_invoke"
+                  moduleName = "FilesBox"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/wujihulian/filesbox_ios/FilesBox/FilesBox/Home/ViewController/FileFolder/Model/ChunkUploader.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "662"
+                  endingLineNumber = "662"
+                  offsetFromSymbolStart = "152">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F1713D21-A2C5-4B24-8827-997ED561C719"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FilesBox/Home/ViewController/FileFolder/FBFileAddrituteDetailVC.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "273"
+            endingLineNumber = "273"
+            landmarkName = "FBFileAddrituteDetailVC"
+            landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "3F41BD0A-E6A4-49B6-9F62-C88DCF0C9976"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FilesBox/Home/ViewController/FileFolder/Model/ChunkUploader.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "631"
+            endingLineNumber = "631"
+            landmarkName = "-backupFile"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "3F41BD0A-E6A4-49B6-9F62-C88DCF0C9976 - ad4170b962103f15"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[ChunkUploader startUpload]"
+                  moduleName = "FilesBox"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/wujihulian/filesbox_ios/FilesBox/FilesBox/Home/ViewController/FileFolder/Model/ChunkUploader.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "615"
+                  endingLineNumber = "615"
+                  offsetFromSymbolStart = "112">
+               </Location>
+               <Location
+                  uuid = "3F41BD0A-E6A4-49B6-9F62-C88DCF0C9976 - f4226bc6289afab7"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[ChunkUploader backupFile]"
+                  moduleName = "FilesBox"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/wujihulian/filesbox_ios/FilesBox/FilesBox/Home/ViewController/FileFolder/Model/ChunkUploader.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "615"
+                  endingLineNumber = "615"
+                  offsetFromSymbolStart = "1688">
+               </Location>
+               <Location
+                  uuid = "3F41BD0A-E6A4-49B6-9F62-C88DCF0C9976 - f4226bc6289afc87"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[ChunkUploader backupFile]"
+                  moduleName = "FilesBox"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/wujihulian/filesbox_ios/FilesBox/FilesBox/Home/ViewController/FileFolder/Model/ChunkUploader.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "631"
+                  endingLineNumber = "631"
+                  offsetFromSymbolStart = "1688">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "70719E3B-2430-4710-872E-8ABD76B38D4A"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FilesBox/Home/ViewController/FileFolder/Model/ChunkUploader.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "853"
+            endingLineNumber = "853"
+            landmarkName = "-uploadVideoFileWithPath:filePath:md5:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "64956332-1E36-4BCB-8D99-9D9A084AB0B0"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FilesBox/BaseClass/Tool/DatePickerView/BRPickerStyle.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "117"
+            endingLineNumber = "117"
+            landmarkName = "-cancelBtnTitle"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "9D6A0E36-86A2-4C34-A919-D6CF5915A3A7"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FilesBox/Home/ViewController/FileFolder/View/FBHeaderView.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "135"
+            endingLineNumber = "135"
+            landmarkName = "-initWithFrame:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D1506AE6-9CB1-4E74-BD52-008D03EF5DE3"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FilesBox/Home/ViewController/FileFolder/View/VULFileGridCell.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "165"
+            endingLineNumber = "165"
+            landmarkName = "-setModel:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "EEA97362-3C4A-44FA-BEFB-DC58310E3EBD"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FilesBox/Home/ViewController/FileFolder/FBHomeViewController.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1147"
+            endingLineNumber = "1147"
+            landmarkName = "-clickChangeBtn"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "EE88B38C-292E-4793-9C28-FC0CB72B9218"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FilesBox/Home/ViewController/FileFolder/FBTakePhotoVC.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "723"
+            endingLineNumber = "723"
+            landmarkName = "-reverseGeocodeLocation:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "99BE1FF1-E1BB-4D62-86CF-AD98BD644814"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FilesBox/Home/ViewController/FileFolder/FBHomeViewController.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "2634"
+            endingLineNumber = "2634"
+            landmarkName = "-openFileWithModel:withIndexPath:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "DDD1273C-F0ED-4362-8F7B-A57B354D10E1"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FilesBox/Home/ViewController/FileFolder/Model/ChunkUploader.m"
+            startingColumnNumber = "17"
+            endingColumnNumber = "19"
+            startingLineNumber = "461"
+            endingLineNumber = "477"
+            landmarkName = "-checkFileAtModel:progress:speed:success:failure:"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "DDD1273C-F0ED-4362-8F7B-A57B354D10E1 - 735229ca0a4e986d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__65-[ChunkUploader checkFileAtModel:progress:speed:success:failure:]_block_invoke"
+                  moduleName = "FilesBox"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/wujihulian/filesbox_ios/FilesBox/FilesBox/Home/ViewController/FileFolder/Model/ChunkUploader.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "461"
+                  endingLineNumber = "461"
+                  offsetFromSymbolStart = "572">
+               </Location>
+               <Location
+                  uuid = "DDD1273C-F0ED-4362-8F7B-A57B354D10E1 - 735229ca0a4e986d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__65-[ChunkUploader checkFileAtModel:progress:speed:success:failure:]_block_invoke"
+                  moduleName = "FilesBox"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/wujihulian/filesbox_ios/FilesBox/FilesBox/Home/ViewController/FileFolder/Model/ChunkUploader.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "461"
+                  endingLineNumber = "461"
+                  offsetFromSymbolStart = "356">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E0C29635-B354-477C-BBAA-ED1D609DD651"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FilesBox/AppDelegate.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "191"
+            endingLineNumber = "191"
+            landmarkName = "-application:openURL:options:"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "E0C29635-B354-477C-BBAA-ED1D609DD651 - e0d7b6cb32082085"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[AppDelegate application:openURL:options:]"
+                  moduleName = "FilesBox"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/wujihulian/filesbox_ios/FilesBox/FilesBox/AppDelegate.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "192"
+                  endingLineNumber = "192"
+                  offsetFromSymbolStart = "924">
+               </Location>
+               <Location
+                  uuid = "E0C29635-B354-477C-BBAA-ED1D609DD651 - e0d7b6cb320820a6"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[AppDelegate application:openURL:options:]"
+                  moduleName = "FilesBox"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/wujihulian/filesbox_ios/FilesBox/FilesBox/AppDelegate.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "191"
+                  endingLineNumber = "191"
+                  offsetFromSymbolStart = "952">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D7EEA61A-490E-4F1A-BF14-F08E9961A5DF"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FilesBox/BaseClass/Tool/WXApiManger.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "327"
+            endingLineNumber = "327"
+            landmarkName = "-shareWeiboWithString:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "FF27E0BD-36A1-449E-8559-0303DDAA325E"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FilesBox/Home/ViewController/FileFolder/FBTakePhotoVC.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "704"
+            endingLineNumber = "704"
+            landmarkName = "-rotateImage:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "186F4259-E5F1-400A-890F-4F949EE3F69D"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FilesBox/Home/ViewController/FileFolder/FBHomeViewController.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "404"
+            endingLineNumber = "404"
+            landmarkName = "-viewDidLoad"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "186F4259-E5F1-400A-890F-4F949EE3F69D - e297f7bb07f77710"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__35-[FBHomeViewController viewDidLoad]_block_invoke.59"
+                  moduleName = "FilesBox"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/wujihulian/filesbox_ios/FilesBox/FilesBox/Home/ViewController/FileFolder/FBHomeViewController.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "404"
+                  endingLineNumber = "404"
+                  offsetFromSymbolStart = "3672">
+               </Location>
+               <Location
+                  uuid = "186F4259-E5F1-400A-890F-4F949EE3F69D - e297f7bb07f77710"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__35-[FBHomeViewController viewDidLoad]_block_invoke.59"
+                  moduleName = "FilesBox"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/wujihulian/filesbox_ios/FilesBox/FilesBox/Home/ViewController/FileFolder/FBHomeViewController.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "404"
+                  endingLineNumber = "404"
+                  offsetFromSymbolStart = "3644">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "CA6A3E15-5560-4EA7-AA6A-F470176402D2"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FilesBox/Home/ViewController/FileFolder/View/FBOperationView.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "188"
+            endingLineNumber = "188"
+            landmarkName = "-setDataArray:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E6365DB1-7960-4AE7-81F7-53032FBD86F2"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FilesBox/Home/ViewController/FileFolder/View/chatView/VULMeTitleCell.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "168"
+            endingLineNumber = "168"
+            landmarkName = "-sizeThatFits:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "15FF7DA3-D21D-4255-B5F8-40B523B9B29E"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FilesBox/Home/ViewController/FileFolder/View/chatView/VULImageViewSeviceCell.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "280"
+            endingLineNumber = "280"
+            landmarkName = "-setModel:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "74C4285B-9372-4F05-9DEC-43425BCB84FF"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FilesBox/Home/ViewController/FileFolder/View/VULFileGridCell.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "116"
+            endingLineNumber = "116"
+            landmarkName = "-setModel:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "BDC1404F-0368-49FD-8B37-38B993534931"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FilesBox/OCHeader.h"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "46"
+            endingLineNumber = "46"
+            landmarkName = "unknown"
+            landmarkType = "0">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>

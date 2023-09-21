@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>weixinULAPI</string>
+		<string>weixin</string>
+		<string>weixinURLParamsAPI</string>
+		<string>wechat.jinxuanmeng.com</string>
+	</array>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>weixin</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>wx283aec18f2335a85</string>
+			</array>
+		</dict>
+	</array>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>App uploads</string>
+	</array>
+	<key>NSCameraUsageDescription</key>
+	<string>FilesBox需要获取相机权限，用来拍照、扫码等</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>FilesBox需要获取相册权限，用来保存图片到相册</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>FilesBox需要获取相册权限，用来上传图片等</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>FilesBox需要获取麦克风权限，用来收录您的声音</string>
+</dict>
+</plist>

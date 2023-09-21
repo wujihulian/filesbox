@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.svnlan.user.dao.GroupDao" >
+
+    <sql id="Base_Column_List">
+		g.groupID, g.`name` , g.parentID, g.parentLevel, g.sort, g.sizeMax, g.sizeUse , g.`status`
+	</sql>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="groupID" >
+        INSERT INTO `group` ( `name`, `parentID`, `parentLevel`, `extraField`, `sort`, `sizeMax`, `sizeUse`, `modifyTime`, `createTime`, `status`)
+        VALUES
+    ( #{name}, #{parentID}, #{parentLevel}, IFNULL(#{extraField}, ''), #{sort}, #{sizeMax}, 0, unix_timestamp(now()), unix_timestamp(now()), 1
+    );
+    </insert>
+    <update id="update" >
+        update `group`
+        set `name` = #{name},
+        <if test="parentID != null">`parentID` = #{parentID},</if>
+        <if test="parentLevel != null">`parentLevel` = #{parentLevel},</if>
+        `sizeMax` = #{sizeMax},
+        modifyTime = unix_timestamp(now())
+        where groupID = #{groupID}
+    </update>
+
+    <select id="getGroupList" resultType="com.svnlan.user.domain.Group">
+        select DISTINCT
+        <include refid="Base_Column_List"/>, count(gCh.parentID) hasChildren
+        from `group` g
+        LEFT JOIN `group` gCh ON g.groupID = gCh.parentID
+        <if test="keyword != null and keyword !='' ">
+            left join group_meta gm on gm.groupID = g.groupID and gm.`key` in ('namePinyin','namePinyinSimple')
+        </if>
+        where
+        <choose>
+            <when test=" status != null">
+                g.status = #{status}
+            </when >
+            <otherwise>
+                g.status in (0,1)
+            </otherwise>
+        </choose>
+
+        <if test="parentID != null">
+            and g.`parentID` = #{parentID}
+        </if>
+        <if test="keyword != null and keyword !='' ">
+            and  (g.`name` LIKE CONCAT('%', #{keyword}, '%') OR gm.`value` LIKE CONCAT('%',#{keyword}, '%') )
+        </if>
+        GROUP BY  g.groupID,g.parentID
+        order by g.sort asc, g.createTime asc
+    </select>
+    <select id="searchGroupList" resultType="com.svnlan.user.domain.Group">
+        select DISTINCT
+        <include refid="Base_Column_List"/>
+        from `group` g
+        left join group_meta gm on gm.groupID = g.groupID and gm.`key` in ('namePinyin','namePinyinSimple')
+        where g.status in (0,1)
+        <if test="keyword != null and keyword !='' ">
+            and (g.name LIKE CONCAT(#{keyword}, '%') OR gm.`value` LIKE CONCAT('%',#{keyword}, '%')
+            )
+        </if>
+        order by g.sort asc
+    </select>
+    <update id="updateGroupState" parameterType="com.svnlan.user.dto.GroupDTO">
+        update `group`
+        set `status` = #{status}, modifyTime = unix_timestamp(now())
+        where groupID = #{groupID}
+    </update>
+
+    <update id="updateGroupSort" >
+        update `group`
+        <trim prefix="set" suffixOverrides=",">
+            <trim prefix=" `sort` = case " suffix=" end, ">
+                <foreach collection="list" item="item">
+                    <if test="item.sort != null">
+                        when `groupID` = #{item.groupID} then #{item.sort}
+                    </if>
+                </foreach>
+            </trim>
+        </trim>
+        where  `groupID` in
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            #{item.groupID}
+        </foreach>
+    </update>
+    <select id="getGroupByID" resultType="com.svnlan.user.domain.Group">
+        select
+        <include refid="Base_Column_List"/>
+        from `group` g
+        where g.status in (0,1)
+        and g.`groupID` = #{groupID}
+    </select>
+    <select id="getMaxSort" resultType="java.lang.Integer">
+        select sort
+        from `group` g
+        where g.status in (0,1)
+        and g.parentID = #{parentID}
+        order BY sort desc, createTime desc
+        limit 1
+    </select>
+
+    <update id="updateGroupSourceName" >
+        update `io_source`
+        set `name` = #{name},
+        <if test="parentID != null"> parentID = #{parentID},</if>
+        <if test="parentLevel != null"> parentLevel = #{parentLevel},</if>
+        modifyTime = unix_timestamp(now())
+        where targetType = 2
+        and sourceID = #{sourceID}
+        and isFolder = 1
+        and isDelete = 0
+    </update>
+
+    <select id="getTopGroup" resultType="com.svnlan.user.domain.Group">
+         select groupID, `name` , sizeMax, sizeUse, parentID
+                from `group`
+                where   parentID = 0
+                order by groupID asc limit 1
+    </select>
+
+    <select id="getGroupInfoList" resultType="com.svnlan.user.domain.Group">
+        select groupID, `name` , sizeMax, sizeUse, parentID
+        from  `group`
+        where groupID in
+        <foreach collection="list" item="groupID" open="(" close=")" separator=",">
+            #{groupID}
+        </foreach>
+    </select>
+
+    <select id="getGroupAndSourceByID" resultType="com.svnlan.user.vo.GroupVo">
+        select <include refid="Base_Column_List"/>, gs.sourceID, s.parentID sourceParentID, s.parentLevel sourceParentLevel
+        from `group` g
+        LEFT JOIN group_source gs ON g.groupID = gs.groupID
+        LEFT JOIN io_source s ON gs.sourceID = s.sourceID
+        where g.status in (0,1)
+        and g.`groupID` = #{groupID}
+    </select>
+
+    <select id="getGroupVoList" resultType="com.svnlan.user.vo.UserGroupVo">
+        select DISTINCT
+        <include refid="Base_Column_List"/>, count(gCh.parentID) hasChildren
+        from `group` g
+        LEFT JOIN `group` gCh ON g.groupID = gCh.parentID
+        where g.status = 1
+        <if test="list != null">
+            and groupID in
+            <foreach collection="list" item="groupID" open="(" close=")" separator=",">
+                #{groupID}
+            </foreach>
+        </if>
+        GROUP BY  g.groupID,g.parentID
+        order by g.sort asc, g.createTime asc
+    </select>
+    <select id="getGroupInfoByID" resultType="com.svnlan.user.domain.Group">
+        select groupID, `name` , sizeMax, sizeUse, parentID
+        from  `group`
+        where groupID = #{groupID}
+    </select>
+
+    <select id="getMainGroupVoList" resultType="com.svnlan.user.vo.UserGroupVo">
+        select DISTINCT
+        <include refid="Base_Column_List"/>, count(gCh.parentID) hasChildren
+        from `group` g
+        LEFT JOIN `group` gCh ON g.groupID = gCh.parentID
+        <if test="keyword != null and keyword !='' ">
+            left join group_meta gm on gm.groupID = g.groupID and gm.`key` in ('namePinyin','namePinyinSimple')
+        </if>
+        where g.status = 1
+        <if test="keyword == null or keyword =='' ">
+          and g.parentID = 0
+        </if>
+        <if test="keyword != null and keyword !='' ">
+            and (g.name LIKE CONCAT(#{keyword}, '%') OR gm.`value` LIKE CONCAT('%',#{keyword}, '%')
+            )
+        </if>
+        GROUP BY  g.groupID,g.parentID
+        order by g.sort asc, g.createTime asc
+    </select>
+
+    <select id="getGroupUserCountList" resultType="com.svnlan.user.domain.Group">
+        select groupID, count(1) hasChildren
+        from `user_group`
+        where groupID in
+        <foreach collection="list" item="groupID" open="(" close=")" separator=",">
+            #{groupID}
+        </foreach>
+        GROUP BY groupID
+    </select>
+    <select id="getNameByIds" resultType="com.alibaba.fastjson.JSONObject">
+        SELECT groupID groupId, `name`
+        FROM group WHERE
+         groupID IN
+        <foreach collection="groupIds" item="_id" open="(" separator="," close=")">
+            #{_id}
+        </foreach>
+    </select>
+
+    <select id="getUserIdByGroupId" resultType="java.lang.Long">
+        SELECT userID FROM user_group
+        WHERE groupID IN
+        <foreach collection="deptIdList" item="_groupId" open="(" separator="," close=")">
+            #{_groupId}
+        </foreach>
+    </select>
+    <select id="getGroupParentPathDisplay" resultType="com.svnlan.user.vo.GroupParentPathDisplayVo">
+
+        select
+        a.parentLevel ,
+        group_concat(a.parentIDSub) parentIDStr,
+        group_concat(io.name) parentLevelName
+        from (
+        select
+        substring_index(substring_index(fi.parentLevel, ',', b.help_topic_id + 1), ',', -1) parentIDSub,fi.parentLevel , fi.createTime
+        from `group` fi
+        join  mysql.help_topic b on b.help_topic_id   <![CDATA[ < ]]> (length(fi.parentLevel) - length(replace(fi.parentLevel, ',', '')) + 1)
+        where fi.parentLevel in
+        <foreach collection="list" item="item" index="index" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+        group BY   parentIDSub
+        order by fi.createTime asc
+
+        ) a
+        left join `group` io on a.parentIDSub = io.groupID
+        where a.parentIDSub > 0
+        group by a.parentLevel
+    </select>
+
+    <update id="syncBatchUpdateGroupMemoryList">
+        update `group`
+        <set>
+            <trim prefix="`sizeUse`=case" suffix="end">
+                <foreach collection="list" item="item" index="index">
+                    when groupID=#{item.groupID} then #{item.sizeUse}
+                </foreach>
+            </trim>
+        </set>
+        where groupID in
+        <foreach collection="list" item="item" index="index" separator="," open="(" close=")">
+            #{item.groupID}
+        </foreach>
+    </update>
+
+    <select id="getGroupSizeList" resultType="com.svnlan.user.vo.GroupSizeVo">
+        SELECT gs.groupID,   io.size sizeUse
+        from group_source gs
+        JOIN `group` g ON gs.groupID = g.groupID and g.`status` = 1
+        JOIN io_source io ON gs.sourceID = io.sourceID and io.isFolder = 1 and io.isDelete = 0
+        WHERE io.size > 0
+        <if test="groupID > 0"> and gs.groupID = #{groupID}</if>
+    </select>
+</mapper>

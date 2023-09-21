@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- scan 配置文件如果发生改变，将会被重新加载  scanPeriod 检测间隔时间 -->
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
+    <contextName>monitor</contextName>
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+    <property name="consoleLayoutPattern"
+              value="%d{yyyy-MM-dd HH:mm:ss.SSS} %tid %-5level %logger Line:%-3L - %msg%n" />
+    <!-- 自定义日志级别 -->
+    <appender name="file—monitor" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>log/${HOSTNAME}.log</file>
+        <!-- 循环政策：基于时间创建日志文件 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 日志命名:单个文件大于2MB 按照时间+自增i 生成log文件 -->
+            <fileNamePattern>log/${HOSTNAME}-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>10MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <!-- 最大保存时间：30天-->
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <append>true</append>
+        <!-- 日志格式 -->
+        <encoder  class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
+            <layout class="org.apache.skywalking.apm.toolkit.log.logback.v1.x.TraceIdPatternLogbackLayout">
+                   <pattern>${consoleLayoutPattern}</pattern>
+            </layout>
+            <charset>UTF-8</charset>
+        </encoder>
+        <!-- 日志级别过滤器 -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <!-- 过滤的级别 -->
+            <level>INFO</level>
+            <!-- 匹配时的操作：接收（记录） -->
+            <onMatch>ACCEPT</onMatch>
+            <!-- 不匹配时的操作：拒绝（不记录） -->
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+    <logger name="monitor" additivity="false">
+        <appender-ref ref="file—monitor"/>
+    </logger>
+
+
+    <!-- 自定义错误日志级别 -->
+    <appender name="file—error" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>log/error/${HOSTNAME}.log</file>
+        <!-- 循环政策：基于时间创建日志文件 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 日志命名:单个文件大于2MB 按照时间+自增i 生成log文件 -->
+            <fileNamePattern>log/error/${HOSTNAME}-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>10MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <!-- 最大保存时间：30天-->
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <append>true</append>
+        <!-- 日志格式 -->
+        <encoder  class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
+            <layout class="org.apache.skywalking.apm.toolkit.log.logback.v1.x.TraceIdPatternLogbackLayout">
+                   <pattern>${consoleLayoutPattern}</pattern>
+            </layout>
+            <charset>UTF-8</charset>
+        </encoder>
+        <!-- 日志级别过滤器 -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <!-- 过滤的级别 -->
+            <level>ERROR</level>
+            <!-- 匹配时的操作：接收（记录） -->
+            <onMatch>ACCEPT</onMatch>
+            <!-- 不匹配时的操作：拒绝（不记录） -->
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+
+
+    <!-- 控制台输出 -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder  class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
+            <layout class="org.apache.skywalking.apm.toolkit.log.logback.v1.x.TraceIdPatternLogbackLayout">
+                   <pattern>${consoleLayoutPattern}</pattern>
+            </layout>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+
+    <logger name="error" additivity="false">
+        <appender-ref ref="file—error"/>
+        <appender-ref ref="file—monitor"/>
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+
+    <!-- 自定义DEBUG日志级别 -->
+    <appender name="file—debug" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>log/debug/${HOSTNAME}.log</file>
+        <!-- 循环政策：基于时间创建日志文件 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 日志命名:单个文件大于2MB 按照时间+自增i 生成log文件 -->
+            <fileNamePattern>log/debug/${HOSTNAME}-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>10MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <!-- 最大保存时间：30天-->
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <append>true</append>
+        <!-- 日志格式 -->
+        <encoder  class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
+            <layout class="org.apache.skywalking.apm.toolkit.log.logback.v1.x.TraceIdPatternLogbackLayout">
+                   <pattern>${consoleLayoutPattern}</pattern>
+            </layout>
+            <charset>UTF-8</charset>
+        </encoder>
+        <!-- 日志级别过滤器 -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <!-- 过滤的级别 -->
+            <level>DEBUG</level>
+            <!-- 匹配时的操作：接收（记录） -->
+            <onMatch>ACCEPT</onMatch>
+            <!-- 不匹配时的操作：拒绝（不记录） -->
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <root level="INFO" additivity="false">
+        <appender-ref ref="file—debug"/>
+    </root>
+</configuration>

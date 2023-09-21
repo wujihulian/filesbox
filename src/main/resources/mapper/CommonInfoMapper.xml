@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.svnlan.manage.dao.CommonInfoDao">
+
+    <sql id="Base_Column_List">
+      i.infoID,i.title,i.computerPicPath,i.mobilePicPath,i.status,i.detail,i.fileDetail,i.createTime,i.modifyTime,i.createUser,i.userIp,i.infoTypeID,i.sort,i.introduce
+      ,i.isTop,i.topTime,i.seo,i.infoSource,i.isApplyOriginal,i.videoID,i.thumb,i.previewUrl,i.infoType,i.isVertical,i.thumbVertical,i.computerPicPathVertical,i.isVideoExists
+      ,i.gmtPage,i.userAgent,i.isUrlInfo,i.infoUrl,i.attachmentCount,i.showAttachment,i.remark,i.isTransport,i.rightFlag,i.sourceID,i.isHide,i.viewCount,i.likeCount,i.isLogin
+      ,i.pathPre
+    </sql>
+    <insert id="insert" parameterType="com.svnlan.manage.domain.CommonInfo" useGeneratedKeys="true"  keyProperty="infoID">
+        insert into common_info (title,computerPicPath,mobilePicPath,status,detail,fileDetail,createTime,modifyTime,createUser,modifyUser,userIp,infoTypeID,sort,introduce
+      ,isTop,topTime,seo,infoSource,isApplyOriginal,videoID,thumb,previewUrl,infoType,isVertical,thumbVertical,computerPicPathVertical,isVideoExists
+      ,gmtPage,userAgent,isUrlInfo,infoUrl,attachmentCount,showAttachment,remark,isTransport,rightFlag,sourceID,isHide,isLogin,actualViewCount,viewCount
+      ,namePinyin,namePinyinSimple,pathPre)
+        values (#{title}, #{computerPicPath}, #{mobilePicPath}, #{status}, #{detail}, #{fileDetail}, unix_timestamp(now()), unix_timestamp(now())
+        , #{createUser}, #{modifyUser}, #{userIp}, #{infoTypeID}, #{sort}, #{introduce}, 0, 0 , #{seo}, #{infoSource}, #{isApplyOriginal}, #{videoID}
+        , #{thumb}, #{previewUrl}, #{infoType} , #{isVertical}, #{thumbVertical}, #{computerPicPathVertical}, #{isVideoExists}, #{gmtPage}
+        , #{userAgent}, #{isUrlInfo}, #{infoUrl}, #{attachmentCount}, #{showAttachment}, #{remark}, #{isTransport}, #{rightFlag}, #{sourceID}
+        , #{isHide},#{isLogin}, 0, 0, #{namePinyin}, #{namePinyinSimple}, #{pathPre}
+        )
+    </insert>
+
+    <update id="updateInfo">
+        update common_info
+        set
+        <if test="null != title"> title = #{title}, </if>
+        <if test="null != computerPicPath"> computerPicPath = #{computerPicPath}, </if>
+        <if test="null != mobilePicPath">  mobilePicPath = #{mobilePicPath}, </if>
+        <if test="null != detail"> detail = #{detail}, </if>
+        <if test="null != fileDetail"> fileDetail = #{fileDetail}, </if>
+        <if test="null != infoTypeID"> infoTypeID = #{infoTypeID}, </if>
+        <if test="null != introduce"> introduce = #{introduce}, </if>
+        <if test="null != seo"> seo = #{seo}, </if>
+        <if test="null != infoSource"> infoSource = #{infoSource}, </if>
+        <if test="null != isApplyOriginal"> isApplyOriginal = #{isApplyOriginal}, </if>
+        <if test="null != videoID"> videoID = #{videoID}, </if>
+        <if test="null != thumb"> thumb = #{thumb}, </if>
+        <if test="null != previewUrl"> previewUrl = #{previewUrl}, </if>
+        <if test="null != infoType"> infoType = #{infoType}, </if>
+        <if test="null != isVertical"> isVertical = #{isVertical}, </if>
+        <if test="null != thumbVertical"> thumbVertical = #{thumbVertical}, </if>
+        <if test="null != computerPicPathVertical"> computerPicPathVertical = #{computerPicPathVertical}, </if>
+        <if test="null != isVideoExists"> isVideoExists = #{isVideoExists}, </if>
+        <if test="null != isUrlInfo"> isUrlInfo = #{isUrlInfo}, </if>
+        <if test="null != infoUrl">  infoUrl = #{infoUrl}, </if>
+        <if test="null != attachmentCount"> attachmentCount = #{attachmentCount}, </if>
+        <if test="null != showAttachment"> showAttachment = #{showAttachment}, </if>
+        <if test="null != remark"> remark = #{remark}, </if>
+        <if test="null != isTransport"> isTransport = #{isTransport}, </if>
+        <if test="null != rightFlag"> rightFlag = #{rightFlag}, </if>
+        <if test="null != sourceID"> sourceID = #{sourceID}, </if>
+        <if test="null != isHide">  isHide = #{isHide}, </if>
+        <if test="null != isLogin">  isLogin = #{isLogin}, </if>
+        <if test="null != viewCount"> viewCount = #{viewCount}, </if>
+        <if test="null != namePinyin"> namePinyin = #{namePinyin}, </if>
+        <if test="null != namePinyinSimple"> namePinyinSimple = #{namePinyinSimple}, </if>
+        <if test="null != pathPre"> pathPre = #{pathPre}, </if>
+        modifyTime  = unix_timestamp(now())
+        where infoID = #{infoID}
+    </update>
+
+    <update id="batchDeleteInfo">
+        update common_info
+        set status = 2, modifyUser = #{modifyUser} , modifyTime  = unix_timestamp(now())
+        where infoID in
+        <foreach collection="list" item="item" open="(" close=")" separator="," index="index">
+            #{item}
+        </foreach>
+    </update>
+    <update id="deleteInfo">
+        update common_info
+        set status = 2 , modifyUser = #{modifyUser}, modifyTime  = unix_timestamp(now())
+        where infoID = #{infoID}
+    </update>
+
+    <select id="getInfoById" resultType="com.svnlan.manage.domain.CommonInfo">
+        select <include refid="Base_Column_List"/>
+        from `common_info` i
+        where i.infoID = #{infoID}
+    </select>
+    <select id="getInfoVoById" resultType="com.svnlan.manage.vo.CommonInfoVo">
+        select <include refid="Base_Column_List"/>, cit.parentLevel typeParentLevel, cit.typeName
+        from `common_info` i
+        left join common_info_type cit on cit.infoTypeID =  i.infoTypeID
+        where i.infoID = #{infoID}
+    </select>
+
+    <select id="getInfoVoListByParam" resultType="com.svnlan.manage.vo.CommonInfoVo">
+        select <include refid="Base_Column_List"/>, u.`name` userName, u.nickname, u.avatar
+        from `common_info` i
+        left join `user` u on i.createUser = u.userID
+        <if test="infoTypeLevel != null">
+            left join common_info_type cit on i.infoTypeID = cit.infoTypeID
+        </if>
+        <if test="tagID != null ">
+            left join user_fav uf on i.infoID = uf.path and uf.`type` = 'info'
+        </if>
+        where
+        <include refid="where_search_param"/>
+        <include refid="where_search_order_by"/>
+    </select>
+    <sql id="where_search_param">
+        <choose>
+            <when test=" status != null">
+                i.status = #{status}
+            </when >
+            <otherwise>
+                i.status in (0,1)
+            </otherwise>
+        </choose>
+        <if test="infoType != null">
+            and i.infoType = #{infoType}
+        </if>
+        <if test="tagID != null">
+            and uf.tagID = #{tagID}
+        </if>
+        <choose>
+            <when test="infoTypeID != null and infoTypeLevel != null ">
+                and (i.infoTypeID = #{infoTypeID} or cit.parentLevel like concat(#{infoTypeLevel}, '%') )
+            </when>
+            <when test="infoTypeID != null">
+                and i.infoTypeID = #{infoTypeID}
+            </when>
+            <when test="infoTypeLevel != null ">
+                and cit.parentLevel like concat(#{infoTypeLevel}, '%')
+            </when>
+        </choose>
+        <if test="keyword != null">
+            and ( i.title like concat('%', #{keyword}, '%')
+            )
+        </if>
+    </sql>
+    <sql id="where_search_order_by">
+         order by i.topTime desc, i.sort desc , i.createTime desc
+    </sql>
+    <select id="getInfoVoSortListByParam" resultType="com.svnlan.manage.vo.CommonInfoVo">
+        select i.infoID, i.sort
+        from `common_info` i
+        <if test="infoTypeLevel != null">
+            left join common_info_type cit on i.infoTypeID = cit.infoTypeID
+        </if>
+        <if test="tagID != null ">
+            left join user_fav uf on i.infoID = uf.path and uf.`type` = 'info'
+        </if>
+        where
+        <include refid="where_search_param"/>
+        <include refid="where_search_order_by"/>
+
+        <if test="offset != null">
+            limit ${offset}, ${length}
+        </if>
+    </select>
+
+    <select id="getHomeInfoVoListByParam" resultType="com.svnlan.manage.vo.CommonInfoVo">
+        select <include refid="Base_Column_List"/>
+        from `common_info` i
+        <if test="infoTypeLevel != null">
+            left join common_info_type cit on i.infoTypeID = cit.infoTypeID
+        </if>
+        where status = 1
+        <if test="keyword != null">
+            and ( i.title like concat('%', #{keyword}, '%')
+            )
+        </if>
+        <choose>
+            <when test="infoTypeID != null and infoTypeLevel != null ">
+                and (i.infoTypeID = #{infoTypeID} or cit.parentLevel like concat(#{infoTypeLevel}, '%') )
+            </when>
+            <when test="infoTypeID != null">
+                and i.infoTypeID = #{infoTypeID}
+            </when>
+            <when test="infoTypeLevel != null ">
+                and cit.parentLevel like concat(#{infoTypeLevel}, '%')
+            </when>
+        </choose>
+        order by i.topTime desc, i.createTime desc
+    </select>
+    <select id="getMaxSort" resultType="java.lang.Integer">
+        select sort
+        from `common_info`
+        where status = 1
+        and infoType = #{infoType}
+        order by sort desc
+        limit 1
+    </select>
+
+    <select id="getSimpleInfoForSEO" resultType="com.svnlan.manage.domain.CommonSeo">
+        select infoID id, title, introduce keyword, introduce description,
+        'information' typeStr, seo seoJson, detail, infoType, isUrlInfo
+        from common_info
+        where infoID in
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </select>
+
+    <update id="updateInfoGmtPage">
+        update common_info
+        set gmtPage = unix_timestamp(now())
+        where infoID in
+        <foreach collection="list" item="item" separator="," open="(" close=")">
+            #{item.id}
+        </foreach>
+
+    </update>
+    <update id="setTop">
+        update common_info
+        set isTop  = #{isTop},
+        <choose>
+            <when test="isTop == 0">
+                topTime = 0
+            </when >
+            <otherwise>
+                topTime = unix_timestamp(now())
+            </otherwise>
+        </choose>
+        where infoID = #{infoID}
+    </update>
+    <select id="findHomePageListBySIdPId" resultType="com.svnlan.manage.vo.CommonInfoVo">
+        select infoID, title ,sort
+        from common_info
+        where infoType = #{infoType}
+        and status != 2
+        order by sort, modifyTime DESC
+    </select>
+    <update id="batchUpdateSort">
+        <foreach collection="list" open="" close="" item="item" index="index" separator=";">
+            update common_info
+            set sort = #{item.sort}
+            where infoID = #{item.infoID}
+        </foreach>
+    </update>
+
+    <update id="verifyOnePageInfo">
+        update common_info
+        set status = #{updateState},
+        <if test="null != remark">
+            remark=#{remark},
+        </if>
+        modifyTime = unix_timestamp(now())
+        where infoID = #{infoID} and status = #{conditionState}
+    </update>
+    <update id="updateLikeCountById">
+        UPDATE common_info
+        <set>
+            <if test="isLike == 1">
+                likeCount = likeCount + 1
+            </if>
+            <if test="isLike == 0">
+                likeCount = likeCount - 1
+            </if>
+        </set>
+        WHERE infoID = #{id}
+        <if test="isLike == 0">
+            AND likeCount > 0
+        </if>
+
+    </update>
+</mapper>

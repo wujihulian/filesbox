@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.svnlan.home.dao.LogScheduleDao">
+    <resultMap id="BaseResultMap" type="com.svnlan.home.domain.LogSchedule">
+        <id column="log_schedule_id" jdbcType="BIGINT" property="logScheduleId"/>
+        <result column="common_schedule_id" jdbcType="VARCHAR" property="commonScheduleId"/>
+        <result column="gmt_start" jdbcType="TIMESTAMP" property="gmtStart"/>
+        <result column="gmt_end" jdbcType="TIMESTAMP" property="gmtEnd"/>
+        <result column="state" jdbcType="CHAR" property="state"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        log_schedule_id, common_schedule_id, gmt_start, gmt_end, state, remark
+    </sql>
+    <insert id="insert" parameterType="com.svnlan.home.domain.LogSchedule" useGeneratedKeys="true"
+            keyProperty="logScheduleId">
+        insert into log_schedule (log_schedule_id, common_schedule_id, gmt_start,
+                                  gmt_end, state, remark
+        )
+        values (#{logScheduleId,jdbcType=BIGINT}, #{commonScheduleId,jdbcType=VARCHAR}, now(),
+                now(), #{state,jdbcType=CHAR}, #{remark,jdbcType=VARCHAR}
+        )
+    </insert>
+    <update id="updateByPrimaryKey" parameterType="com.svnlan.home.domain.LogSchedule">
+        update log_schedule
+        set common_schedule_id = #{commonScheduleId,jdbcType=VARCHAR},
+            gmt_start          = #{gmtStart,jdbcType=TIMESTAMP},
+            gmt_end            = #{gmtEnd,jdbcType=TIMESTAMP},
+            state              = #{state,jdbcType=CHAR},
+            remark             = #{remark,jdbcType=VARCHAR}
+        where log_schedule_id = #{logScheduleId,jdbcType=BIGINT}
+    </update>
+    <update id="updateLogSuccess">
+        UPDATE log_schedule
+        set
+            state   = #{state},
+            gmt_end = #{gmtEnd},
+            remark  = concat(#{remark}, ',定时任务执行时间:', TIMESTAMPDIFF(SECOND, gmt_start, #{gmtEnd}))
+        where log_schedule_id = #{logScheduleId}
+    </update>
+
+    <select id="getLogScheduleInfo" resultMap="BaseResultMap">
+        select * from log_schedule where common_schedule_id = #{commonScheduleId}
+        and DATE_FORMAT(gmt_start, '%Y-%m-%d') = DATE_FORMAT(#{gmtStart}, '%Y-%m-%d')
+    </select>
+
+    <!--for update 查询-->
+    <select id="getLogScheduleInfoLock" resultMap="BaseResultMap">
+        select * from log_schedule where common_schedule_id = #{commonScheduleId}
+        and DATE_FORMAT(gmt_start, '%Y-%m-%d') = DATE_FORMAT(#{gmtStart}, '%Y-%m-%d') for update
+    </select>
+</mapper>
