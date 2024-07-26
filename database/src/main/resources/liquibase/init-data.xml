@@ -1,0 +1,1541 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <changeSet author="Aspirin (generated)" id="1691033171646-1">
+        <insert tableName="common_schedule">
+            <column name="id" value="video_convert_time"/>
+            <column name="schedule_name" value="转码时长监控"/>
+            <column name="gmt_modified" valueDate="2023-03-18T15:34:59"/>
+            <column name="frequency" valueNumeric="86390"/>
+            <column name="api_url" value=""/>
+        </insert>
+        <insert tableName="common_schedule">
+            <column name="id" value="cloud_delete_download"/>
+            <column name="schedule_name" value="删除下载临时文件"/>
+            <column name="gmt_modified" valueDate="2023-04-15T12:00:59"/>
+            <column name="frequency" valueNumeric="86390"/>
+            <column name="api_url" value=""/>
+        </insert>
+        <insert tableName="common_schedule">
+            <column name="id" value="cloud_msg_warning"/>
+            <column name="schedule_name" value="消息预警"/>
+            <column name="gmt_modified" valueDate="2023-06-19T15:34:59"/>
+            <column name="frequency" valueNumeric="19"/>
+            <column name="api_url" value=""/>
+        </insert>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033171646-2">
+        <insert tableName="group_meta">
+            <column name="group_id" valueNumeric="1"/>
+            <column name="key_string" value="namePinyin"/>
+            <column name="value_text" value="qiyewangpan"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="group_meta">
+            <column name="group_id" valueNumeric="1"/>
+            <column name="key_string" value="namePinyinSimple"/>
+            <column name="value_text" value="qywp"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="group_meta">
+            <column name="group_id" valueNumeric="1"/>
+            <column name="key_string" value="systemGroupSource"/>
+            <column name="value_text" value="1"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033171646-3">
+        <insert tableName="group_source">
+            <column name="group_id" valueNumeric="1"/>
+            <column name="source_id" valueNumeric="1"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033171646-4">
+        <insert tableName="groups">
+            <column name="name" value="企业网盘"/>
+            <column name="parent_id" valueNumeric="0"/>
+            <column name="parent_level" value=",0,"/>
+            <column name="extra_field"/>
+            <column name="sort" valueNumeric="1"/>
+            <column name="size_max" valueNumeric="0.0"/>
+            <column name="size_use" valueNumeric="0"/>
+            <column name="status" valueNumeric="1"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033171646-5">
+        <insert tableName="io_source">
+            <column name="source_hash" value=""/>
+            <column name="type" valueNumeric="0"/>
+            <column name="target_type" valueNumeric="2"/>
+            <column name="target_id" valueNumeric="1"/>
+            <column name="create_user" valueNumeric="1"/>
+            <column name="modify_user" valueNumeric="1"/>
+            <column name="is_folder" valueNumeric="1"/>
+            <column name="name" value="企业网盘"/>
+            <column name="file_type" value=""/>
+            <column name="parent_id" valueNumeric="0"/>
+            <column name="parent_level" value=",0,"/>
+            <column name="file_id" valueNumeric="0"/>
+            <column name="is_delete" valueNumeric="0"/>
+            <column name="size" valueNumeric="0"/>
+            <column name="sort" valueNumeric="0"/>
+            <column name="can_share" valueNumeric="1"/>
+            <column name="convert_size" valueNumeric="0"/>
+            <column name="thumb_size" valueNumeric="0"/>
+            <column name="storage_id" valueNumeric="0"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="view_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="io_source">
+            <column name="source_hash" value=""/>
+            <column name="type" valueNumeric="0"/>
+            <column name="target_type" valueNumeric="2"/>
+            <column name="target_id" valueNumeric="1"/>
+            <column name="create_user" valueNumeric="1"/>
+            <column name="modify_user" valueNumeric="4"/>
+            <column name="is_folder" valueNumeric="1"/>
+            <column name="name" value="共享资源"/>
+            <column name="file_type" value=""/>
+            <column name="parent_id" valueNumeric="1"/>
+            <column name="parent_level" value=",0,1,"/>
+            <column name="file_id" valueNumeric="0"/>
+            <column name="is_delete" valueNumeric="0"/>
+            <column name="size" valueNumeric="0"/>
+            <column name="sort" valueNumeric="0"/>
+            <column name="can_share" valueNumeric="1"/>
+            <column name="convert_size" valueNumeric="0"/>
+            <column name="thumb_size" valueNumeric="0"/>
+            <column name="storage_id" valueNumeric="0"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="view_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="io_source">
+            <column name="source_hash" value=""/>
+            <column name="type" valueNumeric="0"/>
+            <column name="target_type" valueNumeric="2"/>
+            <column name="target_id" valueNumeric="1"/>
+            <column name="create_user" valueNumeric="1"/>
+            <column name="modify_user" valueNumeric="1"/>
+            <column name="is_folder" valueNumeric="1"/>
+            <column name="name" value="文档"/>
+            <column name="file_type" value=""/>
+            <column name="parent_id" valueNumeric="1"/>
+            <column name="parent_level" value=",0,1,"/>
+            <column name="file_id" valueNumeric="0"/>
+            <column name="is_delete" valueNumeric="0"/>
+            <column name="size" valueNumeric="0"/>
+            <column name="sort" valueNumeric="0"/>
+            <column name="can_share" valueNumeric="1"/>
+            <column name="convert_size" valueNumeric="0"/>
+            <column name="thumb_size" valueNumeric="0"/>
+            <column name="storage_id" valueNumeric="0"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="view_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="io_source">
+            <column name="source_hash" value=""/>
+            <column name="type" valueNumeric="0"/>
+            <column name="target_type" valueNumeric="2"/>
+            <column name="target_id" valueNumeric="1"/>
+            <column name="create_user" valueNumeric="1"/>
+            <column name="modify_user" valueNumeric="1"/>
+            <column name="is_folder" valueNumeric="1"/>
+            <column name="name" value="其他"/>
+            <column name="file_type" value=""/>
+            <column name="parent_id" valueNumeric="1"/>
+            <column name="parent_level" value=",0,1,"/>
+            <column name="file_id" valueNumeric="0"/>
+            <column name="is_delete" valueNumeric="0"/>
+            <column name="size" valueNumeric="0"/>
+            <column name="sort" valueNumeric="0"/>
+            <column name="can_share" valueNumeric="1"/>
+            <column name="convert_size" valueNumeric="0"/>
+            <column name="thumb_size" valueNumeric="0"/>
+            <column name="storage_id" valueNumeric="0"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="view_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="io_source">
+            <column name="source_hash" value=""/>
+            <column name="type" valueNumeric="0"/>
+            <column name="target_type" valueNumeric="1"/>
+            <column name="target_id" valueNumeric="1"/>
+            <column name="create_user" valueNumeric="1"/>
+            <column name="modify_user" valueNumeric="1"/>
+            <column name="is_folder" valueNumeric="1"/>
+            <column name="name" value="admin"/>
+            <column name="file_type" value=""/>
+            <column name="parent_id" valueNumeric="0"/>
+            <column name="parent_level" value=",0,"/>
+            <column name="file_id" valueNumeric="0"/>
+            <column name="is_delete" valueNumeric="0"/>
+            <column name="size" valueNumeric="0"/>
+            <column name="sort" valueNumeric="0"/>
+            <column name="can_share" valueNumeric="1"/>
+            <column name="convert_size" valueNumeric="0"/>
+            <column name="thumb_size" valueNumeric="0"/>
+            <column name="storage_id" valueNumeric="0"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="view_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="io_source">
+            <column name="source_hash" value=""/>
+            <column name="type" valueNumeric="0"/>
+            <column name="target_type" valueNumeric="1"/>
+            <column name="target_id" valueNumeric="1"/>
+            <column name="create_user" valueNumeric="1"/>
+            <column name="modify_user" valueNumeric="1"/>
+            <column name="is_folder" valueNumeric="1"/>
+            <column name="name" value="桌面"/>
+            <column name="file_type" value=""/>
+            <column name="parent_id" valueNumeric="5"/>
+            <column name="parent_level" value=",0,5,"/>
+            <column name="file_id" valueNumeric="0"/>
+            <column name="is_delete" valueNumeric="0"/>
+            <column name="size" valueNumeric="0"/>
+            <column name="sort" valueNumeric="0"/>
+            <column name="can_share" valueNumeric="1"/>
+            <column name="convert_size" valueNumeric="0"/>
+            <column name="thumb_size" valueNumeric="0"/>
+            <column name="storage_id" valueNumeric="0"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="view_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="io_source">
+            <column name="source_hash" value=""/>
+            <column name="type" valueNumeric="0"/>
+            <column name="target_type" valueNumeric="1"/>
+            <column name="target_id" valueNumeric="1"/>
+            <column name="create_user" valueNumeric="1"/>
+            <column name="modify_user" valueNumeric="1"/>
+            <column name="is_folder" valueNumeric="1"/>
+            <column name="name" value="我的文档"/>
+            <column name="file_type" value=""/>
+            <column name="parent_id" valueNumeric="5"/>
+            <column name="parent_level" value=",0,5,"/>
+            <column name="file_id" valueNumeric="0"/>
+            <column name="is_delete" valueNumeric="0"/>
+            <column name="size" valueNumeric="0"/>
+            <column name="sort" valueNumeric="0"/>
+            <column name="can_share" valueNumeric="1"/>
+            <column name="convert_size" valueNumeric="0"/>
+            <column name="thumb_size" valueNumeric="0"/>
+            <column name="storage_id" valueNumeric="0"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="view_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="io_source">
+            <column name="source_hash" value=""/>
+            <column name="type" valueNumeric="0"/>
+            <column name="target_type" valueNumeric="1"/>
+            <column name="target_id" valueNumeric="1"/>
+            <column name="create_user" valueNumeric="1"/>
+            <column name="modify_user" valueNumeric="1"/>
+            <column name="is_folder" valueNumeric="1"/>
+            <column name="name" value="我的图片"/>
+            <column name="file_type" value=""/>
+            <column name="parent_id" valueNumeric="5"/>
+            <column name="parent_level" value=",0,5,"/>
+            <column name="file_id" valueNumeric="0"/>
+            <column name="is_delete" valueNumeric="0"/>
+            <column name="size" valueNumeric="0"/>
+            <column name="sort" valueNumeric="0"/>
+            <column name="can_share" valueNumeric="1"/>
+            <column name="convert_size" valueNumeric="0"/>
+            <column name="thumb_size" valueNumeric="0"/>
+            <column name="storage_id" valueNumeric="0"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="view_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="io_source">
+            <column name="source_hash" value=""/>
+            <column name="type" valueNumeric="0"/>
+            <column name="target_type" valueNumeric="1"/>
+            <column name="target_id" valueNumeric="1"/>
+            <column name="create_user" valueNumeric="1"/>
+            <column name="modify_user" valueNumeric="1"/>
+            <column name="is_folder" valueNumeric="1"/>
+            <column name="name" value="我的音乐"/>
+            <column name="file_type" value=""/>
+            <column name="parent_id" valueNumeric="5"/>
+            <column name="parent_level" value=",0,5,"/>
+            <column name="file_id" valueNumeric="0"/>
+            <column name="is_delete" valueNumeric="0"/>
+            <column name="size" valueNumeric="0"/>
+            <column name="sort" valueNumeric="0"/>
+            <column name="can_share" valueNumeric="1"/>
+            <column name="convert_size" valueNumeric="0"/>
+            <column name="thumb_size" valueNumeric="0"/>
+            <column name="storage_id" valueNumeric="0"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="view_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="io_source">
+            <column name="source_hash" value=""/>
+            <column name="type" valueNumeric="0"/>
+            <column name="target_type" valueNumeric="0"/>
+            <column name="target_id" valueNumeric="0"/>
+            <column name="create_user" valueNumeric="1"/>
+            <column name="modify_user" valueNumeric="1"/>
+            <column name="is_folder" valueNumeric="1"/>
+            <column name="name" value="systemPath"/>
+            <column name="file_type" value=""/>
+            <column name="parent_id" valueNumeric="0"/>
+            <column name="parent_level" value=",0,"/>
+            <column name="file_id" valueNumeric="0"/>
+            <column name="is_delete" valueNumeric="0"/>
+            <column name="size" valueNumeric="0"/>
+            <column name="sort" valueNumeric="0"/>
+            <column name="can_share" valueNumeric="1"/>
+            <column name="convert_size" valueNumeric="0"/>
+            <column name="thumb_size" valueNumeric="0"/>
+            <column name="storage_id" valueNumeric="0"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="view_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="io_source">
+            <column name="source_hash" value=""/>
+            <column name="type" valueNumeric="0"/>
+            <column name="target_type" valueNumeric="0"/>
+            <column name="target_id" valueNumeric="0"/>
+            <column name="create_user" valueNumeric="1"/>
+            <column name="modify_user" valueNumeric="0"/>
+            <column name="is_folder" valueNumeric="1"/>
+            <column name="name" value="systemSource"/>
+            <column name="file_type" value=""/>
+            <column name="parent_id" valueNumeric="12"/>
+            <column name="parent_level" value=",0,12,"/>
+            <column name="file_id" valueNumeric="0"/>
+            <column name="is_delete" valueNumeric="0"/>
+            <column name="size" valueNumeric="0"/>
+            <column name="sort" valueNumeric="0"/>
+            <column name="can_share" valueNumeric="1"/>
+            <column name="convert_size" valueNumeric="0"/>
+            <column name="thumb_size" valueNumeric="0"/>
+            <column name="storage_id" valueNumeric="0"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="view_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="io_source">
+            <column name="source_hash" value=""/>
+            <column name="type" valueNumeric="0"/>
+            <column name="target_type" valueNumeric="0"/>
+            <column name="target_id" valueNumeric="0"/>
+            <column name="create_user" valueNumeric="1"/>
+            <column name="modify_user" valueNumeric="1"/>
+            <column name="is_folder" valueNumeric="1"/>
+            <column name="name" value="systemTemp"/>
+            <column name="file_type" value=""/>
+            <column name="parent_id" valueNumeric="12"/>
+            <column name="parent_level" value=",0,12,"/>
+            <column name="file_id" valueNumeric="0"/>
+            <column name="is_delete" valueNumeric="0"/>
+            <column name="size" valueNumeric="0"/>
+            <column name="sort" valueNumeric="0"/>
+            <column name="can_share" valueNumeric="1"/>
+            <column name="convert_size" valueNumeric="0"/>
+            <column name="thumb_size" valueNumeric="0"/>
+            <column name="storage_id" valueNumeric="0"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="view_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="io_source">
+            <column name="source_hash" value=""/>
+            <column name="type" valueNumeric="0"/>
+            <column name="target_type" valueNumeric="0"/>
+            <column name="target_id" valueNumeric="0"/>
+            <column name="create_user" valueNumeric="1"/>
+            <column name="modify_user" valueNumeric="1"/>
+            <column name="is_folder" valueNumeric="1"/>
+            <column name="name" value="systemRecycle"/>
+            <column name="file_type" value=""/>
+            <column name="parent_id" valueNumeric="12"/>
+            <column name="parent_level" value=",0,12,"/>
+            <column name="file_id" valueNumeric="0"/>
+            <column name="is_delete" valueNumeric="0"/>
+            <column name="size" valueNumeric="0"/>
+            <column name="sort" valueNumeric="0"/>
+            <column name="can_share" valueNumeric="1"/>
+            <column name="convert_size" valueNumeric="0"/>
+            <column name="thumb_size" valueNumeric="0"/>
+            <column name="storage_id" valueNumeric="0"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="view_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="io_source">
+            <column name="source_hash" value=""/>
+            <column name="type" valueNumeric="0"/>
+            <column name="target_type" valueNumeric="0"/>
+            <column name="target_id" valueNumeric="0"/>
+            <column name="create_user" valueNumeric="0"/>
+            <column name="modify_user" valueNumeric="0"/>
+            <column name="is_folder" valueNumeric="1"/>
+            <column name="name" value="attachmentTemp"/>
+            <column name="file_type" value=""/>
+            <column name="parent_id" valueNumeric="13"/>
+            <column name="parent_level" value=",0,12,13,"/>
+            <column name="file_id" valueNumeric="0"/>
+            <column name="is_delete" valueNumeric="0"/>
+            <column name="size" valueNumeric="0"/>
+            <column name="sort" valueNumeric="0"/>
+            <column name="can_share" valueNumeric="1"/>
+            <column name="convert_size" valueNumeric="0"/>
+            <column name="thumb_size" valueNumeric="0"/>
+            <column name="storage_id" valueNumeric="0"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="view_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033171646-6">
+        <insert tableName="io_source_event">
+            <column name="source_id" valueNumeric="2"/>
+            <column name="source_parent" valueNumeric="1"/>
+            <column name="user_id" valueNumeric="1"/>
+            <column name="type" value="create"/>
+            <column name="detail" value="{&#10;    &quot;createType&quot;: &quot;mkdir&quot;,&#10;    &quot;name&quot;: &quot;共享资源&quot;&#10;}"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="io_source_event">
+            <column name="source_id" valueNumeric="3"/>
+            <column name="source_parent" valueNumeric="1"/>
+            <column name="user_id" valueNumeric="1"/>
+            <column name="type" value="create"/>
+            <column name="detail" value="{&#10;    &quot;createType&quot;: &quot;mkdir&quot;,&#10;    &quot;name&quot;: &quot;文档&quot;&#10;}"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="io_source_event">
+            <column name="source_id" valueNumeric="4"/>
+            <column name="source_parent" valueNumeric="1"/>
+            <column name="user_id" valueNumeric="1"/>
+            <column name="type" value="create"/>
+            <column name="detail" value="{&#10;    &quot;createType&quot;: &quot;mkdir&quot;,&#10;    &quot;name&quot;: &quot;其他&quot;&#10;}"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="io_source_event">
+            <column name="source_id" valueNumeric="6"/>
+            <column name="source_parent" valueNumeric="5"/>
+            <column name="user_id" valueNumeric="1"/>
+            <column name="type" value="create"/>
+            <column name="detail" value="{&#10;    &quot;createType&quot;: &quot;mkdir&quot;,&#10;    &quot;name&quot;: &quot;桌面&quot;&#10;}"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033171646-7">
+        <insert tableName="io_source_meta">
+            <column name="source_id" valueNumeric="2"/>
+            <column name="key_string" value="namePinyin"/>
+            <column name="value_text" value="gongxiangziyuan"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="io_source_meta">
+            <column name="source_id" valueNumeric="2"/>
+            <column name="key_string" value="namePinyinSimple"/>
+            <column name="value_text" value="gxzy"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="io_source_meta">
+            <column name="source_id" valueNumeric="3"/>
+            <column name="key_string" value="namePinyin"/>
+            <column name="value_text" value="wendang"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="io_source_meta">
+            <column name="source_id" valueNumeric="3"/>
+            <column name="key_string" value="namePinyinSimple"/>
+            <column name="value_text" value="wd"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="io_source_meta">
+            <column name="source_id" valueNumeric="4"/>
+            <column name="key_string" value="namePinyin"/>
+            <column name="value_text" value="qita"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="io_source_meta">
+            <column name="source_id" valueNumeric="4"/>
+            <column name="key_string" value="namePinyinSimple"/>
+            <column name="value_text" value="qt"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="io_source_meta">
+            <column name="source_id" valueNumeric="5"/>
+            <column name="key_string" value="desktopSource"/>
+            <column name="value_text" value="6"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="io_source_meta">
+            <column name="source_id" valueNumeric="6"/>
+            <column name="key_string" value="namePinyin"/>
+            <column name="value_text" value="zhuomian"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="io_source_meta">
+            <column name="source_id" valueNumeric="6"/>
+            <column name="key_string" value="namePinyinSimple"/>
+            <column name="value_text" value="zm"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="io_source_meta">
+            <column name="source_id" valueNumeric="6"/>
+            <column name="key_string" value="desktop"/>
+            <column name="value_text" value="1"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="io_source_meta">
+            <column name="source_id" valueNumeric="7"/>
+            <column name="key_string" value="namePinyin"/>
+            <column name="value_text" value="wodewendang"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="io_source_meta">
+            <column name="source_id" valueNumeric="7"/>
+            <column name="key_string" value="namePinyinSimple"/>
+            <column name="value_text" value="wdwd"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="io_source_meta">
+            <column name="source_id" valueNumeric="8"/>
+            <column name="key_string" value="namePinyin"/>
+            <column name="value_text" value="wodetupian"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="io_source_meta">
+            <column name="source_id" valueNumeric="8"/>
+            <column name="key_string" value="namePinyinSimple"/>
+            <column name="value_text" value="wdtp"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="io_source_meta">
+            <column name="source_id" valueNumeric="9"/>
+            <column name="key_string" value="namePinyin"/>
+            <column name="value_text" value="wodeyinle"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="io_source_meta">
+            <column name="source_id" valueNumeric="9"/>
+            <column name="key_string" value="namePinyinSimple"/>
+            <column name="value_text" value="wdyl"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033171646-8">
+        <insert tableName="role">
+            <column name="role_name" value="系统管理员"/>
+            <column name="code" value="admin.role.administrator"/>
+            <column name="description" value="超级管理员,拥有服务器管理权限; 所有文件文件夹设置权限对该用户无效!"/>
+            <column name="label" value="#533eb4"/>
+            <column name="auth" value="explorer.add,explorer.upload,explorer.view,explorer.download,explorer.share,explorer.remove,explorer.edit,explorer.move,explorer.serverDownload,explorer.search,explorer.unzip,explorer.zip,user.edit,user.fav,admin.index.dashboard,admin.index.setting,admin.index.loginLog,admin.index.log,admin.index.server,admin.role.list,admin.role.edit,admin.job.list,admin.job.edit,admin.member.list,admin.member.userEdit,admin.member.groupEdit,admin.auth.list,admin.auth.edit,admin.plugin.list,admin.plugin.edit,admin.storage.list,admin.storage.edit,admin.autoTask.list,admin.autoTask.edit,admin.index.information,explorer.informationView"/>
+            <column name="status" valueNumeric="1"/>
+            <column name="enable" valueNumeric="1"/>
+            <column name="is_system" valueNumeric="1"/>
+            <column name="administrator" valueNumeric="1"/>
+            <column name="ignore_file_size" valueNumeric="0.0"/>
+            <column name="ignore_ext" value=""/>
+            <column name="sort" valueNumeric="0"/>
+            <column name="role_type" value="1"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="delete_time"/>
+        </insert>
+        <insert tableName="role">
+            <column name="role_name" value="部门管理员"/>
+            <column name="code" value="admin.role.group"/>
+            <column name="description" value=""/>
+            <column name="label" value="#108ee9"/>
+            <column name="auth" value="explorer.add,explorer.upload,explorer.view,explorer.download,explorer.share,explorer.remove,explorer.edit,explorer.move,explorer.serverDownload,explorer.search,explorer.unzip,explorer.zip,user.edit,user.fav,admin.index.loginLog,admin.index.log,admin.member.list,admin.member.userEdit,admin.member.groupEdit,admin.auth.list,explorer.informationView"/>
+            <column name="status" valueNumeric="1"/>
+            <column name="enable" valueNumeric="1"/>
+            <column name="is_system" valueNumeric="1"/>
+            <column name="administrator" valueNumeric="0"/>
+            <column name="ignore_file_size" valueNumeric="0.0"/>
+            <column name="ignore_ext" value=""/>
+            <column name="sort" valueNumeric="1"/>
+            <column name="role_type" value="1"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="delete_time"/>
+        </insert>
+        <insert tableName="role">
+            <column name="role_name" value="普通用户"/>
+            <column name="code" value="admin.role.default"/>
+            <column name="description" value=""/>
+            <column name="label" value="#3dbd7d"/>
+            <column name="auth" value="explorer.add,explorer.upload,explorer.view,explorer.download,explorer.share,explorer.remove,explorer.edit,explorer.move,explorer.serverDownload,explorer.search,explorer.unzip,explorer.zip,user.edit,user.fav,explorer.informationView"/>
+            <column name="status" valueNumeric="1"/>
+            <column name="enable" valueNumeric="1"/>
+            <column name="is_system" valueNumeric="1"/>
+            <column name="administrator" valueNumeric="0"/>
+            <column name="ignore_file_size" valueNumeric="0.0"/>
+            <column name="ignore_ext" value=""/>
+            <column name="sort" valueNumeric="2"/>
+            <column name="role_type" value="1"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="delete_time"/>
+        </insert>
+        <insert tableName="role">
+            <column name="role_name" value="编辑者"/>
+            <column name="code" value="admin.auth.editor"/>
+            <column name="description" value=""/>
+            <column name="label" value="#f46e65"/>
+            <column name="auth" value="1,2,3,4,5,6,7,8,9,10,11,12,13"/>
+            <column name="status" valueNumeric="1"/>
+            <column name="enable" valueNumeric="1"/>
+            <column name="is_system" valueNumeric="1"/>
+            <column name="administrator" valueNumeric="0"/>
+            <column name="ignore_file_size" valueNumeric="0.0"/>
+            <column name="ignore_ext" value=""/>
+            <column name="sort" valueNumeric="1"/>
+            <column name="role_type" value="2"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="delete_time"/>
+        </insert>
+        <insert tableName="role">
+            <column name="role_name" value="编辑/上传者"/>
+            <column name="code" value="admin.auth.editUploader"/>
+            <column name="description" value=""/>
+            <column name="label" value="#fdd8e7"/>
+            <column name="auth" value="1,2,3,4,5,6,7,8,9,12,13"/>
+            <column name="status" valueNumeric="1"/>
+            <column name="enable" valueNumeric="1"/>
+            <column name="is_system" valueNumeric="1"/>
+            <column name="administrator" valueNumeric="0"/>
+            <column name="ignore_file_size" valueNumeric="0.0"/>
+            <column name="ignore_ext" value=""/>
+            <column name="sort" valueNumeric="2"/>
+            <column name="role_type" value="2"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="delete_time"/>
+        </insert>
+        <insert tableName="role">
+            <column name="role_name" value="预览者"/>
+            <column name="code" value="admin.auth.previewer"/>
+            <column name="description" value=""/>
+            <column name="label" value="#a7e1c4"/>
+            <column name="auth" value="1,3"/>
+            <column name="status" valueNumeric="1"/>
+            <column name="enable" valueNumeric="1"/>
+            <column name="is_system" valueNumeric="1"/>
+            <column name="administrator" valueNumeric="0"/>
+            <column name="ignore_file_size" valueNumeric="0.0"/>
+            <column name="ignore_ext" value=""/>
+            <column name="sort" valueNumeric="3"/>
+            <column name="role_type" value="2"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="delete_time"/>
+        </insert>
+        <insert tableName="role">
+            <column name="role_name" value="上传者"/>
+            <column name="code" value="admin.auth.uploader"/>
+            <column name="description" value=""/>
+            <column name="label" value="#ffce3d"/>
+            <column name="auth" value="1,5"/>
+            <column name="status" valueNumeric="1"/>
+            <column name="enable" valueNumeric="1"/>
+            <column name="is_system" valueNumeric="1"/>
+            <column name="administrator" valueNumeric="0"/>
+            <column name="ignore_file_size" valueNumeric="0.0"/>
+            <column name="ignore_ext" value=""/>
+            <column name="sort" valueNumeric="4"/>
+            <column name="role_type" value="2"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="delete_time"/>
+        </insert>
+        <insert tableName="role">
+            <column name="role_name" value="拥有者"/>
+            <column name="code" value="admin.auth.owner"/>
+            <column name="description" value=""/>
+            <column name="label" value="#533eb4"/>
+            <column name="auth" value="1,2,3,4,5,6,7,8,9,10,11,12,13,14"/>
+            <column name="status" valueNumeric="1"/>
+            <column name="enable" valueNumeric="1"/>
+            <column name="is_system" valueNumeric="1"/>
+            <column name="administrator" valueNumeric="0"/>
+            <column name="ignore_file_size" valueNumeric="0.0"/>
+            <column name="ignore_ext" value=""/>
+            <column name="sort" valueNumeric="5"/>
+            <column name="role_type" value="2"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="delete_time"/>
+        </insert>
+        <insert tableName="role">
+            <column name="role_name" value="查看者"/>
+            <column name="code" value="admin.auth.viewer"/>
+            <column name="description" value=""/>
+            <column name="label" value="#3dbd7d"/>
+            <column name="auth" value="1,3,4,13"/>
+            <column name="status" valueNumeric="1"/>
+            <column name="enable" valueNumeric="1"/>
+            <column name="is_system" valueNumeric="1"/>
+            <column name="administrator" valueNumeric="0"/>
+            <column name="ignore_file_size" valueNumeric="0.0"/>
+            <column name="ignore_ext" value=""/>
+            <column name="sort" valueNumeric="6"/>
+            <column name="role_type" value="2"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="delete_time"/>
+        </insert>
+        <insert tableName="role">
+            <column name="role_name" value="不可见"/>
+            <column name="code" value="admin.auth.invisible"/>
+            <column name="description" value=""/>
+            <column name="label" value="#fff"/>
+            <column name="auth" value=""/>
+            <column name="status" valueNumeric="1"/>
+            <column name="enable" valueNumeric="1"/>
+            <column name="is_system" valueNumeric="1"/>
+            <column name="administrator" valueNumeric="0"/>
+            <column name="ignore_file_size" valueNumeric="0.0"/>
+            <column name="ignore_ext" value=""/>
+            <column name="sort" valueNumeric="7"/>
+            <column name="role_type" value="2"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="delete_time"/>
+        </insert>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033171646-9">
+        <insert tableName="system_option">
+            <column name="type" value=""/>
+            <column name="key_string" value="systemLogo"/>
+            <column name="value_text" value=""/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="system_option">
+            <column name="type" value=""/>
+            <column name="key_string" value="systemName"/>
+            <column name="value_text" value="私有云盘"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="system_option">
+            <column name="type" value=""/>
+            <column name="key_string" value="systemDesc"/>
+            <column name="value_text" value="视频和数字资产文件系统"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="system_option">
+            <column name="type" value=""/>
+            <column name="key_string" value="groupRootName"/>
+            <column name="value_text" value="企业网盘"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="system_option">
+            <column name="type" value=""/>
+            <column name="key_string" value="browserLogo"/>
+            <column name="value_text" value=""/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="system_option">
+            <column name="type" value=""/>
+            <column name="key_string" value="globalIcp"/>
+            <column name="value_text" value=""/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="system_option">
+            <column name="type" value=""/>
+            <column name="key_string" value="seo"/>
+            <column name="value_text" value=""/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="system_option">
+            <column name="type" value=""/>
+            <column name="key_string" value="seoDesc"/>
+            <column name="value_text" value=""/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="system_option">
+            <column name="type" value=""/>
+            <column name="key_string" value="meta"/>
+            <column name="value_text" value=""/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="system_option">
+            <column name="type" value=""/>
+            <column name="key_string" value="passwordErrorLock"/>
+            <column name="value_text" value="0"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="system_option">
+            <column name="type" value=""/>
+            <column name="key_string" value="needCheckCode"/>
+            <column name="value_text" value="0"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="system_option">
+            <column name="type" value=""/>
+            <column name="key_string" value="passwordRule"/>
+            <column name="value_text" value="none"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="system_option">
+            <column name="type" value=""/>
+            <column name="key_string" value="showFileLink"/>
+            <column name="value_text" value="0"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="system_option">
+            <column name="type" value=""/>
+            <column name="key_string" value="showFileMd5"/>
+            <column name="value_text" value="1"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="system_option">
+            <column name="type" value=""/>
+            <column name="key_string" value="shareLinkAllow"/>
+            <column name="value_text" value="1"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="system_option">
+            <column name="type" value=""/>
+            <column name="key_string" value="shareLinkPasswordAllowEmpty"/>
+            <column name="value_text" value="0"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="system_option">
+            <column name="type" value=""/>
+            <column name="key_string" value="shareLinkAllowGuest"/>
+            <column name="value_text" value="1"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="system_option">
+            <column name="type" value=""/>
+            <column name="key_string" value="treeOpen"/>
+            <column name="value_text" value="my,myFav,rootGroup,recentDoc,fileType,fileTag,shareLink,information,toolbox"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="system_option">
+            <column name="type" value=""/>
+            <column name="key_string" value="dateFormat"/>
+            <column name="value_text" value="Y-m-d"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="system_option">
+            <column name="type" value=""/>
+            <column name="key_string" value="newUserFolder"/>
+            <column name="value_text" value="图片,文档,视频,音乐,其他"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="system_option">
+            <column name="type" value=""/>
+            <column name="key_string" value="needMark"/>
+            <column name="value_text" value="0"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="system_option">
+            <column name="type" value="System.pluginList"/>
+            <column name="key_string" value="ID-1"/>
+            <column name="value_text" value="{&quot;name&quot;:&quot;OfficeWeb365&quot;,&quot;status&quot;:1,&quot;id&quot;:1,&quot;description&quot;:&quot;office文件在线查看&quot;,&quot;type&quot;:&quot;ow365&quot;}"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="system_option">
+            <column name="type" value="System.pluginList"/>
+            <column name="key_string" value="ID-2"/>
+            <column name="value_text" value="{&quot;name&quot;:&quot;永中Office&quot;,&quot;status&quot;:1,&quot;id&quot;:2,&quot;description&quot;:&quot;office文件在线编辑&quot;,&quot;type&quot;:&quot;yzow&quot;}"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="system_option">
+            <column name="type" value=""/>
+            <column name="key_string" value="markType"/>
+            <column name="value_text" value="0"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="system_option">
+            <column name="type" value=""/>
+            <column name="key_string" value="wmTitle"/>
+            <column name="value_text" value="FilesBox"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="system_option">
+            <column name="type" value=""/>
+            <column name="key_string" value="wmColor"/>
+            <column name="value_text" value="#eae0f8"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="system_option">
+            <column name="type" value=""/>
+            <column name="key_string" value="wmFont"/>
+            <column name="value_text" value="SimSun"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="system_option">
+            <column name="type" value=""/>
+            <column name="key_string" value="wmSize"/>
+            <column name="value_text" value="28"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="system_option">
+            <column name="type" value=""/>
+            <column name="key_string" value="wmSubTitle"/>
+            <column name="value_text" value="{userName} - {userLoginTime}"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="system_option">
+            <column name="type" value=""/>
+            <column name="key_string" value="wmSubColor"/>
+            <column name="value_text" value="#d9d9d9"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="system_option">
+            <column name="type" value=""/>
+            <column name="key_string" value="wmSubFont"/>
+            <column name="value_text" value="SimSun"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="system_option">
+            <column name="type" value=""/>
+            <column name="key_string" value="wmSubSize"/>
+            <column name="value_text" value="15"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="system_option">
+            <column name="type" value=""/>
+            <column name="key_string" value="wmTransparency"/>
+            <column name="value_text" value="50"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="system_option">
+            <column name="type" value=""/>
+            <column name="key_string" value="wmRotate"/>
+            <column name="value_text" value="45"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="system_option">
+            <column name="type" value=""/>
+            <column name="key_string" value="wmMargin"/>
+            <column name="value_text" value=""/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="system_option">
+            <column name="type" value=""/>
+            <column name="key_string" value="wmPicPath"/>
+            <column name="value_text" value=""/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="system_option">
+            <column name="type" value=""/>
+            <column name="key_string" value="wmPicSize"/>
+            <column name="value_text" value=""/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="system_option">
+            <column name="type" value=""/>
+            <column name="key_string" value="wmPosition"/>
+            <column name="value_text" value=""/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="system_option">
+            <column name="type" value=""/>
+            <column name="key_string" value="thirdLoginConfig"/>
+            <column name="value_text" value="[]"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="system_option">
+            <column name="type" value=""/>
+            <column name="key_string" value="registerConfig"/>
+            <column name="value_text" value="{&quot;enableRegister&quot;:true,&quot;needReview&quot;:false,&quot;sizeMax&quot;:2,&quot;roleID&quot;:3,&quot;groupInfo&quot;:[{&quot;groupID&quot;:1,&quot;authID&quot;:6}]}"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="system_option">
+            <column name="type" value=""/>
+            <column name="key_string" value="needUploadCheck"/>
+            <column name="value_text" value="1"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="system_option">
+            <column name="type" value="System.mesWarning"/>
+            <column name="key_string" value="ID-1"/>
+            <column name="value_text" value="{&quot;name&quot;: &quot;msgWarning&quot;,&quot;status&quot;: 1,&quot;id&quot;: 1,&quot;enable&quot;: &quot;0&quot;,&quot;warnType&quot;: &quot;cpu,mem,du&quot;,&quot;useRatio&quot;: &quot;80&quot;,&quot;useTime&quot;: &quot;20&quot;,&quot;sendType&quot;: &quot;&quot;,&quot;target&quot;: &quot;&quot;,&quot;dingUrl&quot;: &quot;&quot;,&quot;wechatUrl&quot;: &quot;&quot;,&quot;createTime&quot;: 1686187149,&quot;modifyTime&quot;: 1686187149}"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="system_option">
+            <column name="type" value="Storage"/>
+            <column name="key_string" value="LOCAL"/>
+            <column name="value_text" value="{&quot;name&quot;:&quot;local1&quot;,&quot;size&quot;:&quot;1024&quot;,&quot;location&quot;:&quot;/uploads&quot;,&quot;storageKey&quot;:&quot;LOCAL&quot;}"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033171646-10">
+        <insert tableName="user_group">
+            <column name="user_id" valueNumeric="1"/>
+            <column name="group_id" valueNumeric="1"/>
+            <column name="auth_id" valueNumeric="4"/>
+            <column name="sort" valueNumeric="0"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033171646-11">
+        <insert tableName="user_meta">
+            <column name="user_id" valueNumeric="1"/>
+            <column name="key_string" value="passwordSalt"/>
+            <column name="value_text" value="eHd27KPvuX"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="user_meta">
+            <column name="user_id" valueNumeric="1"/>
+            <column name="key_string" value="namePinyin"/>
+            <column name="value_text" value="xitongguanliyuan"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="user_meta">
+            <column name="user_id" valueNumeric="1"/>
+            <column name="key_string" value="namePinyinSimple"/>
+            <column name="value_text" value="xtgly"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033171646-12">
+        <insert tableName="user_option">
+            <column name="user_id" valueNumeric="1"/>
+            <column name="type" value=""/>
+            <column name="key_string" value="listType"/>
+            <column name="value_text" value="icon"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="user_option">
+            <column name="user_id" valueNumeric="1"/>
+            <column name="type" value=""/>
+            <column name="key_string" value="listSortField"/>
+            <column name="value_text" value="name"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="user_option">
+            <column name="user_id" valueNumeric="1"/>
+            <column name="type" value=""/>
+            <column name="key_string" value="listSortOrder"/>
+            <column name="value_text" value="up"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="user_option">
+            <column name="user_id" valueNumeric="1"/>
+            <column name="type" value=""/>
+            <column name="key_string" value="fileIconSize"/>
+            <column name="value_text" value="80"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="user_option">
+            <column name="user_id" valueNumeric="1"/>
+            <column name="type" value=""/>
+            <column name="key_string" value="fileOpenClick"/>
+            <column name="value_text" value="dbclick"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="user_option">
+            <column name="user_id" valueNumeric="1"/>
+            <column name="type" value=""/>
+            <column name="key_string" value="fileShowDesc"/>
+            <column name="value_text" value="0"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="user_option">
+            <column name="user_id" valueNumeric="1"/>
+            <column name="type" value=""/>
+            <column name="key_string" value="animateOpen"/>
+            <column name="value_text" value="1"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="user_option">
+            <column name="user_id" valueNumeric="1"/>
+            <column name="type" value=""/>
+            <column name="key_string" value="soundOpen"/>
+            <column name="value_text" value="0"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="user_option">
+            <column name="user_id" valueNumeric="1"/>
+            <column name="type" value=""/>
+            <column name="key_string" value="theme"/>
+            <column name="value_text" value="auto"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="user_option">
+            <column name="user_id" valueNumeric="1"/>
+            <column name="type" value=""/>
+            <column name="key_string" value="themeImage"/>
+            <column name="value_text" value=""/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="user_option">
+            <column name="user_id" valueNumeric="1"/>
+            <column name="type" value=""/>
+            <column name="key_string" value="wall"/>
+            <column name="value_text" value="4"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="user_option">
+            <column name="user_id" valueNumeric="1"/>
+            <column name="type" value=""/>
+            <column name="key_string" value="listTypeKeep"/>
+            <column name="value_text" value="1"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="user_option">
+            <column name="user_id" valueNumeric="1"/>
+            <column name="type" value=""/>
+            <column name="key_string" value="listSortKeep"/>
+            <column name="value_text" value="1"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="user_option">
+            <column name="user_id" valueNumeric="1"/>
+            <column name="type" value=""/>
+            <column name="key_string" value="fileRepeat"/>
+            <column name="value_text" value="replace"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="user_option">
+            <column name="user_id" valueNumeric="1"/>
+            <column name="type" value=""/>
+            <column name="key_string" value="recycleOpen"/>
+            <column name="value_text" value="1"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="user_option">
+            <column name="user_id" valueNumeric="1"/>
+            <column name="type" value=""/>
+            <column name="key_string" value="kodAppDefault"/>
+            <column name="value_text" value=""/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="user_option">
+            <column name="user_id" valueNumeric="1"/>
+            <column name="type" value=""/>
+            <column name="key_string" value="fileIconSizeDesktop"/>
+            <column name="value_text" value="70"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="user_option">
+            <column name="user_id" valueNumeric="1"/>
+            <column name="type" value=""/>
+            <column name="key_string" value="fileIconSizePhoto"/>
+            <column name="value_text" value="120"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="user_option">
+            <column name="user_id" valueNumeric="1"/>
+            <column name="type" value=""/>
+            <column name="key_string" value="photoConfig"/>
+            <column name="value_text" value=""/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="user_option">
+            <column name="user_id" valueNumeric="1"/>
+            <column name="type" value=""/>
+            <column name="key_string" value="resizeConfig"/>
+            <column name="value_text" value="{&quot;filename&quot;:250,&quot;filetype&quot;:80,&quot;filesize&quot;:80,&quot;filetime&quot;:215,&quot;editorTreeWidth&quot;:200,&quot;explorerTreeWidth&quot;:200}"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="user_option">
+            <column name="user_id" valueNumeric="1"/>
+            <column name="type" value=""/>
+            <column name="key_string" value="imageThumb"/>
+            <column name="value_text" value="1"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="user_option">
+            <column name="user_id" valueNumeric="1"/>
+            <column name="type" value=""/>
+            <column name="key_string" value="fileSelect"/>
+            <column name="value_text" value="1"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="user_option">
+            <column name="user_id" valueNumeric="1"/>
+            <column name="type" value=""/>
+            <column name="key_string" value="displayHideFile"/>
+            <column name="value_text" value="0"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="user_option">
+            <column name="user_id" valueNumeric="1"/>
+            <column name="type" value=""/>
+            <column name="key_string" value="filePanel"/>
+            <column name="value_text" value="1"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="user_option">
+            <column name="user_id" valueNumeric="1"/>
+            <column name="type" value=""/>
+            <column name="key_string" value="shareToMeShowType"/>
+            <column name="value_text" value="list"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="user_option">
+            <column name="user_id" valueNumeric="1"/>
+            <column name="type" value=""/>
+            <column name="key_string" value="messageSendType"/>
+            <column name="value_text" value="enter"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="user_option">
+            <column name="user_id" valueNumeric="1"/>
+            <column name="type" value=""/>
+            <column name="key_string" value="loginDevice"/>
+            <column name="value_text" value=""/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033171646-13">
+        <insert tableName="users">
+            <column name="name" value="admin"/>
+            <column name="role_id" valueNumeric="1"/>
+            <column name="email" value=""/>
+            <column name="phone" value=""/>
+            <column name="nickname" value="系统管理员"/>
+            <column name="avatar" value=""/>
+            <column name="sex" valueNumeric="1"/>
+            <column name="password" value="27EA0ED68E00F9F34ACBF89B499BF465"/>
+            <column name="size_max" valueNumeric="0.0"/>
+            <column name="size_use" valueNumeric="0"/>
+            <column name="status" valueNumeric="1"/>
+            <column name="ding_open_id"/>
+            <column name="wechat_open_id"/>
+            <column name="en_wechat_open_id"/>
+            <column name="alipay_open_id"/>
+            <column name="is_system" valueNumeric="1"/>
+            <column name="last_login" valueDate="2023-08-01T16:04:31"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+    </changeSet>
+    <changeSet author="slj" id="1692068719-2">
+        <insert tableName="system_option">
+            <column name="type" value=""/>
+            <column name="key_string" value="tenantTypeConfig"/>
+            <column name="value_text" value="1"/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <insert tableName="t_tenant">
+            <column name="tenant_name" value="模板租户"/>
+            <column name="second_level_domain" value=""/>
+            <column name="user_id" valueNumeric="1"/>
+            <column name="status" valueNumeric="1"/>
+            <column name="start_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="expire_time" valueDate="2033-08-01T16:04:31"/>
+            <column name="size_use" valueNumeric="0"/>
+            <column name="group_count" valueNumeric="0"/>
+            <column name="user_count" valueNumeric="0"/>
+            <column name="remark" value=""/>
+            <column name="create_time" valueDate="2023-08-01T16:04:31"/>
+            <column name="modify_time" valueDate="2023-08-01T16:04:31"/>
+        </insert>
+        <update tableName="comment">
+            <column name="tenant_id" value="1"/>
+        </update>
+        <update tableName="comment_meta">
+            <column name="tenant_id" value="1"/>
+        </update>
+        <update tableName="comment_praise">
+            <column name="tenant_id" value="1"/>
+        </update>
+        <update tableName="common_convert">
+            <column name="tenant_id" value="1"/>
+        </update>
+        <update tableName="common_design">
+            <column name="tenant_id" value="1"/>
+        </update>
+        <update tableName="common_design_classify">
+            <column name="tenant_id" value="1"/>
+        </update>
+        <update tableName="common_info">
+            <column name="tenant_id" value="1"/>
+        </update>
+        <update tableName="common_info_type">
+            <column name="tenant_id" value="1"/>
+        </update>
+        <update tableName="common_label">
+            <column name="tenant_id" value="1"/>
+        </update>
+        <update tableName="common_schedule">
+            <column name="tenant_id" value="1"/>
+        </update>
+        <update tableName="group_meta">
+            <column name="tenant_id" value="1"/>
+        </update>
+        <update tableName="group_source">
+            <column name="tenant_id" value="1"/>
+        </update>
+        <update tableName="groups">
+            <column name="tenant_id" value="1"/>
+        </update>
+        <update tableName="io_file">
+            <column name="tenant_id" value="1"/>
+        </update>
+        <update tableName="io_file_contents">
+            <column name="tenant_id" value="1"/>
+        </update>
+        <update tableName="io_file_meta">
+            <column name="tenant_id" value="1"/>
+        </update>
+        <update tableName="io_source">
+            <column name="tenant_id" value="1"/>
+        </update>
+        <update tableName="io_source_auth">
+            <column name="tenant_id" value="1"/>
+        </update>
+        <update tableName="io_source_event">
+            <column name="tenant_id" value="1"/>
+        </update>
+        <update tableName="io_source_history">
+            <column name="tenant_id" value="1"/>
+        </update>
+        <update tableName="io_source_meta">
+            <column name="tenant_id" value="1"/>
+        </update>
+        <update tableName="io_source_recycle">
+            <column name="tenant_id" value="1"/>
+        </update>
+        <update tableName="log_schedule">
+            <column name="tenant_id" value="1"/>
+        </update>
+        <update tableName="notice">
+            <column name="tenant_id" value="1"/>
+        </update>
+        <update tableName="notice_detail">
+            <column name="tenant_id" value="1"/>
+        </update>
+        <update tableName="notice_user">
+            <column name="tenant_id" value="1"/>
+        </update>
+        <update tableName="role">
+            <column name="tenant_id" value="1"/>
+        </update>
+        <update tableName="share">
+            <column name="tenant_id" value="1"/>
+        </update>
+        <update tableName="share_report">
+            <column name="tenant_id" value="1"/>
+        </update>
+        <update tableName="share_to">
+            <column name="tenant_id" value="1"/>
+        </update>
+        <update tableName="system_log">
+            <column name="tenant_id" value="1"/>
+        </update>
+        <update tableName="system_option">
+            <column name="tenant_id" value="1"/>
+        </update>
+        <update tableName="system_session">
+            <column name="tenant_id" value="1"/>
+        </update>
+        <update tableName="user_common_info">
+            <column name="tenant_id" value="1"/>
+        </update>
+        <update tableName="user_fav">
+            <column name="tenant_id" value="1"/>
+        </update>
+        <update tableName="user_group">
+            <column name="tenant_id" value="1"/>
+        </update>
+        <update tableName="user_meta">
+            <column name="tenant_id" value="1"/>
+        </update>
+        <update tableName="user_option">
+            <column name="tenant_id" value="1"/>
+        </update>
+        <update tableName="users">
+            <column name="tenant_id" value="1"/>
+        </update>
+        <update tableName="visit_count_record">
+            <column name="tenant_id" value="1"/>
+        </update>
+    </changeSet>
+    <changeSet author="slj" id="1694740497-1">
+        <update tableName="role">
+            <column name="auth" value="1,3,4,12,13" />
+            <where>code = 'admin.auth.viewer'</where>
+        </update>
+    </changeSet>
+    <changeSet author="slj" id="1697092114-2">
+        <update tableName="io_source">
+            <column name="name_pinyin" value="qiyeyunpan" />
+            <column name="name_pinyin_simple" value="qywp" />
+            <where>`name` = '企业云盘'</where>
+        </update>
+        <update tableName="io_source">
+            <column name="name_pinyin" value="gongxiangziyuan" />
+            <column name="name_pinyin_simple" value="gxzy" />
+            <where>`name` = '共享资源'</where>
+        </update>
+        <update tableName="io_source">
+            <column name="name_pinyin" value="wendang" />
+            <column name="name_pinyin_simple" value="wd" />
+            <where>`name` = '文档'</where>
+        </update>
+        <update tableName="io_source">
+            <column name="name_pinyin" value="qita" />
+            <column name="name_pinyin_simple" value="qt" />
+            <where>`name` = '其他'</where>
+        </update>
+        <update tableName="io_source">
+            <column name="name_pinyin" value="admin" />
+            <column name="name_pinyin_simple" value="admin" />
+            <where>`name` = 'admin'</where>
+        </update>
+        <update tableName="io_source">
+            <column name="name_pinyin" value="zhuomian" />
+            <column name="name_pinyin_simple" value="zm" />
+            <where>`name` = '桌面'</where>
+        </update>
+        <update tableName="io_source">
+            <column name="name_pinyin" value="wodewendang" />
+            <column name="name_pinyin_simple" value="wdwd" />
+            <where>`name` = '我的文档'</where>
+        </update>
+        <update tableName="io_source">
+            <column name="name_pinyin" value="wodetupian" />
+            <column name="name_pinyin_simple" value="wdtp" />
+            <where>`name` = '我的图片'</where>
+        </update>
+        <update tableName="io_source">
+            <column name="name_pinyin" value="wodeyinle" />
+            <column name="name_pinyin_simple" value="wdyl" />
+            <where>`name` = '我的音乐'</where>
+        </update>
+        <update tableName="t_tenant">
+            <column name="is_system" value="1" />
+            <where>user_id = 1</where>
+        </update>
+    </changeSet>
+    <changeSet author="slj" id="1697092114-3">
+        <update tableName="io_source">
+            <column name="name_pinyin" value="qiyewangpanpan" />
+            <column name="name_pinyin_simple" value="qywp" />
+            <where>`name` = '企业网盘'</where>
+        </update>
+    </changeSet>
+
+    <changeSet author="slj" id="1697440060-1">
+        <update tableName="system_option">
+            <column name="value_text" value="{&quot;enableRegister&quot;:false,&quot;needReview&quot;:false,&quot;sizeMax&quot;:2,&quot;roleID&quot;:0,&quot;groupInfo&quot;:[]}" />
+            <where>`key_string` = 'registerConfig'</where>
+        </update>
+    </changeSet>
+    <changeSet author="slj" id="1710215032-1">
+        <update tableName="io_file">
+            <column name="is_preview" value="0" />
+            <where>`is_preview` = 1 and is_m3u8 = 0 </where>
+        </update>
+    </changeSet>
+    <changeSet id="1710914151-2" author="slj">
+        <update tableName="io_source">
+            <column name="is_safe" value="1" />
+            <where>`source_hash` = 'safe' </where>
+        </update>
+    </changeSet>
+</databaseChangeLog>

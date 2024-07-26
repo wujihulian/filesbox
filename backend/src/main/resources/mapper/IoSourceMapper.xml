@@ -1,0 +1,494 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.svnlan.home.dao.IoSourceDao" >
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="sourceID" >
+        insert into io_source(sourceHash,`type`, targetType, targetID, createUser, modifyUser, isFolder,
+                              `name`, fileType, parentID, parentLevel, fileID, isDelete, `size`, createTime, modifyTime,
+                              viewTime,convertSize,thumbSize, storageID,name_pinyin,name_pinyin_simple)
+        values (IFNULL(#{sourceHash},''), IFNULL(#{type},0), #{targetType}, #{targetID}, #{createUser}, #{modifyUser}, #{isFolder}, #{name}, #{fileType}, #{parentID}, #{parentLevel}, #{fileID}, 0, IFNULL(#{size},0), unix_timestamp(), unix_timestamp(),
+                unix_timestamp(), IFNULL(#{convertSize},0), IFNULL(#{thumbSize},0), IFNULL(#{storageID},0), #{namePinyin}, #{namePinyinSimple}
+                )
+    </insert>
+    <insert id="batchInsert" useGeneratedKeys="true" keyProperty="sourceID">
+        insert into io_source(sourceHash,`type`, targetType, targetID, createUser, modifyUser, isFolder,
+        `name`, fileType, parentID, parentLevel, fileID, isDelete, `size`, createTime, modifyTime,
+        viewTime,convertSize,thumbSize, storageID,name_pinyin,name_pinyin_simple)
+        values
+        <foreach collection="list" index="index" item="item" open="" separator="," close="">
+            (IFNULL(#{item.sourceHash},'') , IFNULL(#{item.type}, 0), #{item.targetType}, #{item.targetID}, #{item.createUser}, #{item.modifyUser}, #{item.isFolder}, #{item.name}, #{item.fileType}, #{item.parentID}
+            , #{item.parentLevel}, #{item.fileID}, 0, IFNULL(#{item.size},0), unix_timestamp(), unix_timestamp(), unix_timestamp(), IFNULL(#{item.convertSize},0), IFNULL(#{item.thumbSize},0)
+            , IFNULL(#{item.storageID},0), #{item.namePinyin}, #{item.namePinyinSimple}
+            )
+        </foreach>
+    </insert>
+
+    <update id="deleteDirOrFile">
+        update io_source
+        set isDelete = 1
+        where isDelete = 0 and sourceID in
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </update>
+
+    <update id="deleteSourceByParent">
+        update io_source
+        set isDelete = 1
+        where isDelete = 0
+        and (
+        <foreach collection="list" item="item" index="index" separator="or">
+            ( parentLevel like concat(#{item},'%'))
+        </foreach>
+        )
+    </update>
+
+    <select id="getSourceInfo" resultType="com.svnlan.home.domain.CommonSource">
+        select f.fileID, f.`name` , f.hashMd5, f.size, f.path, s.fileType, s.parentID, s.sourceID, s.isFolder, s.parentLevel, s.targetType, s.`name` sourceName
+        , s.createUser userID, s.canShare, f.is_h264_preview isH264Preview, f.convertSize fileConvertSize, f.thumbSize fileThumbSize, s.convertSize, s.thumbSize
+        , s.description
+        from io_source s
+        left join io_file f ON f.fileID = s.fileID
+        where s.sourceID = #{sourceID}
+    </select>
+
+    <select id="getSourceInfoList" resultType="com.svnlan.home.domain.CommonSource">
+        select f.fileID, f.`name` , f.hashMd5, f.size, f.path, s.fileType, s.parentID, s.sourceID, s.isFolder, s.`name` sourceName, s.`type`
+        , f.convertSize fileConvertSize, f.thumbSize fileThumbSize, s.convertSize, s.thumbSize
+        from io_source s
+        left join io_file f ON f.fileID = s.fileID
+        where s.sourceID in
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="copySourceList" resultType="com.svnlan.home.domain.IOSource">
+        select sourceID, sourceHash,`type`, targetType, isFolder, `name`, fileType, fileID, `size`, parentID, parentLevel, targetID, createTime
+        ,convertSize,thumbSize, storageID
+        from io_source
+        where sourceID in
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </select>
+    <select id="copySourceListByLevel" resultType="com.svnlan.home.domain.IOSource">
+        select sourceID, sourceHash,`type`, targetType, isFolder, `name`, fileType, fileID, `size`, parentID, parentLevel, targetID, createTime
+        ,convertSize,thumbSize, storageID
+        from io_source
+        where isDelete = 0
+        and (
+        <foreach collection="list" item="item" index="index" separator="or">
+            ( parentLevel like concat(#{item},'%'))
+        </foreach>
+        )
+        order by createTime asc
+    </select>
+
+    <update id="batchFileRename">
+        update io_source
+        <set>
+            <trim prefix="name=case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    when sourceID=#{item.sourceID} then #{item.name}
+                </foreach>
+            </trim>
+            <trim prefix="name_pinyin=case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    when sourceID=#{item.sourceID} then #{item.namePinyin}
+                </foreach>
+            </trim>
+            <trim prefix="name_pinyin_simple=case" suffix="end">
+                <foreach collection="list" item="item" index="index">
+                    when sourceID=#{item.sourceID} then #{item.namePinyinSimple}
+                </foreach>
+            </trim>
+        </set>
+        where sourceID in
+        <foreach collection="list" item="item" index="index" separator="," open="(" close=")">
+            #{item.sourceID}
+        </foreach>
+    </update>
+
+    <update id="batchUpdateParent">
+        update io_source
+        <set>
+            <trim prefix="parentID=case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    when sourceID=#{item.sourceID} then #{item.parentID}
+                </foreach>
+            </trim>
+            <trim prefix="targetType=case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    when sourceID=#{item.sourceID} then #{item.targetType}
+                </foreach>
+            </trim>
+            <trim prefix="parentLevel=case" suffix="end">
+                <foreach collection="list" item="item" index="index">
+                    when sourceID=#{item.sourceID} then #{item.parentLevel}
+                </foreach>
+            </trim>
+        </set>
+        where sourceID in
+        <foreach collection="list" item="item" index="index" separator="," open="(" close=")">
+            #{item.sourceID}
+        </foreach>
+    </update>
+    <update id="restoreDirOrFile">
+        update io_source
+        set isDelete = 0
+        where isDelete = 1 and sourceID in
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </update>
+    <update id="restoreSourceByParent">
+        update io_source
+        set isDelete = 0
+        where isDelete = 1
+        and (
+        <foreach collection="list" item="item" index="index" separator="or">
+            ( parentLevel like concat(#{item},'%'))
+        </foreach>
+        )
+    </update>
+    <delete id="removeUserSource">
+        delete from io_source
+        where isDelete = 1 and  `sourceID` in
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </delete>
+    <delete id="removeUserSourceByParent">
+        delete from io_source
+        where isDelete = 1
+        and (
+        <foreach collection="list" item="item" index="index" separator="or">
+            ( parentLevel like concat(#{item},'%'))
+        </foreach>
+        )
+    </delete>
+
+    <select id="getFileIDBySourceID" resultType="java.lang.Long">
+        select fileID
+        from io_source
+        where sourceID in
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </select>
+    <select id="getFileCountBySourceID" resultType="com.svnlan.home.vo.IOSourceVo">
+        select fileID, count(1) fileCount
+        from io_source
+        where fileID in
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+        group by fileID
+    </select>
+
+    <update id="updateSourceMemoryList">
+        update `io_source`
+        set `size` = `size` + #{memory}
+        where sourceID in
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </update>
+
+    <update id="batchUpdateSourceMemoryList">
+        update io_source
+        <set>
+            <trim prefix="`size`=case" suffix="end">
+                <foreach collection="list" item="item" index="index">
+                    when sourceID=#{item.sourceID} then `size` + #{item.size}
+                </foreach>
+            </trim>
+        </set>
+        where sourceID in
+        <foreach collection="list" item="item" index="index" separator="," open="(" close=")">
+            #{item.sourceID}
+        </foreach>
+    </update>
+
+    <update id="subtractSourceMemoryList">
+        update `io_source`
+        set `size` = `size` - #{memory}
+        where sourceID in
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </update>
+
+    <update id="batchSubtractSourceMemoryList">
+        update io_source
+        <set>
+            <trim prefix="`size`=case" suffix="end">
+                <foreach collection="list" item="item" index="index">
+                    when sourceID=#{item.sourceID} then `size` - #{item.size}
+                </foreach>
+            </trim>
+        </set>
+        where sourceID in
+        <foreach collection="list" item="item" index="index" separator="," open="(" close=")">
+            #{item.sourceID}
+        </foreach>
+    </update>
+
+    <select id="getMaxSort" resultType="java.lang.Integer">
+        select sort
+        from `io_source`
+        where isDelete = 0
+        and parentID = #{parentID}
+        order BY sort desc
+        limit 1
+    </select>
+    <update id="updateSort" >
+        update `io_source`
+        set sort = #{sort}
+        where sourceID = #{sourceID}
+    </update>
+
+    <update id="updateSourceInfo" >
+        update `io_source`
+        set modifyUser = #{modifyUser},
+        `size` = #{size},
+        `fileID` = #{fileID},
+        modifyTime = unix_timestamp()
+        where sourceID = #{sourceID}
+    </update>
+
+    <select id="copySourcePathList" resultType="com.svnlan.home.vo.IOSourceVo">
+        select s.sourceID, s.isFolder, s.`name`, s.fileType, s.fileID, s.`size`, s.createTime, f.path, f.name fileName, s.parentLevel
+        from io_source s
+        left join io_file f on s.fileID = f.fileID
+        where s.sourceID in
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </select>
+    <select id="copySourcePathListByLevel" resultType="com.svnlan.home.vo.IOSourceVo">
+        select s.sourceID, s.isFolder, s.`name`, s.fileType, s.fileID, s.`size`, s.createTime, f.path, f.name fileName, s.parentLevel
+        from io_source s
+        left join io_file f on s.fileID = f.fileID
+        where isDelete = 0 and (
+        <foreach collection="list" item="item" index="index" separator="or">
+            ( s.parentLevel like concat(#{item},'%'))
+        </foreach>
+        )
+    </select>
+
+    <select id="getSourceFileInfoList" resultType="com.svnlan.home.domain.CommonSource">
+        select s.sourceID, s.sourceHash, s.targetType, s.isFolder, s.`name`, s.fileType, s.fileID, s.`size`, s.parentID, s.parentLevel, s.targetID, s.createTime
+        ,  f.`name` fileName , f.hashMd5,  f.path
+        from io_source s
+        left join io_file f ON f.fileID = s.fileID
+        where s.sourceID in
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </select>
+
+    <update id="updateSourceModifyUser" >
+        update `io_source`
+        set modifyUser = #{modifyUser},
+        <if test="size != null">`size` = #{size},</if>
+        modifyTime = unix_timestamp()
+        where sourceID = #{sourceID}
+    </update>
+    <update id="updateFileSize" >
+        update `io_file`
+        set `size` = #{size},
+        <if test="hashMd5 != null ">`hashMd5` = #{hashMd5}</if>
+        where fileID = #{fileID}
+    </update>
+
+    <select id="getSourceNameList" resultType="java.lang.String">
+        select s.`name`
+        from io_source s
+        where s.parentID = #{sourceID} and s.isDelete = 0
+    </select>
+
+    <select id="checkSourceNameList" resultType="com.svnlan.home.domain.CommonSource">
+        select s.`name`, s.sourceID
+        from io_source s
+        where s.parentID = #{sourceID} and s.isDelete = 0
+    </select>
+
+    <select id="fileCount" resultType="com.alibaba.fastjson.JSONObject">
+        SELECT COUNT(1) count, 'fileCount' AS `type`
+        FROM io_source
+        WHERE isDelete = 0
+          AND isFolder = 0
+        UNION ALL
+        SELECT COUNT(1) count, 'directoryCount' AS `type`
+        FROM io_source
+        WHERE isDelete = 0
+          AND isFolder = 1
+        UNION ALL
+        SELECT COUNT(1) count, 'videoCount' AS `type`
+        FROM io_source
+        WHERE isDelete = 0
+          AND isFolder = 0
+          AND `type` = 4
+    </select>
+
+    <select id="getFileCountByPath" resultType="com.svnlan.home.vo.IOSourceVo">
+        SELECT f.path, count(1) fileCount
+        FROM io_file f
+        WHERE f.path in
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+        group by f.path
+    </select>
+    <select id="getUserDirectoryAndFile" resultType="com.alibaba.fastjson.JSONObject">
+        SELECT sourceID, `type`, isFolder, `name`, parentLevel, fileID, NULL path
+        FROM io_source
+        WHERE targetID = #{userId}
+          AND parentID = #{parentId}
+          AND targetType = 1
+          AND isDelete = 0
+          AND isFolder = 1
+        UNION ALL
+        SELECT s.sourceID, s.type, s.isFolder, s.name, s.parentLevel, s.fileID, i.path
+        FROM io_source s
+                 INNER JOIN io_file i ON s.fileID = i.fileID
+        WHERE s.targetID = #{userId}
+          AND s.parentID = #{parentId}
+          AND s.targetType = 1
+          AND s.isDelete = 0
+          AND s.isFolder = 0
+          AND i.isExistFile = 1
+    </select>
+
+    <update id="batchUpdateParentAndName">
+        update io_source
+        <set>
+            <trim prefix="parentID=case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    when sourceID=#{item.sourceID} then #{item.parentID}
+                </foreach>
+            </trim>
+            <trim prefix="targetType=case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    when sourceID=#{item.sourceID} then #{item.targetType}
+                </foreach>
+            </trim>
+            <trim prefix="name=case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    when sourceID=#{item.sourceID} then #{item.name}
+                </foreach>
+            </trim>
+            <trim prefix="parentLevel=case" suffix="end">
+                <foreach collection="list" item="item" index="index">
+                    when sourceID=#{item.sourceID} then #{item.parentLevel}
+                </foreach>
+            </trim>
+            ,isDelete=0
+        </set>
+        where sourceID in
+        <foreach collection="list" item="item" index="index" separator="," open="(" close=")">
+            #{item.sourceID}
+        </foreach>
+    </update>
+
+    <select id="getFileContentByNameAndUserId" resultType="com.svnlan.home.domain.IOFile">
+        SELECT f.fileID, f.path, f.isExistFile, f.is_m3u8 isM3u8, f.is_preview isPreview, f.name
+            <if test="isVideoFile != null and isVideoFile">
+                 , ifm.value
+            </if>
+        FROM io_file f
+             INNER JOIN io_source s ON f.fileID = s.fileID
+            <if test="isVideoFile != null and isVideoFile">
+                INNER JOIN io_file_meta ifm ON f.fileID = ifm.fileID AND ifm.`key` = 'fileInfoMore'
+            </if>
+        WHERE s.targetID = #{userId}
+          AND f.fileName = #{fileName}
+        LIMIT 1
+    </select>
+
+    <select id="getParentPathDisplay" resultType="com.svnlan.home.vo.ParentPathDisplayVo">
+
+        select
+        a.parentLevel ,
+        group_concat(a.parentIDSub) parentIDStr,
+        a.targetType,
+        group_concat(io.name) parentLevelName
+        from (
+        select
+        substring_index(substring_index(fi.parentLevel, ',', b.help_topic_id + 1), ',', -1) parentIDSub,fi.parentLevel , fi.createTime, fi.targetType
+        from `io_source` fi
+        join  mysql.help_topic b on b.help_topic_id <![CDATA[ < ]]> (length(fi.parentLevel) - length(replace(fi.parentLevel, ',', '')) + 1)
+        where fi.parentLevel in
+        <foreach collection="list" item="item" index="index" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+        group BY   parentIDSub
+        order by fi.createTime asc
+
+        ) a
+        left join io_source io on a.parentIDSub = io.sourceID
+        where a.parentIDSub > 0
+        group by a.parentLevel
+    </select>
+
+    <select id="getSourceName" resultType="java.lang.String">
+        select  s.`name`
+        from io_source s
+        where s.sourceID = #{sourceID}
+    </select>
+
+    <update id="updateSourceAddSizeInfo" >
+        update `io_source`
+        set modifyUser = #{modifyUser},
+        <if test="thumbSize != null">thumbSize = thumbSize + #{thumbSize},</if>
+        <if test="convertSize != null">convertSize = convertSize + #{convertSize},</if>
+        <if test="fileType != null">fileType = #{fileType},</if>
+        `fileID` = #{fileID},
+        `size` = `size` + #{size}
+        where sourceID = #{sourceID}
+    </update>
+
+    <update id="updateSourceConvertSize" >
+        update `io_source`
+        set convertSize = convertSize + #{convertSize}
+        where sourceID = #{sourceID}
+    </update>
+
+    <update id="updateSourceThumbSize" >
+        update `io_source`
+        set thumbSize = thumbSize + #{thumbSize}
+        where sourceID = #{sourceID}
+    </update>
+    <select id="getDesktopSourceList" resultType="com.svnlan.home.vo.IOSourceVo">
+        select s.sourceID, s.isFolder, s.`name`, s.fileType, s.fileID, s.`size`, s.createTime, f.path, f.name fileName, s.parentLevel, s.parentID
+        from io_source s
+        left join io_file f on s.fileID = f.fileID
+        where s.parentID = #{parentID} and s.`name` = #{name}
+    </select>
+
+    <select id="getSourceSize" resultType="java.lang.Long">
+        select   s.`size`
+        from io_source s
+        where s.sourceID = #{sourceID}
+    </select>
+    <update id="updateSourceSize" >
+        update `io_source`
+        set `size` = #{size}
+        where sourceID = #{sourceID}
+    </update>
+
+    <select id="getParentPathDisplayByIds" resultType="com.svnlan.home.vo.ParentPathDisplayVo">
+         select sourceID, `name`
+        from io_source where sourceID in
+        <foreach collection="list" item="item" index="index" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </select>
+    <update id="updateSourceDesc" >
+        update `io_source`
+        set description = #{description}
+        where sourceID = #{sourceID}
+    </update>
+</mapper>

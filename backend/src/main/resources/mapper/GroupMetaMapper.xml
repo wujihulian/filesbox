@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.svnlan.user.dao.GroupMetaDao" >
+
+    <delete id="delMetaByGroupID">
+        delete from group_meta
+        where groupID = #{groupID}
+        and key1 in
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </delete>
+
+    <insert id="batchInsert" >
+        insert into group_meta (groupID, key1,value, createTime, modifyTime)
+        values
+        <foreach collection="list" index="index" item="item" open="" separator="," close="">
+            (
+            #{item.groupID}, #{item.key}, #{item.value}, unix_timestamp(now()), unix_timestamp(now())
+            )
+        </foreach>
+    </insert>
+    <select id="getGroupMetaList" resultType="com.svnlan.user.domain.GroupMeta">
+        select groupID, key1,value
+        from  group_meta
+        where groupID in
+        <foreach collection="groupIdList" item="groupID" open="(" close=")" separator=",">
+            #{groupID}
+        </foreach>
+        and key1 in
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </select>
+    <select id="getSystemGroup" resultType="java.lang.Long">
+        select groupID
+        from  group_meta
+        where key1 = 'systemGroupSource' order by createTime asc limit 1
+    </select>
+</mapper>

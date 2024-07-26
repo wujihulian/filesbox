@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.svnlan.user.dao.UserMetaDao" >
+
+    <delete id="delMetaByUserID">
+        delete from user_meta
+        where userID = #{userID}
+        and key1 in
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </delete>
+
+    <insert id="batchInsert" >
+        insert into user_meta (userID, key1,value, createTime, modifyTime)
+        values
+        <foreach collection="list" index="index" item="item" open="" separator="," close="">
+            (
+            #{item.userID}, #{item.key}, #{item.value}, unix_timestamp(now()), unix_timestamp(now())
+            )
+        </foreach>
+    </insert>
+
+</mapper>

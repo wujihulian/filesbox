@@ -1,0 +1,19 @@
+<assembly>
+    <id>assembly</id>
+    <formats>
+        <!--zip/tar/tar.gz或tgz/tar.bz2或tbz2/tar.snappy/tar.xz或txz/jar/dir/war-->
+        <format>jar</format>
+    </formats>
+    <includeBaseDirectory>false</includeBaseDirectory>
+
+    <fileSets>
+        <fileSet>
+            <directory>target/classes</directory>
+            <outputDirectory>.</outputDirectory>
+            <includes>
+                <include>com/svnlan/jooq/**</include>
+            </includes>
+        </fileSet>
+    </fileSets>
+
+</assembly>

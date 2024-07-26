@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>登录中</title>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <style>
+        .enWechat {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="enWechat">
+        <img width="100" src="./loading.gif" />
+    </div>
+</body>
+
+<script type="module">
+    //import loginConfig from './loginConfig.js';
+
+    $(function () {
+        const code = getUrlParam('code');
+        const state = getUrlParam('state');
+        //  const token = getUrlParam('token');
+        if (code == null) {
+            $.ajax({
+                url: `/api/disk/getAboutEnInfo`,
+                method: 'get',
+                success: res => {
+                    let resx = res ? JSON.parse(res) : {};
+                    const { data = {} } = resx
+                    if (data.agentId) {
+                        let requestUrl = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=ww2d1e9bafb529c21f&redirect_uri=${encodeURIComponent(`${location.origin}/enWechat-login.html`)}&response_type=code&scope=snsapi_privateinfo&state=innerLogin&agentid=${data.agentId}#wechat_redirect`;
+                        window.location.href = requestUrl
+                    }
+                },
+                error: err => {
+                    // alert(JSON.stringify(err))
+                    alert(JSON.parse(err.responseText).message)
+                    // window.location.href = '/login'
+                },
+
+            })
+
+
+        } else {
+            $.ajax({
+                url: `/api/enwechat/login/callback?code=${code}&state=${state}`,
+                method: 'get',
+                success: res => {
+                    const { data = {} } = res
+                    if (data.token) {
+                        var Days = 30;
+                        var exp = new Date();
+                        exp.setTime(exp.getTime() + Days * 24 * 60 * 60 * 1000);
+                        document.cookie = 'token=' + escape(data.token) + ';path=/;expires=' + exp.toGMTString();
+                        window.location.href = '/'
+                    } else {
+                        window.location.href = '/login'
+                    }
+                },
+                error: err => {
+                    // alert(JSON.stringify(err))
+                    alert(JSON.parse(err.responseText).message)
+                    window.location.href = '/login'
+                },
+
+            })
+        }
+    })
+
+    function getUrlParam(name) {
+        const regx = new RegExp('(^|&)' + name + '=([^&]*)(&|$)')
+        const r = window.location.search.substring(1).match(regx)
+        if (r != null) {
+            return decodeURI(r[2])
+        }
+        return null
+    }
+</script>
+
+</html>

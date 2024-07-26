@@ -1,0 +1,17 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([["chunk-2d0de01b"],{"848a":function(e,t,n){"use strict";n.r(t);var v=function(){var s=this;return s._self._c,s._m(0)},_=[function(){var s=this,a=s._self._c;return a("div",[a("h1",[s._v("Watermark\u63D2\u4EF6")]),a("blockquote",[a("p",[s._v("0.2.24+")])]),a("p",[a("code",[s._v("Watermark")]),s._v("\u63D2\u4EF6\u8D1F\u8D23\u663E\u793A\u6C34\u5370\u3002")]),a("p",[s._v("\u914D\u7F6E\u8BF7\u53C2\u8003"),a("code",[s._v("MindMap")]),s._v("\u7C7B\u7684"),a("a",{attrs:{href:"/mind-map/#/doc/zh/constructor"}},[s._v("\u5B9E\u4F8B\u5316\u9009\u9879")]),s._v("\u3002")]),a("h2",[s._v("\u6CE8\u518C")]),a("pre",{staticClass:"hljs"},[a("code",[a("span",{staticClass:"hljs-keyword"},[s._v("import")]),s._v(" MindMap "),a("span",{staticClass:"hljs-keyword"},[s._v("from")]),s._v(" "),a("span",{staticClass:"hljs-string"},[s._v("'simple-mind-map'")]),s._v(`
+`),a("span",{staticClass:"hljs-keyword"},[s._v("import")]),s._v(" Watermark "),a("span",{staticClass:"hljs-keyword"},[s._v("from")]),s._v(" "),a("span",{staticClass:"hljs-string"},[s._v("'simple-mind-map/src/plugins/Watermark.js'")]),s._v(`
+`),a("span",{staticClass:"hljs-comment"},[s._v("// import Watermark from 'simple-mind-map/src/Watermark.js' v0.6.0\u4EE5\u4E0B\u7248\u672C\u4F7F\u7528\u8BE5\u8DEF\u5F84")]),s._v(`
+
+MindMap.usePlugin(Watermark)
+`)])]),a("p",[s._v("\u6CE8\u518C\u5B8C\u4E14\u5B9E\u4F8B\u5316"),a("code",[s._v("MindMap")]),s._v("\u540E\u53EF\u901A\u8FC7"),a("code",[s._v("mindMap.watermark")]),s._v("\u83B7\u53D6\u5230\u8BE5\u5B9E\u4F8B\u3002")]),a("h2",[s._v("\u65B9\u6CD5")]),a("h3",[s._v("draw()")]),a("p",[s._v("\u91CD\u65B0\u7ED8\u5236\u6C34\u5370\u3002")]),a("p",[s._v("\u6CE8\u610F\uFF1A\u975E\u7CBE\u786E\u7ED8\u5236\uFF0C\u4F1A\u7ED8\u5236\u4E00\u4E9B\u8D85\u51FA\u53EF\u89C6\u533A\u57DF\u7684\u6C34\u5370\uFF0C\u5982\u679C\u5BF9\u6027\u80FD\u6709\u6781\u81F4\u8981\u6C42\uFF0C\u63A8\u8350\u81EA\u884C\u5F00\u53D1\u6C34\u5370\u529F\u80FD\u3002")]),a("h3",[s._v("updateWatermark(config)")]),a("p",[s._v("\u66F4\u65B0\u6C34\u5370\u914D\u7F6E\u3002\u793A\u4F8B\uFF1A")]),a("pre",{staticClass:"hljs"},[a("code",[s._v(`mindMap.watermark.updateWatermark({
+    `),a("span",{staticClass:"hljs-attr"},[s._v("text")]),s._v(": "),a("span",{staticClass:"hljs-string"},[s._v("'\u6C34\u5370\u6587\u5B57'")]),s._v(`,
+    `),a("span",{staticClass:"hljs-attr"},[s._v("lineSpacing")]),s._v(": "),a("span",{staticClass:"hljs-number"},[s._v("100")]),s._v(`,
+    `),a("span",{staticClass:"hljs-attr"},[s._v("textSpacing")]),s._v(": "),a("span",{staticClass:"hljs-number"},[s._v("100")]),s._v(`,
+    `),a("span",{staticClass:"hljs-attr"},[s._v("angle")]),s._v(": "),a("span",{staticClass:"hljs-number"},[s._v("50")]),s._v(`,
+    `),a("span",{staticClass:"hljs-attr"},[s._v("textStyle")]),s._v(`: {
+      `),a("span",{staticClass:"hljs-attr"},[s._v("color")]),s._v(": "),a("span",{staticClass:"hljs-string"},[s._v("'#000'")]),s._v(`,
+      `),a("span",{staticClass:"hljs-attr"},[s._v("opacity")]),s._v(": "),a("span",{staticClass:"hljs-number"},[s._v("1")]),s._v(`,
+      `),a("span",{staticClass:"hljs-attr"},[s._v("fontSize")]),s._v(": "),a("span",{staticClass:"hljs-number"},[s._v("20")]),s._v(`
+    }
+})
+`)])]),a("h3",[s._v("hasWatermark()")]),a("blockquote",[a("p",[s._v("v0.3.2+")])]),a("p",[s._v("\u83B7\u53D6\u662F\u5426\u5B58\u5728\u6C34\u5370\u3002")])])}],r={},l=r,i=n("2877"),p=Object(i.a)(l,v,_,!1,null,null,null);t.default=p.exports}}]);

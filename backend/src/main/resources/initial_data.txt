@@ -1,0 +1,58 @@
+DividingLine||ROLE
+系统管理员||admin.role.administrator||超级管理员,拥有服务器管理权限; 所有文件文件夹设置权限对该用户无效!||#533eb4||explorer.add,explorer.upload,explorer.view,explorer.download,explorer.share,explorer.remove,explorer.edit,explorer.move,explorer.serverDownload,explorer.search,explorer.unzip,explorer.zip,user.edit,user.fav,admin.index.dashboard,admin.index.setting,admin.index.loginLog,admin.index.log,admin.index.server,admin.role.list,admin.role.edit,admin.job.list,admin.job.edit,admin.member.list,admin.member.userEdit,admin.member.groupEdit,admin.auth.list,admin.auth.edit,admin.plugin.list,admin.plugin.edit,admin.storage.list,admin.storage.edit,admin.autoTask.list,admin.autoTask.edit,admin.index.information,explorer.informationView||unix_timestamp(now())||unix_timestamp(now())||unix_timestamp(now())||1||1||1||1||0|| ||0||1
+部门管理员||admin.role.group|| ||#108ee9||explorer.add,explorer.upload,explorer.view,explorer.download,explorer.share,explorer.remove,explorer.edit,explorer.move,explorer.serverDownload,explorer.search,explorer.unzip,explorer.zip,user.edit,user.fav,admin.index.loginLog,admin.index.log,admin.member.list,admin.member.userEdit,admin.member.groupEdit,admin.auth.list,explorer.informationView||unix_timestamp(now())||unix_timestamp(now())||unix_timestamp(now())||1||1||1||0||0|| ||1||1
+普通用户||admin.role.default|| ||#3dbd7d||explorer.add,explorer.upload,explorer.view,explorer.download,explorer.share,explorer.remove,explorer.edit,explorer.move,explorer.serverDownload,explorer.search,explorer.unzip,explorer.zip,user.edit,user.fav,explorer.informationView||unix_timestamp(now())||unix_timestamp(now())||unix_timestamp(now())||1||1||1||0||0|| ||2||1
+编辑者||admin.auth.editor|| ||#f46e65||1,2,3,4,5,6,7,8,9,10,11,12,13||unix_timestamp(now())||unix_timestamp(now())||unix_timestamp(now())||1||1||1||0||0|| ||1||2
+编辑/上传者||admin.auth.editUploader|| ||#fdd8e7||1,2,3,4,5,6,7,8,9,12,13||unix_timestamp(now())||unix_timestamp(now())||unix_timestamp(now())||1||1||1||0||0|| ||2||2
+预览者||admin.auth.previewer|| ||#a7e1c4||1,3||unix_timestamp(now())||unix_timestamp(now())||unix_timestamp(now())||1||1||1||0||0|| ||3||2
+上传者||admin.auth.uploader|| ||#ffce3d||1,5||unix_timestamp(now())||unix_timestamp(now())||unix_timestamp(now())||1||1||1||0||0|| ||4||2
+拥有者||admin.auth.owner|| ||#533eb4||1,2,3,4,5,6,7,8,9,10,11,12,13,14||unix_timestamp(now())||unix_timestamp(now())||unix_timestamp(now())||1||1||1||0||0|| ||5||2
+查看者||admin.auth.viewer|| ||#3dbd7d||1,3,4,13||unix_timestamp(now())||unix_timestamp(now())||unix_timestamp(now())||1||1||1||0||0|| ||6||2
+不可见||admin.auth.invisible|| ||#fff|| ||unix_timestamp(now())||unix_timestamp(now())||unix_timestamp(now())||1||1||1||0||0|| ||7||2
+DividingLine||GROUP_META
+namePinyin||qiyewangpan||unix_timestamp(now())||unix_timestamp(now())
+namePinyinSimple||qywp||unix_timestamp(now())||unix_timestamp(now())
+systemGroupSource||1||unix_timestamp(now())||unix_timestamp(now())
+DividingLine||SYSTEM_OPTION
+ ||systemLogo|| ||unix_timestamp(now())||unix_timestamp(now())
+ ||systemName||私有云盘||unix_timestamp(now())||unix_timestamp(now())
+ ||systemDesc||视频和数字资产文件系统||unix_timestamp(now())||unix_timestamp(now())
+ ||groupRootName||企业网盘||unix_timestamp(now())||unix_timestamp(now())
+ ||browserLogo|| ||unix_timestamp(now())||unix_timestamp(now())
+ ||globalIcp|| ||unix_timestamp(now())||unix_timestamp(now())
+ ||seo|| ||unix_timestamp(now())||unix_timestamp(now())
+ ||seoDesc|| ||unix_timestamp(now())||unix_timestamp(now())
+ ||meta|| ||unix_timestamp(now())||unix_timestamp(now())
+ ||passwordErrorLock||0||unix_timestamp(now())||unix_timestamp(now())
+ ||needCheckCode||0||unix_timestamp(now())||unix_timestamp(now())
+ ||passwordRule||none||unix_timestamp(now())||unix_timestamp(now())
+ ||showFileLink||0||unix_timestamp(now())||unix_timestamp(now())
+ ||showFileMd5||1||unix_timestamp(now())||unix_timestamp(now())
+ ||shareLinkAllow||1||unix_timestamp(now())||unix_timestamp(now())
+ ||shareLinkPasswordAllowEmpty||0||unix_timestamp(now())||unix_timestamp(now())
+ ||shareLinkAllowGuest||1||unix_timestamp(now())||unix_timestamp(now())
+ ||treeOpen||my,myFav,rootGroup,recentDoc,fileType,fileTag,shareLink,information,toolbox||unix_timestamp(now())||unix_timestamp(now())
+ ||dateFormat||Y-m-d||unix_timestamp(now())||unix_timestamp(now())
+ ||newUserFolder||图片,文档,视频,音乐,其他||unix_timestamp(now())||unix_timestamp(now())
+ ||needMark||0||unix_timestamp(now())||unix_timestamp(now())
+System.pluginList||ID-1||{"name":"OfficeWeb365","status":1,"id":1,"description":"office文件在线查看","type":"ow365"}||unix_timestamp(now())||unix_timestamp(now())
+System.pluginList||ID-2||{"name":"永中Office","status":1,"id":2,"description":"office文件在线编辑","type":"yzow"}||unix_timestamp(now())||unix_timestamp(now())
+ ||markType||0||unix_timestamp(now())||unix_timestamp(now())
+ ||wmTitle||FilesBox||unix_timestamp(now())||unix_timestamp(now())
+ ||wmColor||#eae0f8||unix_timestamp(now())||unix_timestamp(now())
+ ||wmFont||SimSun||unix_timestamp(now())||unix_timestamp(now())
+ ||wmSize||28||unix_timestamp(now())||unix_timestamp(now())
+ ||wmSubTitle||{userName} - {userLoginTime}||unix_timestamp(now())||unix_timestamp(now())
+ ||wmSubColor||#d9d9d9||unix_timestamp(now())||unix_timestamp(now())
+ ||wmSubFont||SimSun||unix_timestamp(now())||unix_timestamp(now())
+ ||wmSubSize||15||unix_timestamp(now())||unix_timestamp(now())
+ ||wmTransparency||50||unix_timestamp(now())||unix_timestamp(now())
+ ||wmRotate||45||unix_timestamp(now())||unix_timestamp(now())
+ ||wmMargin|| ||unix_timestamp(now())||unix_timestamp(now())
+ ||wmPicPath|| ||unix_timestamp(now())||unix_timestamp(now())
+ ||wmPicSize|| ||unix_timestamp(now())||unix_timestamp(now())
+ ||wmPosition|| ||unix_timestamp(now())||unix_timestamp(now())
+ ||thirdLoginConfig||[]||unix_timestamp(now())||unix_timestamp(now())
+ ||registerConfig||{"enableRegister":false,"needReview":false,"sizeMax":2,"roleID":0,"groupInfo":[]}||unix_timestamp(now())||unix_timestamp(now())
+ ||needUploadCheck||1||unix_timestamp(now())||unix_timestamp(now())
+System.mesWarning||ID-1||{"name": "msgWarning","status": 1,"id": 1,"enable": "0","warnType": "cpu,mem,du","useRatio": "80","useTime": "20","sendType": "","target": "","dingUrl": "","wechatUrl": "","createTime": 1686187149,"modifyTime": 1686187149}||unix_timestamp(now())||unix_timestamp(now())

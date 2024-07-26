@@ -1,0 +1,1 @@
+(function(e,l){for(var t=window.localStorage,d=e("head").find("style"),a=0,c=d.length;a<c;a++){var o=d.eq(a);o.text().indexOf(".module")>0&&o.text().indexOf(".comHead")>0&&o.text().indexOf(".comFoot")>0&&(t.comWapStyle=o.text())}t.comWapHead=e("body>.comHead").html(),t.comWapFoot=e("body>.comFoot").html()})(jQuery,window);

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.svnlan.home.dao.CommonScheduleDao">
+    <resultMap id="BaseResultMap" type="com.svnlan.home.domain.CommonSchedule">
+        <id column="common_schedule_id" jdbcType="VARCHAR" property="commonScheduleId"/>
+        <result column="schedule_name" jdbcType="VARCHAR" property="scheduleName"/>
+        <result column="gmt_modified" jdbcType="DATE" property="gmtModified"/>
+    </resultMap>
+    <update id="updateOperateTime">
+        update common_schedule set gmt_modified=now() where common_schedule_id=#{commonScheduleId} and gmt_modified &lt;=date_add(now(),interval -frequency second)
+    </update>
+
+
+</mapper>

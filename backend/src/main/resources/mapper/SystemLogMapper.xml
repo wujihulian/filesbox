@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.svnlan.jwt.dao.SystemLogDao" >
+
+    <insert id="insert"  useGeneratedKeys="true" keyProperty="id" >
+        insert into system_log (sessionID, userID, type, desc1, createTime , visit_date, client_type, osName )
+        values (#{sessionID}, #{userID}, #{type}, #{desc}, unix_timestamp(now()), #{visitDate}, IFNULL(#{clientType}, '1'), #{osName})
+    </insert>
+    <insert id="batchInsert"  useGeneratedKeys="true" keyProperty="id" >
+        insert into system_log (sessionID, userID, type, desc1, createTime , visit_date, client_type, osName )
+        values
+        <foreach collection="list" index="index" item="item" open="" separator="," close="">
+            (#{item.sessionID}, #{item.userID}, #{item.type}, #{item.desc}, unix_timestamp(now()), #{item.visitDate}, IFNULL(#{item.clientType}, '1'), #{item.osName})
+        </foreach>
+    </insert>
+    <select id="getSystemLogList" resultType="com.svnlan.user.vo.SystemLogVo">
+        select log.id, log.sessionID, log.userID, log.type, log.desc1, log.createTime , log.osName
+        , u.name, u.nickname, u.avatar
+        from system_log log
+        left join users u on log.userID = u.userID
+        where 1 = 1
+        <include refid="searchLogParamSql"/>
+        order by log.createTime ${sortType}
+    </select>
+
+    <sql id="searchLogParamSql">
+        <if test="userID != null">
+            and log.userID = #{userID}
+        </if>
+        <if test="type != null">
+            and log.type = #{type}
+        </if>
+        <if test="typeList != null">
+            and log.type in
+            <foreach collection="typeList" item="item" open="(" close=")" separator=",">
+                #{item}
+            </foreach>
+        </if>
+        <choose>
+            <when test="minDate != null">
+                <choose>
+                    <when test="maxDate != null">
+                        and (log.createTime between #{minDate} and #{maxDate})
+                    </when>
+                    <otherwise>
+                        and (log.createTime >= #{minDate})
+                    </otherwise>
+                </choose>
+            </when>
+            <otherwise>
+                <if test="maxDate != null">
+                    and ( #{maxDate} >=log.createTime)
+                </if>
+            </otherwise>
+        </choose>
+    </sql>
+    <select id="queryUserLoginCountStat" resultType="com.alibaba.fastjson.JSONObject">
+        SELECT desc1,
+        DATE(FROM_UNIXTIME(createTime)) date,
+        createTime timestamp
+        FROM system_log
+        WHERE createTime <![CDATA[ >= ]]> #{pair.first}
+        AND createTime <![CDATA[ <= ]]> #{pair.second}
+        AND type = 'user.index.loginSubmit'
+        AND userID = #{userId}
+    </select>
+
+    <select id="getSystemLogExportList" resultType="com.svnlan.user.vo.SystemLogVo">
+        select log.id, log.desc1, log.type, log.createTime , log.osName, u.name, u.nickname
+        from system_log log
+        left join users u on log.userID = u.userID
+        where 1 = 1
+        <include refid="searchLogParamSql"/>
+        order by log.createTime ${sortType}
+    </select>
+</mapper>

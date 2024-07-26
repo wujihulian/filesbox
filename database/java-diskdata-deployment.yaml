@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: java-diskdata
+  namespace: default
+  labels:
+    app-name: java-diskdata
+spec:
+  replicas: 1
+  minReadySeconds: 30
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app-name: java-diskdata
+  template:
+    metadata:
+      labels:
+        app-name: java-diskdata
+    spec:
+      nodeSelector:
+        type: deployment
+      containers:
+      - name: java-diskdata
+        image: harbor.svnlan.com/library/java/diskdata:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+          name: diskdata
+          protocol: TCP
+        volumeMounts:
+        - name: nfs-pvc-svnlan-log30
+          mountPath: "/log"
+      volumes:
+      - name: nfs-pvc-svnlan-log30
+        hostPath:
+          path: /data0/logs/app

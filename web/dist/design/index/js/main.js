@@ -1,0 +1,1 @@
+(function(){function a(n){var e=null;return n.which?e=n.which:n.keyCode&&(e=n.keyCode),e==13}for(var t=$(".module[data-type=search]"),r=0,i=t.length;r<i;r++){var o=t.eq(r);(function(n){var e=n.find("input");e.on("keypress",function(l){a(l)&&(e.val()?location.href="/pages/elective.html?keyword="+e.val():location.href="/pages/elective.html")})})(o)}})();
