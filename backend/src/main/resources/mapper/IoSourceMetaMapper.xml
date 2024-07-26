@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.svnlan.home.dao.IoSourceMetaDao" >
+
+    <delete id="delMetaBySourceID">
+        delete from io_source_meta
+        where sourceID = #{sourceID}
+        and key1 in
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </delete>
+    <delete id="delMetaBySourceIDList">
+        delete from io_source_meta
+        where sourceID in
+        <foreach collection="sourceIdList" item="sourceId" open="(" close=")" separator=",">
+            #{sourceId}
+        </foreach>
+        and key1 in
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </delete>
+    <insert id="batchInsert" >
+        insert into io_source_meta (sourceID, key1,value, createTime, modifyTime)
+        values
+        <foreach collection="list" index="index" item="item" open="" separator="," close="">
+            (
+            #{item.sourceID}, #{item.key}, #{item.value}, unix_timestamp(now()), unix_timestamp(now())
+            )
+        </foreach>
+    </insert>
+    <insert id="insert" >
+        insert into io_source_meta (sourceID, key1,value, createTime, modifyTime)
+        values
+            (
+            #{sourceID}, #{key}, #{value}, unix_timestamp(now()), unix_timestamp(now())
+            )
+
+    </insert>
+    <select id="getSourceMetaListBySourceID" resultType="com.svnlan.home.domain.IOSourceMeta">
+        select sourceID, key1,value
+        from  io_source_meta
+        where sourceID = #{sourceID}
+        and key1 in
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </select>
+    <select id="getSourceMetaListByParam" resultType="com.svnlan.home.domain.IOSourceMeta">
+        select sourceID, key1,value
+        from  io_source_meta
+        where sourceID in
+        <foreach collection="sourceIdList" item="sourceID" open="(" close=")" separator=",">
+            #{sourceID}
+        </foreach>
+        and key1 in
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </select>
+
+    <update id="updateMetaByKey">
+        update io_source_meta set value = #{desc}
+        where sourceID = #{sourceID}
+        and key1 = #{key}
+    </update>
+    <select id="getValueMetaByKey" resultType="java.lang.String">
+        select value
+        from  io_source_meta
+        where sourceID = #{sourceID}
+        and key1 = #{key} limit 1
+    </select>
+    <select id="getSourceIDMetaByKey" resultType="java.lang.String">
+        select sourceID
+        from  io_source_meta
+        where value = #{value}
+        and key1 = #{key} limit 1
+    </select>
+
+    <select id="getSourceMetaVoBySourceID" resultType="com.svnlan.home.domain.IOSourceMeta">
+        select sourceID, key1,value
+        from  io_source_meta
+        where sourceID = #{sourceID}
+        and key1 = #{key}
+    </select>
+</mapper>

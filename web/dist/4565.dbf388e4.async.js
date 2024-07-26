@@ -1,0 +1,1 @@
+(self.webpackChunkant_design_pro=self.webpackChunkant_design_pro||[]).push([[4565],{4565:function(n,s,e){n=e.nmd(n),function(){ace.require(["ace/snippets/golang"],function(p){n&&(n.exports=p)})}()}}]);

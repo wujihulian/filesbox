@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<html>
+
+<head>
+    <title>登录中</title>
+    <!-- 这个必须引入的啊，钉钉的前端js SDK, 使用框架的请自行参照开发文档 -->
+    <script src="https://g.alicdn.com/dingding/dingtalk-jsapi/2.7.13/dingtalk.open.js"></script>
+    <!-- 这个jquery 想不想引入自己决定，没什么影响 -->
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <style>
+        .dingding {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dingding">
+        <img width="300" src="./loading.gif" />
+    </div>
+</body>
+<script type="module">
+    import cdnObj from './cdnPath.js';
+    var basePath = cdnObj.basePath || '';
+    window.basePath = basePath;
+</script>
+<script>
+    $(function () {
+        //钉钉sdk 初始化
+        // dd.ready参数为回调函数，在环境准备就绪时触发，jsapi的调用需要保证在该回调函数触发后调用，否则无效。
+        dd.ready(function () {
+            //获取当前网页的url
+            //http://ding-web.lnexin.cn/?corpid=ding46a9582af5b7541b35c2f4657eb6378f
+            var currentUrl = document.location.toString()
+
+            // 解析url中包含的corpId
+            var corpId = currentUrl.split("corpId=")[1];
+
+            //使用SDK 获取免登授权码
+            dd.runtime.permission.requestAuthCode({
+                corpId: corpId,
+                onSuccess: function (result) {
+                    var code = result.code;
+
+                    $.ajax({
+                        type: "GET",
+                        //正式地址
+                        // http://zhy.zdb7.com/api/ding/login/callback
+                        // url:"https://cube.zjedu.com/user/api/v1/login/autoLogin",
+                        // url: "https://daily-uc.zjedu.com/user/api/v1/login/autoLogin",
+                        url: `/api/ding/login/callback?authCode=${code}&state=innerLogin`,
+                        contentType: "application/json;charset=utf-8",
+                        // data:JSON.stringify({code: code, accessKey: 'suiteb4z6qgazcds9be5o',corpId: corpId}),
+                        // data: JSON.stringify({authCode: code, corpId}),
+                        dataType: "json",
+                        success: function (response) {
+                            const { data = {} } = response
+                            if (data.token) {
+                                var Days = 30;
+                                var exp = new Date();
+                                exp.setTime(exp.getTime() + Days * 24 * 60 * 60 * 1000);
+                                document.cookie = 'token=' + escape(data.token) + ';path=/;expires=' + exp.toGMTString();
+                                window.location.href = window.basePath ? ('/' + window.basePath + '#/') : "/#/"
+                            } else {
+                                window.location.href = (window.basePath ? ('/' + window.basePath + '#/') : "/#/") + 'login'
+                            }
+                        },
+                        error: function (response) {
+                            alert(JSON.stringify(err))
+                            window.location.href = (window.basePath ? ('/' + window.basePath + '#/') : "/#/") + 'login'
+                        }
+                    });
+                }
+            });
+        });
+    })
+
+</script>
+
+</html>

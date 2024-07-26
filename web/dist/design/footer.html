@@ -1,0 +1,59 @@
+<script type="text/javascript" charset="utf-8" src="/design/designstatic/newJS/home/home.js"></script>
+<script>
+  $('body').append('<div id="attHeader"></div>')
+  if ($('[data-type="pageform"]').length) {
+    $('[data-type="pageform"]').html('<div id="desginRoot"></div>')
+  } else {
+    $('body').append('<div id="desginRoot"></div>')
+  }
+
+  /***js代码***/
+  function handleScreen() {
+    var m = detectZoom();
+    document.body.style.zoom = 100 / Number(m);
+  }
+  function detectZoom() {
+    var ratio = 0,
+      screen = window.screen,
+      ua = navigator.userAgent.toLowerCase();
+    if (window.devicePixelRatio !== undefined) {
+      ratio = window.devicePixelRatio;
+    } else if (~ua.indexOf('msie')) {
+      if (screen.deviceXDPI && screen.logicalXDPI) {
+        ratio = screen.deviceXDPI / screen.logicalXDPI;
+      }
+    } else if (window.outerWidth !== undefined && window.innerWidth !== undefined) {
+      ratio = window.outerWidth / window.innerWidth;
+    }
+    if (ratio) {
+      ratio = Math.round(ratio * 100);
+    }
+    return ratio;
+  }
+
+  function getWindowHeight() {
+    var zoom = document.body.style.zoom;
+    var height = $(window).height();
+    if (zoom) {
+      return height / zoom;
+    }
+    return height;
+  }
+
+  function getWindowWidth() {
+    var zoom = document.body.style.zoom;
+    var width = $(window).width();
+    if (zoom) {
+      return width / zoom;
+    }
+    return width;
+  }
+
+  // if(location.hostname == 'www.pufay.cn'){
+  //   handleScreen()
+  // }
+
+</script>
+<!-- <script src="/portal/attheader/umi.js" ></script> -->
+<!-- <script src="/design/designstatic/common/js/umiDesign.js"></script> -->
+<script type="text/javascript" charset="utf-8" src="/design/designstatic/common/js/reportVisitLog.js"></script>

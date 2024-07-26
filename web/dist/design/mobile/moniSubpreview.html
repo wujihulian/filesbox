@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html style="font-size: 37.5px;">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Cache-control" content="no-cache">
+  <meta http-equiv="Cache" content="no-cache">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>手机预览</title>
+  <meta name="keywords" content="无极浏览器" />
+  <meta name="description" content="无极浏览器，是一款高效上网浏览器，容量小速度快安全绿色无插件，内置强大功能，管控，锁屏，微课录制，大课互动直播，小班直播等" />
+  <!-- 微信端 过来查看 允许缩放 -->
+  <link rel="shortcut icon" href="/common/favicon.png" type="image/x-icon">
+  <!-- 公共css,js -->
+  <link rel="stylesheet" href="/design/designstatic/home/iconfont/iconfont.css">
+  <link rel="stylesheet" href="/design/mobile/css/common.css">
+  <link rel="stylesheet" href="/design/mobile/css/module.css">
+  <link rel="stylesheet" href="/design/designstatic/home/css/animate.css">
+  <script src="/design/designstatic/home/js/jquery-2.2.4.min.js"></script>
+  <script src="/design/designstatic/home/waphome/js/layerMobile/layer.js"></script>
+  <style id='secoundStyle'></style>
+  <style>
+    ::-webkit-scrollbar {
+      width: 4px;
+      height: 8px;
+    }
+
+    ::-webkit-scrollbar-track-piece {
+      background-color: #fff;
+      /*  background-color: #fff; */
+      /* -webkit-border-radius: 6px; */
+    }
+
+    ::-webkit-scrollbar-thumb:vertical {
+      height: 8px;
+      width: 3px;
+      background-color: #91d5ff;
+      /*rgba(217,217,217,0.8);91d5ff*/
+      -webkit-border-radius: 3px;
+    }
+
+    ::-webkit-scrollbar-thumb:horizontal {
+      width: 4px;
+      background-color: #ccc;
+      -webkit-border-radius: 6px;
+    }
+
+    Pseudo ::scrollbar-corner element ::-webkit-scrollbar-corner {
+      background-color: #fff;
+    }
+
+    Pseudo ::scrollbar-thumb element ::-webkit-scrollbar-thumb {
+      background-color: #ccc;
+      border-radius: 4px;
+    }
+
+    Pseudo ::scrollbar-track element ::-webkit-scrollbar-track {
+      background-color: #ccc;
+    }
+
+    body {
+      background-color: #f0f2f5;
+    }
+
+    .mobileBox {
+      position: relative;
+      width: 375px;
+      overflow: hidden;
+      overflow-y: auto;
+      margin: 0px auto;
+      background-color: #fff;
+    }
+
+    .vagueLineBox,
+    .suspenTool {
+      display: none;
+    }
+
+    .comHead .showSet {
+      top: 0 !important;
+      width: 100% !important;
+    }
+
+    .comFoot .showSet {
+      top: auto !important;
+      bottom: 0 !important;
+      width: 100% !important;
+    }
+
+    .module {
+      pointer-events: none;
+    }
+  </style>
+  <script>
+    // 特殊的全部变量设置
+    var previewMobilePage = JSON.parse(localStorage.previewMobilePage)
+    var previewMobileSubPage = JSON.parse(localStorage.previewMobileSubPage)
+    $('head').append(previewMobilePage.cssText)
+    // setInterval(function () {
+    //   $('#previewStyle').remove()
+    //   previewMobilePage = JSON.parse(localStorage.previewMobilePage)
+    //   $('head').append(previewMobilePage.cssText)
+    // }, 1000)
+
+  </script>
+</head>
+
+<body>
+  <div class="mobileBox">
+    <!-- 公共头部 -->
+    <div class="comHead">
+      <div class="showSet">
+      </div>
+    </div>
+    <div class="content">
+    </div>
+    <div class="comFoot">
+      <div class="showSet">
+      </div>
+    </div>
+  </div>
+</body>
+<script>
+  // setInterval(function () {
+  //   $('.comHead .showSet').html(previewMobilePage.header)
+  //   $('.content').html(previewMobilePage.mainly)
+  //   $('.comFoot .showSet').html(previewMobilePage.footer)
+  // }, 1000)
+  $('.comHead .showSet').html(previewMobilePage.header)
+  $('.content').html(previewMobileSubPage.mainly)
+  $('.comFoot .showSet').html(previewMobilePage.footer)
+  function updateDom() {
+    var previewMobileSubPage = JSON.parse(localStorage.previewMobileSubPage)
+    $('.content').html(previewMobileSubPage.mainly)
+    $('.content').css({
+      'height': parseInt(previewMobileSubPage.size.split('|')[1]) / 37.5 + 'rem'
+    })
+  }
+</script>
+
+</html>

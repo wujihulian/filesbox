@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.svnlan.home.dao.CommonLabelDao" >
+
+    <insert id="insert" >
+        insert into common_label (userID, label_name,label_en_name,en_name_simple,status, createTime, modifyTime,style,sort, tagType)
+        values (
+            #{userID}, #{labelName}, #{labelEnName}, #{enNameSimple}, 1, unix_timestamp(now()), unix_timestamp(now()), #{style}, #{sort}, IFNULL(#{tagType}, 1)
+            )
+    </insert>
+    <select id="getUserLabelList" resultType="com.svnlan.home.vo.CommonLabelVo">
+        select label_id labelId,userID,label_name labelName,label_en_name labelEnName,en_name_simple enNameSimple,createTime,modifyTime,style,sort
+        from common_label
+        where userID = #{userID}
+        and status = 1 and tagType = 1
+        order by sort desc, createTime asc
+    </select>
+    <select id="getMaxSort" resultType="java.lang.Integer">
+        select sort
+        from common_label
+        where userID = #{userID}
+        and status = 1 and tagType = #{tagType}
+        order BY sort desc, createTime desc
+        limit 1
+    </select>
+
+    <update id="update" >
+        update common_label
+        set label_name = #{labelName},
+        label_en_name = #{labelEnName},
+        en_name_simple = #{enNameSimple},
+        style = #{style},
+        modifyTime = unix_timestamp()
+        where label_id = #{labelId}
+    </update>
+
+    <delete id="deleteTag">
+        delete from common_label where label_id = #{labelId}
+    </delete>
+
+    <update id="updateStatus" >
+        update common_label
+        set status = #{status},
+        modifyTime = unix_timestamp()
+        where label_id = #{labelId}
+    </update>
+    <update id="updateSort" >
+        update common_label
+        set sort = #{sort},
+        modifyTime = unix_timestamp()
+        where label_id = #{labelId}
+    </update>
+
+    <select id="checkLabelNameRepeat" resultType="java.lang.Long">
+        select label_id
+        from common_label
+        where label_name = #{labelName} and userID = #{userID} and tagType = #{tagType}
+        and status = 1
+    </select>
+    <select id="getInfoLabelList" resultType="com.svnlan.home.vo.CommonLabelVo">
+        select label_id labelId,userID,label_name labelName,label_en_name labelEnName,en_name_simple enNameSimple,createTime,modifyTime,style,sort
+        from common_label
+        where userID = 0
+        and status = 1 and tagType = 2
+        order by sort desc, createTime asc
+    </select>
+</mapper>

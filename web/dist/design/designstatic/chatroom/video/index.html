@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<script src="player.js" type="text/javascript" charset="utf-8"></script>
+<link href="video-js.css" rel="stylesheet" type="text/css"/>
+<script src="video.js" type="text/javascript" charset="utf-8"></script>
+<script src="ie8/videojs-ie8.js"></script>
+<script src="videojs-flash.min.js" type="text/javascript" charset="utf-8"></script>
+<!-- 加载hls视频插件 -->
+
+<!-- 加载flash播放器 -->
+<script type="text/javascript">
+
+window.onload = function () { 
+var video = createPlayer("videoplayer1");
+  document.getElementById("videocontainer1").append(video);
+  init("videoplayer1","flash","rtmp://a1.wxbig.cn/xxtest/2268s",true,true,false,'hangge-clip.png',function(){
+  });
+ 
+	
+ 
+ var video1 = createPlayer("videoplayer2");
+  document.getElementById("videocontainer2").append(video1);
+  init("videoplayer2","flash","rtmp://a1.wxbig.cn/xxtest/2268c",true,true,false,'hangge-clip.png',function(){
+   });
+ 
+
+}
+
+function change(){
+	fullscreen();
+}	
+
+</script>
+</head>
+<body>
+
+<div id="videocontainer1" style="width:800px;height:600px">
+
+</div>
+<div id="videocontainer2" style="width:800px;height:600px">
+
+</div>
+</div>
+</body>
+<button onclick="change()"/>
+</html>

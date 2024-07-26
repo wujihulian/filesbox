@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.svnlan.user.dao.VisitCountRecordDao">
+
+    <resultMap id="BaseResultMap" type="com.svnlan.user.domain.VisitCountRecord">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="visitCount" column="visitCount" jdbcType="BIGINT"/>
+            <result property="deviceType" column="deviceType" jdbcType="TINYINT"/>
+            <result property="osName" column="osName" jdbcType="VARCHAR"/>
+            <result property="type" column="type" jdbcType="TINYINT"/>
+            <result property="visitDay" column="visitDay" jdbcType="DATE"/>
+            <result property="modifyTime" column="modifyTime" jdbcType="BIGINT"/>
+            <result property="createTime" column="createTime" jdbcType="BIGINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,visitCount,deviceType,osName,type,
+        visitDay,modifyTime,createTime
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from visit_count_record
+        where  id = #{id,jdbcType=BIGINT} 
+    </select>
+
+    <select id="selectByOsNameAndType" resultType="com.svnlan.user.domain.VisitCountRecord">
+        <trim prefixOverrides="UNION ALL">
+            <foreach collection="records" item="_record">
+                UNION ALL
+                SELECT id, type, osName FROM visit_count_record WHERE type = #{_record.type} AND osName = #{_record.osName}
+            </foreach>
+        </trim>
+
+    </select>
+    <select id="selectListByOsNameList" resultType="com.svnlan.user.domain.VisitCountRecord">
+        SELECT osName, visitCount FROM visit_count_record
+        WHERE type = 4
+        AND osName IN
+        <foreach collection="list" item="_item" open="(" separator="," close=")">
+            #{_item}
+        </foreach>
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from visit_count_record
+        where  id = #{id,jdbcType=BIGINT} 
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.svnlan.user.domain.VisitCountRecord" useGeneratedKeys="true">
+        insert into visit_count_record
+        ( id,visitCount,deviceType
+        ,visitDay,modifyTime,createTime
+        )
+        values (#{id,jdbcType=BIGINT},#{visitCount,jdbcType=BIGINT},#{deviceType,jdbcType=TINYINT}
+        ,#{visitDay,jdbcType=DATE},#{modifyTime,jdbcType=BIGINT},#{createTime,jdbcType=BIGINT}
+        )
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.svnlan.user.domain.VisitCountRecord" useGeneratedKeys="true">
+        insert into visit_count_record
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="id != null">id,</if>
+                <if test="visitCount != null">visitCount,</if>
+                <if test="deviceType != null">deviceType,</if>
+                <if test="visitDay != null">visitDay,</if>
+                <if test="modifyTime != null">modifyTime,</if>
+                <if test="createTime != null">createTime,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="id != null">#{id,jdbcType=BIGINT},</if>
+                <if test="visitCount != null">#{visitCount,jdbcType=BIGINT},</if>
+                <if test="deviceType != null">#{deviceType,jdbcType=TINYINT},</if>
+                <if test="visitDay != null">#{visitDay,jdbcType=DATE},</if>
+                <if test="modifyTime != null">#{modifyTime,jdbcType=BIGINT},</if>
+                <if test="createTime != null">#{createTime,jdbcType=BIGINT},</if>
+        </trim>
+    </insert>
+    <insert id="insertBatch">
+        insert into visit_count_record(visitCount,deviceType,osName,type,visitDay,modifyTime,createTime)
+        VALUES
+        <foreach collection="records" item="_records" separator=",">
+            (
+            #{_records.visitCount,jdbcType=BIGINT},
+            #{_records.deviceType,jdbcType=TINYINT},
+            #{_records.osName,jdbcType=VARCHAR},
+            #{_records.type,jdbcType=TINYINT},
+            #{_records.visitDay,jdbcType=DATE},
+            #{_records.modifyTime,jdbcType=BIGINT},
+            #{_records.createTime,jdbcType=BIGINT}
+            )
+        </foreach>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.svnlan.user.domain.VisitCountRecord">
+        update visit_count_record
+        <set>
+            <choose>
+                <when test="isIncrease !=null and isIncrease == 1">
+                    <if test="record.visitCount != null">
+                        visitCount = visitCount + #{record.visitCount,jdbcType=BIGINT},
+                    </if>
+                </when>
+                <otherwise>
+                    <if test="record.visitCount != null">
+                        visitCount = #{record.visitCount,jdbcType=BIGINT},
+                    </if>
+                </otherwise>
+            </choose>
+
+            <if test="record.deviceType != null">
+                deviceType = #{record.deviceType,jdbcType=TINYINT},
+            </if>
+            <if test="record.visitDay != null">
+                visitDay = #{record.visitDay,jdbcType=DATE},
+            </if>
+            <if test="record.type != null and record.type > 0">
+                type = #{record.type,jdbcType=TINYINT},
+            </if>
+            <if test="record.osName != null and record.osName != ''">
+                osName = #{record.osName,jdbcType=VARCHAR},
+            </if>
+            <if test="record.modifyTime != null">
+                modifyTime = #{record.modifyTime,jdbcType=BIGINT},
+            </if>
+            <if test="record.createTime != null">
+                createTime = #{record.createTime,jdbcType=BIGINT},
+            </if>
+        </set>
+        where id = #{record.id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.svnlan.user.domain.VisitCountRecord">
+        update visit_count_record
+        set 
+            visitCount =  #{visitCount,jdbcType=BIGINT},
+            deviceType =  #{deviceType,jdbcType=TINYINT},
+            visitDay =  #{visitday,jdbcType=DATE},
+            modifyTime =  #{modifyTime,jdbcType=BIGINT},
+            createTime =  #{createTime,jdbcType=BIGINT}
+        where   id = #{id,jdbcType=BIGINT} 
+    </update>
+</mapper>

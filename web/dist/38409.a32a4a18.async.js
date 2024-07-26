@@ -1,0 +1,1 @@
+(self.webpackChunkant_design_pro=self.webpackChunkant_design_pro||[]).push([[38409],{38409:function(n,s,e){n=e.nmd(n),function(){ace.require(["ace/snippets/logtalk"],function(p){n&&(n.exports=p)})}()}}]);

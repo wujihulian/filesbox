@@ -1,0 +1,17 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([["chunk-2d0e524c"],{"92da":function(p,_,t){"use strict";t.r(_);var e=function(){var n=this;return n._self._c,n._m(0)},v=[function(){var n=this,s=n._self._c;return s("div",[s("h1",[n._v("\u5BA2\u6237\u7AEF")]),s("p",[n._v("\u672C\u9879\u76EE\u4E5F\u63D0\u4F9B\u4E86\u5BA2\u6237\u7AEF\u7248\u672C\uFF0C\u4F7F\u7528"),s("a",{attrs:{href:"https://www.electronjs.org/"}},[n._v("Electron")]),n._v("\u5F00\u53D1\u3002\u652F\u6301"),s("code",[n._v("Windows")]),n._v("\u3001"),s("code",[n._v("Mac")]),n._v("\u53CA"),s("code",[n._v("Linux")]),n._v("\u3002")]),s("p",[n._v("\u76EE\u524D\u529F\u80FD\u6BD4\u8F83\u7B80\u5355\uFF1A")]),s("p",[n._v("1.\u652F\u6301\u65B0\u5EFA\u3001\u6253\u5F00\u6587\u4EF6\u8FDB\u884C\u7F16\u8F91\uFF1B")]),s("p",[n._v("2.\u652F\u6301\u67E5\u770B\u6700\u8FD1\u7F16\u8F91\u6587\u4EF6\u5217\u8868\uFF1B")]),s("p",[n._v("3.\u652F\u6301\u6587\u4EF6\u7684\u590D\u5236\u3001\u5220\u9664\u3001\u91CD\u547D\u540D\uFF1B")]),s("h2",[n._v("\u4E0B\u8F7D")]),s("p",[n._v("\u4F60\u53EF\u4EE5\u76F4\u63A5\u4E0B\u8F7D\u5BF9\u5E94\u7684\u5BA2\u6237\u7AEF\u5B89\u88C5\u4F7F\u7528\uFF0C\u63D0\u4F9B\u4E86\u4E24\u4E2A\u4E0B\u8F7D\u5730\u5740\uFF1A")]),s("p",[n._v("Github\uFF1A"),s("a",{attrs:{href:"https://github.com/wanglin2/mind-map/releases"}},[n._v("releases")]),n._v("\u3002")]),s("p",[n._v("\u767E\u5EA6\u4E91\u76D8\uFF1A"),s("a",{attrs:{href:"https://pan.baidu.com/s/1huasEbKsGNH2Af68dvWiOg?pwd=3bp3"}},[n._v("\u5730\u5740")]),n._v("\u3002")]),s("h2",[n._v("\u5F00\u53D1")]),s("p",[n._v("\u5982\u679C\u6709\u9700\u8981\uFF0C\u4F60\u4E5F\u53EF\u4EE5\u8FDB\u884C\u4E8C\u6B21\u5F00\u53D1\u3002")]),s("h3",[n._v("clone")]),s("pre",{staticClass:"hljs"},[s("code",[n._v("git "),s("span",{staticClass:"hljs-built_in"},[n._v("clone")]),n._v(` https://github.com/wanglin2/mind-map.git
+`),s("span",{staticClass:"hljs-built_in"},[n._v("cd")]),n._v(` mind-map
+git checkout electron
+`)])]),s("h3",[n._v("\u542F\u52A8\u670D\u52A1")]),s("p",[n._v("\u5728\u9879\u76EE\u6839\u76EE\u5F55\u4E0B\u6267\u884C\uFF1A")]),s("pre",{staticClass:"hljs"},[s("code",[s("span",{staticClass:"hljs-built_in"},[n._v("cd")]),n._v(` simple-mind-map
+npm i
+npm link
+`),s("span",{staticClass:"hljs-built_in"},[n._v("cd")]),n._v(` ..
+`),s("span",{staticClass:"hljs-built_in"},[n._v("cd")]),n._v(` web
+npm i
+npm link simple-mind-map
+npm run electron:serve
+`)])]),s("h3",[n._v("\u6253\u5305\u5BA2\u6237\u7AEF")]),s("p",[n._v("\u4F60\u81F3\u5C11\u9700\u8981\u4E24\u53F0\u7535\u8111\uFF0C\u4E00\u53F0"),s("code",[n._v("Windows")]),n._v("\u548C\u4E00\u53F0"),s("code",[n._v("Mac")]),n._v("\u3002")]),s("p",[n._v("\u6253\u5305"),s("code",[n._v("Windows")]),n._v("\u5E94\u7528\uFF1A")]),s("pre",{staticClass:"hljs"},[s("code",[n._v(`npm run electron:build-win
+`)])]),s("p",[n._v("\u6253\u5305"),s("code",[n._v("Mac")]),n._v("\u5E94\u7528\uFF1A")]),s("pre",{staticClass:"hljs"},[s("code",[n._v(`npm run electron:build-mac
+`)])]),s("p",[n._v("\u6253\u5305"),s("code",[n._v("Linux")]),n._v("\u5E94\u7528\uFF1A")]),s("pre",{staticClass:"hljs"},[s("code",[n._v(`npm run electron:build-linux
+`)])]),s("p",[n._v("\u6253\u5305\u5168\u90E8\u5E94\u7528\uFF1A")]),s("pre",{staticClass:"hljs"},[s("code",[n._v(`npm run electron:build-all
+`)])]),s("p",[n._v("\u6839\u636E\u4F60\u7684\u7535\u8111\u7CFB\u7EDF\u81EA\u52A8\u6253\u5305\uFF1A")]),s("pre",{staticClass:"hljs"},[s("code",[n._v(`npm run electron:build
+`)])])])}],l={},i=l,c=t("2877"),a=Object(c.a)(i,e,v,!1,null,null,null);_.default=a.exports}}]);

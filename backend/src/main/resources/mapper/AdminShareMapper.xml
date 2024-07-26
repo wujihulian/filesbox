@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.svnlan.user.dao.AdminShareDao">
+
+    <resultMap id="BaseResultMap" type="com.svnlan.user.vo.ShareVo">
+        <id property="shareID" column="shareID" jdbcType="BIGINT"/>
+        <result property="avatar" column="avatar" jdbcType="VARCHAR"/>
+        <result property="nickname" column="nickname" jdbcType="VARCHAR"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="title" column="title" jdbcType="VARCHAR"/>
+        <result property="shareHash" column="shareHash" jdbcType="VARCHAR"/>
+        <result property="userID" column="userID" jdbcType="BIGINT"/>
+        <result property="sourceID" column="sourceID" jdbcType="BIGINT"/>
+        <result property="sourcePath" column="sourcePath" jdbcType="VARCHAR"/>
+        <result property="url" column="url" jdbcType="VARCHAR"/>
+        <result property="isLink" column="isLink" jdbcType="TINYINT"/>
+        <result property="isShareTo" column="isShareTo" jdbcType="TINYINT"/>
+        <result property="password" column="password" jdbcType="VARCHAR"/>
+        <result property="timeTo" column="timeTo" jdbcType="BIGINT"/>
+        <result property="numView" column="numView" jdbcType="INTEGER"/>
+        <result property="numDownload" column="numDownload" jdbcType="INTEGER"/>
+        <result property="options" column="options" jdbcType="VARCHAR"/>
+        <result property="createTime" column="createTime" jdbcType="BIGINT"/>
+        <result property="modifyTime" column="modifyTime" jdbcType="BIGINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        shareID,title,shareHash,
+        userID,sourceID,sourcePath,
+        url,isLink,isShareTo,
+        password,timeTo,numView,
+        numDownload,options,createTime,
+        modifyTime
+    </sql>
+    <delete id="cancelShare">
+        DELETE
+        FROM share
+        WHERE shareID = #{id}
+    </delete>
+    <delete id="cancelMultiShare">
+        UPDATE share SET status = 4
+        WHERE shareID IN
+        <foreach collection="ids" item="_id" open="(" separator="," close=")">
+            #{_id}
+        </foreach>
+    </delete>
+    <select id="shareList" resultType="com.svnlan.user.vo.ShareVo">
+        SELECT s.shareID,
+        s.title,
+        s.sourcePath,
+        s.isLink,
+        s.password,
+        s.url,
+        u.avatar,
+        u.nickname,
+        u.name,
+        s.shareHash,
+        s.userID,
+        s.sourceID,
+        s.numView,
+        s.numDownload,
+        s.createTime,
+        s.timeTo,
+        s.isShareTo
+        FROM share s
+        LEFT JOIN users u on u.userID = s.userID
+        <where>
+            <trim prefixOverrides="AND">
+                <if test="dto.words != null and dto.words != null">
+                    AND s.title LIKE concat('%',#{dto.words},'%')
+                </if>
+                <choose>
+                    <when test="dto.type == 'isShareTo'">
+                        AND s.isShareTo = 1
+                    </when>
+                    <otherwise>
+                        AND s.isShareTo = 0
+                    </otherwise>
+                </choose>
+                <if test="dto.userId != null">
+                    AND s.userID = #{dto.userId}
+                </if>
+                <if test="dto.timeTo != null">
+                    AND s.createTime &lt;= #{dto.timeTo}
+                </if>
+                <if test="dto.timeFrom != null">
+                    AND s.createTime &gt;= #{dto.timeFrom}
+                </if>
+                AND s.status = 1
+            </trim>
+            ORDER BY s.${dto.sortField}
+            <choose>
+                <when test="dto.sortType == 'up'">
+                    ASC
+                </when>
+                <otherwise>
+                    DESC
+                </otherwise>
+            </choose>
+            <if test="dto.sortField != 'createTime'">
+                , s.createTime DESC
+            </if>
+        </where>
+        <if test="needAll == false">
+            LIMIT #{dto.startIndex}, #{dto.pageSize}
+        </if>
+
+    </select>
+
+    <select id="shareListCount" resultType="java.lang.Integer">
+        SELECT COUNT(s.shareID) count
+        FROM share s
+        <where>
+            <trim prefixOverrides="AND">
+                <if test="dto.words != null and dto.words != null">
+                    AND s.title LIKE concat('%',#{dto.words},'%')
+                </if>
+                <choose>
+                    <when test="dto.type == 'isShareTo'">
+                        AND s.isShareTo = 1
+                    </when>
+                    <otherwise>
+                        AND s.isShareTo = 0
+                    </otherwise>
+                </choose>
+                <if test="dto.userId != null">
+                    AND s.userID = #{dto.userId}
+                </if>
+                <if test="dto.timeTo != null">
+                    AND s.createTime &lt;= #{dto.timeTo}
+                </if>
+                <if test="dto.timeFrom != null">
+                    AND s.createTime &gt;= #{dto.timeFrom}
+                </if>
+            </trim>
+        </where>
+
+    </select>
+    <select id="getById" resultType="com.svnlan.user.vo.ShareVo">
+        SELECT *
+        FROM share
+        WHERE shareID = #{id}
+    </select>
+    <select id="getByIds" resultType="com.svnlan.user.vo.ShareVo">
+        SELECT sourceID, shareID, userID
+        from share
+        WHERE shareID IN
+        <foreach collection="ids" item="_id" open="(" separator="," close=")">
+            #{_id}
+        </foreach>
+    </select>
+</mapper>

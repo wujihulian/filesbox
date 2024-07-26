@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.svnlan.manage.dao.CommonDesignDao">
+
+
+    <insert id="insert" parameterType="com.svnlan.manage.domain.CommonDesign" keyProperty="commonDesignId" useGeneratedKeys="true">
+        insert into common_design (title, offset, size, pic, gmt_create, gmt_modified,detail,
+        design_type, client_type, is_used, url, file_url, fk_common_design_id, foot, head, setting, applet,
+        source_design_id, approval_state, approval_detail,gmt_approval, sort,state,is_paste,seo, mb_design_id, designClassifyID, pathPre)
+        values (#{title}, #{offset}, #{size}, #{pic}, now(),now(), #{detail},
+        #{designType}, #{clientType}, #{isUsed},#{url},
+        #{fileUrl}, #{fkCommonDesignId}, #{foot}, #{head}, #{setting}, #{applet},
+        #{sourceDesignId}, '1','',now(), #{sort},#{state},0,#{seo},#{mbDesignId},IFNULL(#{designClassifyID},0),#{pathPre}
+        )
+    </insert>
+
+    <select id="selectById" resultType="com.svnlan.manage.domain.CommonDesign">
+        select
+        d.common_design_id commonDesignId, d.title, d.offset, d.size, d.pic, d.gmt_create, d.gmt_modified, d.design_type, d.client_type,
+        d.is_used isUsed, d.detail, d.url, d.file_url fileUrl, d.fk_common_design_id fkCommonDesignId, d.foot, d.head, d.setting, d.is_paste isPaste, d.seo
+        , d.mb_design_id mbDesignId,d.designClassifyID, d.pathPre
+        from common_design d
+        where d.common_design_id = #{designId}
+        and d.state = '1'
+    </select>
+
+    <select id="getDesignList" resultType="com.svnlan.manage.domain.CommonDesignList">
+        select d.title, d.common_design_id designId, f.path sourcePath,
+        d.is_used isUsed, d.size, d.url, (max(dp.gmt_create) &gt; current_date) uploaded, d.sort sort,
+        d.is_paste isPaste, d.seo, d.mb_design_id mbDesignId, d.designClassifyID, d.design_type designType, d.gmt_create gmtCreate
+        from common_design d
+        left join io_source s on d.pic = s.sourceID
+        left join io_file f on f.fileID = s.fileID
+        left join common_design dp on d.common_design_id = dp.source_design_id
+        <where>
+            and d.client_type = #{clientType}
+            and d.design_type = #{designType}
+            and d.source_design_id = 0
+            and d.state = '1'
+        </where>
+        group by d.common_design_id
+        <choose>
+            <when test="commonDesignId != null">
+                order by d.common_design_id = #{commonDesignId} desc, d.sort desc, d.gmt_create desc
+            </when>
+            <otherwise>
+                order by d.sort desc, d.gmt_create desc, d.common_design_id desc
+            </otherwise>
+        </choose>
+
+    </select>
+
+    <select id="getChildrenDesignList" resultType="com.svnlan.manage.domain.CommonDesignList">
+        select d.title, d.common_design_id designId, f.path sourcePath,
+        d.is_used isUsed, d.size, d.url, d.sort sort, d.share_design_id shareDesignId,
+        d.is_share isShare, d.is_paste isPaste, d.seo, d.mb_design_id mbDesignId, d.designClassifyID, d.design_type designType, d.gmt_create gmtCreate
+        from common_design d
+        left join io_source s on d.pic = s.sourceID
+        left join io_file f on f.fileID = s.fileID
+        <where>
+            and d.client_type = #{clientType}
+            and d.design_type = #{designType}
+            and d.is_used = 1
+            and d.source_design_id = 0
+            and d.state = '1'
+            and ss.state != '3'
+        </where>
+        group by d.common_design_id
+        order by d.sort desc, d.gmt_create desc, d.common_design_id desc
+    </select>
+
+    <select id="getDesignDetail" resultType="com.svnlan.manage.vo.DesignDetailVO">
+        select detail body, head, foot, setting, size, title,
+        is_paste paste, seo, mb_design_id mbDesignId, designClassifyID
+        from common_design
+        where common_design_id = #{designId}
+        and state = '1'
+    </select>
+
+    <select id="getImportFile" resultType="com.svnlan.manage.domain.DesignSource">
+        select f.path sourcePath,  d.client_type clientType,
+        s.name sourceName, d.url, d.design_type designType, s.sourceID
+        from common_design d
+        left join io_source s on d.pic = s.sourceID
+        left join io_file f on f.fileID = s.fileID
+        where d.common_design_id = #{designId}
+    </select>
+
+    <sql id="notUsed">0</sql>
+    <sql id="isUsed">1</sql>
+    <update id="updateToNotUsed" >
+        update common_design
+        set is_used = <include refid="notUsed"/>,
+        gmt_modified = #{gmtModified}
+        where client_type = #{clientType}
+        and design_type = #{designType}
+        and is_used = <include refid="isUsed"/>
+        and state = '1'
+    </update>
+    <update id="updateToUsed" >
+        update common_design
+        set is_used = <include refid="isUsed"/>,
+        gmt_modified = now()
+        where common_design_id = #{designId}
+    </update>
+
+    <sql id="designType_mainPage">1</sql>
+    <update id="deleteDesign" parameterType="com.svnlan.manage.domain.CommonDesign">
+        update common_design
+        set state = '3'
+        where common_design_id = #{commonDesignId}
+        and (is_used = <include refid="notUsed"/> or design_type != <include refid="designType_mainPage"/>)
+
+    </update>
+
+    <update id="editDesign" parameterType="com.svnlan.manage.domain.CommonDesign">
+        update common_design
+        <set>
+            gmt_modified = #{gmtModified},
+            <if test="detail != null">
+                detail = #{detail},
+            </if>
+            <if test="head != null">
+                head = #{head},
+            </if>
+            <if test="foot != null">
+                foot = #{foot},
+            </if>
+            <if test="pic != null">
+                pic = #{pic},
+            </if>
+            <if test="setting != null">
+                setting = #{setting},
+            </if>
+            <if test="title != null">
+                title = #{title},
+            </if>
+            <if test="isUsed != null">
+                is_used = #{isUsed},
+            </if>
+            <if test="size != null">
+                size = #{size},
+            </if>
+            <if test="url != null">
+                url = #{url},
+            </if>
+            <if test="applet != null">
+                applet = #{applet},
+            </if>
+            <if test="seo != null">
+                seo = #{seo},
+            </if>
+            <if test="pathPre != null">
+                pathPre = #{pathPre},
+            </if>
+            <if test="designClassifyID != null">
+                designClassifyID = #{designClassifyID},
+            </if>
+        </set>
+        where common_design_id = #{commonDesignId}
+        and source_design_id = 0
+        and state in ('0', '1')
+    </update>
+
+    <sql id="designType_main">'1'</sql>
+    <select id="selectForMainPage"   resultType="com.svnlan.manage.domain.CommonDesign">
+        select head, foot, setting from common_design
+        where design_type = <include refid="designType_main"/>
+        and client_type = #{clientType}
+        and is_used = <include refid="isUsed"/>
+        and state = '1'
+    </select>
+    <select id="getSubPageByMain" resultType="com.svnlan.manage.domain.CommonDesign">
+        select url, seo, common_design_id commonDesignId, head, foot
+        from common_design
+        where client_type = #{clientType}
+        and design_type = '2'
+        and state = '1'
+        group by url
+    </select>
+
+    <select id="getDesignListForSEO" resultType="com.svnlan.manage.domain.CommonDesign">
+        select url, client_type clientType, seo, common_design_id commonDesignId, design_type designType
+        from common_design
+        where
+        design_type in ('1', '2')
+        and import_source_id = 0
+        and is_used = 1
+        and state = '1'
+        and (is_paste = 1)
+    </select>
+    <select id="getUsingDesign" parameterType="java.util.Map" resultType="com.svnlan.manage.vo.DesignDetailVO">
+        select head, foot, setting from common_design
+        where design_type = #{designType}
+        and client_type = #{clientType}
+        and is_used = <include refid="isUsed"/>
+        and state = '1'
+    </select>
+    <select id="getDesignPreview" resultType="com.svnlan.manage.vo.DesignDetailVO">
+        select detail body, head, foot, setting, size, title from common_design
+        where common_design_id = #{designId}
+    </select>
+
+    <select id="geForExistsUrl" resultType="com.svnlan.manage.vo.DesignDetailVO">
+        select common_design_id commonDesignId
+        from common_design
+        where client_type = #{clientType}
+        and design_type = #{designType}
+        and url = #{url}
+        and state = '1'
+        limit 1
+    </select>
+    <select id="getCountByClientType" resultType="java.lang.Integer">
+        select count(1)
+        from common_design
+        where design_type = #{designType}
+        and client_type = #{clientType}
+        and source_design_id = 0
+        and state = '1'
+    </select>
+
+    <select id="getDesignSimple"  resultType="com.svnlan.manage.domain.CommonDesign">
+        select common_design_id commonDesignId ,client_type clientType , design_type designType  ,is_used isUsed , url, seo,
+         is_paste isPaste, mb_design_id mbDesignId, designClassifyID
+        from common_design
+        where common_design_id = #{designId}
+        and state = '1'
+    </select>
+    <select id="selectClassifyListByParam" resultType="com.svnlan.manage.vo.DesignListVO">
+        select designClassifyID, typeName title, parentID, parentLevel, createTime, 'classify' designType
+        from common_design_classify
+        where status = 1
+        order by createTime asc
+    </select>
+</mapper>

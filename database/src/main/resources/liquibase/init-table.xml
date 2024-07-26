@@ -1,0 +1,1868 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <changeSet author="Aspirin (generated)" id="1691033132743-1">
+        <createTable remarks="通用评论表" tableName="comment">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="pid" remarks="该评论上级ID" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" remarks="评论用户id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="target_type" remarks="评论对象类型1分享2文件3文章4......" type="SMALLINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="target_id" remarks="评论对象id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="content" remarks="评论内容" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="praise_count" remarks="点赞统计" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="comment_count" remarks="评论统计" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" remarks="状态 1正常 2异常 3其他" type="TINYINT(3)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="modify_time" remarks="最后修改时间" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_time" remarks="创建时间" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033132743-2">
+        <createTable remarks="评论表扩展字段" tableName="comment_meta">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="comment_id" remarks="评论id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="key_string" remarks="字段key" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="value_text" remarks="字段值" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_time" remarks="创建时间" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="modify_time" remarks="最后修改" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033132743-3">
+        <createTable remarks="评论点赞表" tableName="comment_praise">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="comment_id" remarks="评论ID" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" remarks="用户ID" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_time" remarks="创建时间" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="modify_time" remarks="修改时间" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033132743-4">
+        <createTable remarks="转码表" tableName="common_convert">
+            <column autoIncrement="true" name="id" remarks="转码主键" type="BIGINT">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="source_id" remarks="对应存储资源id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="file_id" remarks="对应存储资源fileID" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" remarks="执行人ID" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" remarks="文件名" type="VARCHAR(256)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="frequency_count" remarks="执行次数" type="TINYINT(3)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="0" name="state" remarks="状态，0开始，1执行成功，2执行失败" type="CHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="remark" remarks="备注，如有执行异常，记录异常信息" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="schedule_frequency_count" remarks="自动执行次数" type="TINYINT(3)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="modify_time" remarks="最后修改时间" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_time" remarks="创建时间" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="schedule_time" remarks="定时任务执行修改时间" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033132743-5">
+        <createTable remarks="页面编辑器表" tableName="common_design">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="title" remarks="名称" type="VARCHAR(256)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="offset" remarks="偏移量，坐标{x,y}" type="VARCHAR(16)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="size" remarks="尺寸大小，长宽{length,height}" type="VARCHAR(16)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="pic" remarks="缩略图，文件id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="gmt_create" remarks="创建时间" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="gmt_modified" remarks="修改时间" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="detail" remarks="页面内容" type="MEDIUMTEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="design_type" remarks="编辑器类型类型，1主页，2二级页" type="CHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="client_type" remarks="客户端类型，1PC，2手机端，3APP，4小程序" type="CHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_used" remarks="标识是否当前使用中的设置，是或否" type="TINYINT(3)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="url" remarks="客户端访问路径，网校域名" type="VARCHAR(128)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="file_url" remarks="文件存放路径" type="VARCHAR(256)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="fk_common_design_id" remarks="编辑器id，用于二级页面" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="foot" remarks="底部" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="head" remarks="头部" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="setting" remarks="样式设置" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="applet" remarks="小程序的配置信息" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="source_design_id" remarks="来源装扮id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="1" name="approval_state" remarks="审核状态，0待审核，1通过，2不通过" type="CHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="approval_detail" remarks="审核备注" type="VARCHAR(256)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="CURRENT_TIMESTAMP" name="gmt_approval" remarks="审核时间" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="sort" remarks="排序字段" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="1" name="state" remarks="状态" type="CHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="is_paste" remarks="是否复制" type="TINYINT(3)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="seo" remarks="seo. keyword, description的json" type="VARCHAR(2048)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="mb_design_id" remarks="关联h5编辑器ID" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="design_classify_id" remarks="装扮分类id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="path_pre" remarks="路径前缀" type="VARCHAR(64)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033132743-6">
+        <createTable remarks="装扮目录分类表" tableName="common_design_classify">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="type_name" remarks="类型名称" type="VARCHAR(32)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="parent_id" remarks="父ID" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="parent_level" remarks="父路径id; 例如:  ,2,5,10," type="VARCHAR(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" remarks="状态 0禁用，1启用" type="TINYINT(3)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="sort" remarks="排序" type="SMALLINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name_pinyin" remarks="拼音全称" type="VARCHAR(512)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name_pinyin_simple" remarks="拼音首字母" type="VARCHAR(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_user" remarks="创建者id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_time" remarks="创建时间" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="modify_time" remarks="最后修改时间" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033132743-7">
+        <createTable remarks="资讯表" tableName="common_info">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="title" remarks="资讯标题" type="VARCHAR(256)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="computer_pic_path" remarks="资讯图片地址，电脑端" type="VARCHAR(512)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="mobile_pic_path" remarks="资讯图片地址，手机端" type="VARCHAR(512)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" remarks="状态 0草稿，1启用，2删除" type="TINYINT(3)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="detail" remarks="资讯内容" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="file_detail" remarks="资讯附件地址，最多5个附件，json格式(文件id，文件名，文件类型，地址)" type="VARCHAR(2048)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_user" remarks="创建者id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="modify_user" remarks="最后修改者" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_ip" remarks="编辑资讯的IP地址，json(222.22.22.22,杭州)" type="VARCHAR(32)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="info_type_id" remarks="资讯类型id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="sort" remarks="排序" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="introduce" remarks="资讯摘要" type="VARCHAR(2000)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="is_top" remarks="是否置顶" type="TINYINT(3)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="seo" remarks="keyword, description json" type="VARCHAR(512)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="info_source" remarks="资讯来源json, name,author,url" type="VARCHAR(1024)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="is_apply_original" remarks="是否申请原创" type="TINYINT(3)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="video_id" remarks="短视频id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="thumb" remarks="缩略图" type="VARCHAR(256)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="preview_url" remarks="视频播放地址" type="VARCHAR(256)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="0" name="info_type" remarks="0资讯, 1短视频" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="is_vertical" remarks="是否竖版" type="TINYINT(3)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="thumb_vertical" remarks="缩略图竖版" type="VARCHAR(256)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="computer_pic_path_vertical" remarks="原图横板" type="VARCHAR(256)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="is_video_exists" remarks="是否存在视频" type="TINYINT(3)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="user_agent" remarks="ua" type="VARCHAR(512)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="is_url_info" remarks="是否url链接资讯" type="TINYINT(3)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="info_url" remarks="url资讯的地址" type="VARCHAR(1024)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="attachment_count" remarks="附件数" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="show_attachment" remarks="前3个附件图" type="VARCHAR(1024)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="remark" remarks="备注, 审核拒绝原因等" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="is_transport" remarks="是否转载, 1是" type="TINYINT(3)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="right_flag" remarks="权限标识：0-私有，1-公开" type="TINYINT(3)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="source_id" remarks="文件id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="is_hide" remarks="是否隐藏 0 默认否  1 是" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="is_login" remarks="是否需要登录 0 否 1 是" type="TINYINT(4)"/>
+            <column defaultValueNumeric="0" name="actual_view_count" remarks="实际浏览数" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="like_count" remarks="点赞数" type="INT"/>
+            <column defaultValueNumeric="0" name="view_count" remarks="浏览数" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name_pinyin" remarks="拼音全称" type="VARCHAR(2048)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name_pinyin_simple" remarks="拼音首字母" type="VARCHAR(256)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="path_pre" remarks="路径前缀" type="VARCHAR(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_time" remarks="创建时间" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="modify_time" remarks="最后修改者" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="top_time" remarks="置顶时间" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="gmt_page" remarks="生成页面时间" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033132743-8">
+        <createTable remarks="资讯类型表" tableName="common_info_type">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="type_name" remarks="类型名称" type="VARCHAR(32)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="parent_id" remarks="父ID" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="parent_level" remarks="父路径id; 例如:  ,2,5,10," type="VARCHAR(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" remarks="状态 0禁用，1启用" type="TINYINT(3)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="sort" remarks="排序" type="SMALLINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name_pinyin" remarks="拼音全称" type="VARCHAR(512)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name_pinyin_simple" remarks="拼音首字母" type="VARCHAR(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_user" remarks="创建者id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_time" remarks="创建时间" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="modify_time" remarks="最后修改时间" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033132743-9">
+        <createTable remarks="标签表" tableName="common_label">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="user_id" remarks="用户id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="label_name" remarks="标签名称" type="VARCHAR(32)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="label_en_name" remarks="英文名" type="VARCHAR(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="en_name_simple" remarks="英文名" type="VARCHAR(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" remarks="状态，正常，删除" type="TINYINT(3)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="style" type="VARCHAR(256)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sort" remarks="排序" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="tag_type" remarks="类型 1网盘标签，2资讯标签" type="TINYINT(3)"/>
+            <column name="create_time" remarks="创建时间" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="modify_time" remarks="修改时间" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033132743-10">
+        <createTable remarks="定时任务表" tableName="common_schedule">
+            <column name="id" type="VARCHAR(32)">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="schedule_name" remarks="定时任务名称" type="VARCHAR(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="gmt_modified" remarks="任务重置时间" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="frequency" remarks="执行频率(秒)" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="api_url" remarks="手动执行接口地址" type="VARCHAR(128)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033132743-11">
+        <createTable remarks="用户数据扩展表" tableName="group_meta">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="group_id" remarks="部门id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="key_string" remarks="存储key" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="value_text" remarks="对应值" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_time" remarks="创建时间" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="modify_time" remarks="最后修改时间" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033132743-12">
+        <createTable remarks="群组、文件关系表" tableName="group_source">
+            <column name="group_id" remarks="群组id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="source_id" remarks="文件夹id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_time" remarks="创建时间" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033132743-13">
+        <createTable remarks="群组表" tableName="groups">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" remarks="群组名" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="parent_id" remarks="父群组id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="parent_level" remarks="父路径id; 例如:  ,2,5,10," type="VARCHAR(1000)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="extra_field" remarks="扩展字段" type="VARCHAR(100)"/>
+            <column name="sort" remarks="排序" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="size_max" remarks="群组存储空间大小(GB) 0-不限制" type="DOUBLE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="size_use" remarks="已使用大小(byte)" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="status" remarks="启用状态 0-未启用 1-启用 2-删除" type="TINYINT(3)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="modify_time" remarks="最后修改时间" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_time" remarks="创建时间" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033132743-14">
+        <createTable remarks="文档存储表" tableName="io_file">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" remarks="文件名" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="size" remarks="文件大小" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="io_type" remarks="io的id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="path" remarks="文件路径" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="hash_simple" remarks="文件简易hash(不全覆盖)；hashSimple" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="hash_md5" remarks="文件hash, md5" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="link_count" remarks="引用次数;0则定期删除" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="is_preview" remarks="是否支持预览,0否，1是" type="TINYINT(3)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="app_preview" remarks="是否支持APP上的文档预览，主要指doc转成pdf后的html5预览" type="TINYINT(3)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="is_h264_preview" remarks="视频转h264是否成功, 0未成功,1成功,2失败" type="TINYINT(3)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="is_m3u8" remarks="源文件为视频类型时,表示是否已经切片处理成m3u8格式,0否1是;文档类型(doc,ppt等)时,表示是否转成flash,0否1是" type="TINYINT(3)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="is_exist_file" remarks="原始文件是否存在 0 否 1 是" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="file_name" remarks="文件名" type="VARCHAR(125)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="convert_size" remarks="转码文件占用空间大小" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="thumb_size" remarks="缩略图占用空间" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_time" remarks="创建时间" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="modify_time" remarks="最后修改时间" type="datetime"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033132743-15">
+        <createTable remarks="文件id" tableName="io_file_contents">
+            <column autoIncrement="true" name="file_id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="content" remarks="文本文件内容,最大16M" type="MEDIUMTEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_time" remarks="创建时间" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033132743-16">
+        <createTable remarks="文件扩展表" tableName="io_file_meta">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="file_id" remarks="文件id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="key_string" remarks="存储key" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="value_text" remarks="对应值" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_time" remarks="创建时间" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="modify_time" remarks="最后修改时间" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033132743-17">
+        <createTable remarks="文档数据表" tableName="io_source">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="source_hash" remarks="id的hash" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="type" remarks="文档类型 1 文档 2 图片 3 音乐 4 视频 5 压缩包 6 其他" type="TINYINT(3)"/>
+            <column name="target_type" remarks="文档所属类型 (0-sys,1-user,2-group)" type="TINYINT(3)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="target_id" remarks="拥有者对象id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_user" remarks="创建者id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="modify_user" remarks="最后修改者" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_folder" remarks="是否为文件夹(0否,1是)" type="TINYINT(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" remarks="文件名" type="VARCHAR(256)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="file_type" remarks="文件扩展名，文件夹则为空" type="VARCHAR(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="parent_id" remarks="父级资源id，为0则为部门或用户根文件夹，添加用户部门时自动新建" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="parent_level" remarks="父路径id; 例如:  ,2,5,10," type="VARCHAR(2000)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="file_id" remarks="对应存储资源id,文件夹则该处为0" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_delete" remarks="是否删除(0-正常 1-已删除)" type="TINYINT(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="size" remarks="占用空间大小" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="sort" remarks="排序/置顶" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="can_share" remarks="是否可以分享 1 正常 0 禁止分享" type="TINYINT(3)"/>
+            <column defaultValueNumeric="0" name="convert_size" remarks="转码文件占用空间大小" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="thumb_size" remarks="缩略图占用空间" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="storage_id" remarks="磁盘ID" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_time" remarks="创建时间" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="modify_time" remarks="最后修改时间" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="view_time" remarks="最后访问时间" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033132743-18">
+        <createTable remarks="文档权限表" tableName="io_source_auth">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="source_id" remarks="文档资源id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="target_type" remarks="分享给的对象,1用户,2部门" type="TINYINT(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="target_id" remarks="所属对象id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="auth_id" remarks="权限组id；自定义权限则为0" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="auth_define" remarks="自定义权限，4字节占位" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_time" remarks="创建时间" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="modify_time" remarks="最后修改时间" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033132743-19">
+        <createTable remarks="文档事件表" tableName="io_source_event">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="source_id" remarks="文档id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="source_parent" remarks="文档父文件夹id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" remarks="操作者id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="type" remarks="事件类型" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="detail" remarks="数据详情，根据type内容意义不同" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_time" remarks="创建时间" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033132743-20">
+        <createTable remarks="文档历史记录表" tableName="io_source_history">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="source_id" remarks="文档资源id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" remarks="用户id, 对部门时此id为0" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="file_id" remarks="当前版本对应存储资源id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="size" remarks="文件大小" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="detail" remarks="版本描述" type="VARCHAR(1024)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_time" remarks="创建时间" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="modify_time" remarks="最后修改时间" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033132743-21">
+        <createTable remarks="文档扩展表" tableName="io_source_meta">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="source_id" remarks="文档id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="key_string" remarks="存储key" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="value_text" remarks="对应值" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_time" remarks="创建时间" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="modify_time" remarks="最后修改时间" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033132743-22">
+        <createTable remarks="文档回收站" tableName="io_source_recycle">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="target_type" remarks="文档所属类型 (0-sys,1-user,2-group)" type="TINYINT(3)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="target_id" remarks="拥有者对象id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="source_id" remarks="文档id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" remarks="操作者id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="parent_level" remarks="文档上层关系;冗余字段,便于统计回收站信息" type="VARCHAR(1000)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_time" remarks="创建时间" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033132743-23">
+        <createTable remarks="任务执行记录表" tableName="log_schedule">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="common_schedule_id" remarks="定时任务标识" type="VARCHAR(32)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="gmt_start" remarks="任务执行开始时间" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="gmt_end" remarks="任务执行结束时间" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="state" remarks="状态，0开始，1执行成功，2执行失败" type="CHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="remark" remarks="备注，如有执行异常，记录异常信息" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033132743-24">
+        <createTable remarks="通知表" tableName="notice">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="title" remarks="标题" type="VARCHAR(128)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="level" remarks="0 弱提示：左下角通知栏显示红点；1 强提示：用户登录后直接弹出通知。" type="TINYINT(3)"/>
+            <column defaultValueNumeric="0" name="status" remarks="状态，0暂存，1已发送，2已删除" type="TINYINT(3)"/>
+            <column defaultValueNumeric="0" name="enable" remarks="是否启用，0未启用，1启用" type="TINYINT(3)"/>
+            <column defaultValueNumeric="1" name="send_type" remarks="推送方式 1 立即推送 2 计划推送" type="TINYINT(4)"/>
+            <column name="send_time" remarks="通知发送时间" type="datetime"/>
+            <column defaultValueNumeric="0" name="sort" remarks="排序 越大越靠前" type="BIGINT"/>
+            <column name="sender_id" remarks="通知发送者id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sender_ip" remarks="发送通知的IP地址，json(222.22.22.22,杭州)" type="VARCHAR(64)"/>
+            <column defaultValueNumeric="1" name="notice_type" remarks="消息类型，1通知2消息3私信" type="TINYINT(3)"/>
+            <column name="create_time" remarks="创建时间" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="modify_time" remarks="更新时间" type="datetime"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033132743-25">
+        <createTable remarks="通知详情表" tableName="notice_detail">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="notice_id" remarks="通知id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="content" remarks="消息内容" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="is_all" remarks="是否为所有用户 1 是 0 否" type="TINYINT(3)"/>
+            <column name="target_user_ids" remarks="目标用户id集合" type="JSON"/>
+            <column name="target_dept_ids" remarks="目标部门id集合" type="JSON"/>
+            <column name="target_role_ids" remarks="目标角色id集合" type="JSON"/>
+            <column name="notice_detail_id" remarks="通知详情表id" type="BIGINT"/>
+            <column name="create_time" remarks="创建时间" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="modify_time" remarks="更新时间" type="datetime"/>
+            <column defaultValueNumeric="0" name="dr" remarks="逻辑删除 0 未删除 1 已删除" type="TINYINT(4)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033132743-26">
+        <createTable remarks="通知用户关联表" tableName="notice_user">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="user_id" remarks="用户id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="notice_id" remarks="通知id集合" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="is_read" remarks="是否已读 0 未读 1 已读" type="TINYINT(4)"/>
+            <column name="create_time" remarks="创建时间" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="modify_time" remarks="更新时间" type="datetime"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033132743-27">
+        <createTable remarks="角色表" tableName="role">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="role_name" remarks="角色名称" type="VARCHAR(32)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="code" remarks="code" type="VARCHAR(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" remarks="描述" type="VARCHAR(128)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="label" remarks="label" type="VARCHAR(128)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="auth" remarks="权限" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" remarks="状态，1正常，2删除" type="TINYINT(3)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="enable" remarks="是否启用，0未启用，1启用" type="TINYINT(3)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="is_system" remarks="是否系统配置" type="TINYINT(3)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="administrator" remarks="是否系统管理员" type="TINYINT(3)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0.0" name="ignore_file_size" remarks="上传文件大小限制" type="DOUBLE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ignore_ext" type="VARCHAR(256)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sort" remarks="排序" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="role_type" remarks="角色类型，1用户角色，2文档角色" type="CHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_time" remarks="创建时间" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="modify_time" remarks="最后修改时间" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="delete_time" remarks="删除时间" type="datetime"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033132743-28">
+        <createTable remarks="分享数据表" tableName="share">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="title" remarks="分享标题" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="share_hash" remarks="shareid" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" remarks="分享用户id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="source_id" remarks="用户数据id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="source_path" remarks="分享文档路径" type="VARCHAR(1024)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="url" remarks="分享别名,替代shareHash" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_link" remarks="是否外链分享；默认为0" type="TINYINT(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="status" remarks="状态 1 正常 3 禁止分享 4 取消分享" type="TINYINT(3)"/>
+            <column name="is_share_to" remarks="是否为内部分享；默认为0" type="TINYINT(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password" remarks="访问密码,为空则无密码" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="timeTo" remarks="到期时间,0-永久生效" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="num_view" remarks="预览次数" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="num_download" remarks="下载次数" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="options" remarks="json 配置信息;是否可以下载,是否可以上传等" type="VARCHAR(1000)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_time" remarks="创建时间" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="modify_time" remarks="最后修改时间" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033132743-29">
+        <createTable remarks="分享举报表" tableName="share_report">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="share_id" remarks="分享id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="title" remarks="分享标题" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="source_id" remarks="举报资源id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="file_id" remarks="举报文件id,文件夹则该处为0" type="BIGINT"/>
+            <column name="user_id" remarks="举报用户id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="report_type" remarks="举报类型 (1-侵权,2-色情,3-暴力,4-政治,5-其他)" type="TINYINT(3)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="reason" remarks="举报原因（其他）描述" type="VARCHAR(255)"/>
+            <column defaultValueNumeric="0" name="status" remarks="处理状态(0-未处理,1-已处理)" type="TINYINT(3)"/>
+            <column name="create_time" remarks="创建时间" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="modify_time" remarks="最后修改时间" type="datetime"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033132743-30">
+        <createTable remarks="分享给指定用户(协作)" tableName="share_to">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="share_id" remarks="分享id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="target_type" remarks="分享给的对象,1用户,2部门" type="TINYINT(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="target_id" remarks="所属对象id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="auth_id" remarks="权限组id；自定义权限则为0" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="auth_define" remarks="自定义权限，4字节占位" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_time" remarks="创建时间" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="modify_time" remarks="最后修改时间" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033132743-31">
+        <createTable remarks="系统日志表" tableName="system_log">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="session_id" remarks="session识别码，用于登陆时记录ip,UA等信息" type="VARCHAR(128)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" remarks="用户id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="type" remarks="日志类型" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="detail" remarks="详情" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="visit_date" remarks="日期" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="client_type" remarks="1pc , 2h5, 3安卓app, 4 ios-app, 5小程序" type="CHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="os_name" remarks="操作系统" type="VARCHAR(32)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_time" remarks="创建时间" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033132743-32">
+        <createTable remarks="系统配置表" tableName="system_option">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="type" remarks="配置类型" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="key_string" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="value_text" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_time" remarks="创建时间" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="modify_time" remarks="最后更新时间" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033132743-33">
+        <createTable remarks="session" tableName="system_session">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="sign" remarks="session标识" type="VARCHAR(128)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="user_id" remarks="用户id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="content" remarks="value_text" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="expires" remarks="过期时间" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="modify_time" remarks="修改时间" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_time" remarks="创建时间" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033132743-34">
+        <createTable remarks="用户资讯表" tableName="user_common_info">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="user_id" remarks="用户id" type="BIGINT"/>
+            <column name="info_id" remarks="资讯id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ip" remarks="用户ip" type="VARCHAR(30)"/>
+            <column defaultValueNumeric="0" name="view_count" remarks="阅读数" type="INT"/>
+            <column defaultValueNumeric="0" name="is_like" remarks="是否点赞 0 否 1 是" type="TINYINT(3)"/>
+            <column defaultValueComputed="CURRENT_TIMESTAMP" name="create_time" remarks="创建时间" type="datetime"/>
+            <column name="modify_time" remarks="最后修改时间" type="datetime"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033132743-35">
+        <createTable remarks="用户文档标签表" tableName="user_fav">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="user_id" remarks="用户id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="tag_id" remarks="标签id,收藏则为0" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" remarks="收藏名称" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="path" remarks="收藏路径,tag时则为sourceID" type="VARCHAR(2048)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="type" remarks="source/path/info" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sort" remarks="排序" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="modify_time" remarks="最后修改时间" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_time" remarks="创建时间" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033132743-36">
+        <createTable remarks="用户群组关联表(一对多)" tableName="user_group">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="user_id" remarks="用户id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="group_id" remarks="群组id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="auth_id" remarks="在群组内的权限" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sort" remarks="在该群组的排序" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_time" remarks="创建时间" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="modify_time" remarks="最后修改时间" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033132743-37">
+        <createTable remarks="用户数据扩展表" tableName="user_meta">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="user_id" remarks="用户id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="key_string" remarks="存储key" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="value_text" remarks="对应值" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_time" remarks="创建时间" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="modify_time" remarks="最后修改时间" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033132743-38">
+        <createTable remarks="用户数据配置表" tableName="user_option">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="user_id" remarks="用户id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="type" remarks="配置类型,全局配置类型为空,编辑器配置type=editor" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="key_string" remarks="配置key" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="value_text" remarks="配置值" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_time" remarks="创建时间" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="modify_time" remarks="最后修改时间" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033132743-39">
+        <createTable remarks="用户表" tableName="users">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" remarks="登陆用户名" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="role_id" remarks="用户角色" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" remarks="邮箱" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="phone" remarks="手机" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="nickname" remarks="昵称" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="avatar" remarks="头像" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sex" remarks="性别 (0女1男)" type="TINYINT(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password" remarks="密码" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="size_max" remarks="群组存储空间大小(GB) 0-不限制" type="DOUBLE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="size_use" remarks="已使用大小(byte)" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" remarks="用户启用状态 0-未启用 1-启用" type="TINYINT(3)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ding_open_id" remarks="钉钉 openId" type="VARCHAR(64)"/>
+            <column name="wechat_open_id" remarks="微信 openId" type="VARCHAR(64)"/>
+            <column name="en_wechat_open_id" remarks="企业微信 openId" type="VARCHAR(64)"/>
+            <column name="alipay_open_id" remarks="支付宝 openId" type="VARCHAR(64)"/>
+            <column defaultValueNumeric="0" name="is_system" remarks="是否是系统用户" type="TINYINT(3)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_login" remarks="最后登陆时间" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_time" remarks="创建时间" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="modify_time" remarks="最后修改时间" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033132743-40">
+        <createTable remarks="访问次数记录表" tableName="visit_count_record">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="visit_count" remarks="用户访问次数" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="device_type" remarks="设备类型 1 pc , 2 h5, 3 安卓app, 4 ios-app, 5 小程序, 6 电脑app, 7 其他" type="TINYINT(4)"/>
+            <column name="os_name" remarks="操作系统" type="VARCHAR(20)"/>
+            <column defaultValueNumeric="1" name="type" remarks="1 客户端访问 2 用户访问 3 操作系统访问 4 各操作系统总访问" type="TINYINT(3)"/>
+            <column name="visit_day" remarks="访问的日期" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="modify_time" remarks="最后修改时间" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_time" remarks="创建时间" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033132743-41">
+        <addUniqueConstraint columnNames="comment_id, user_id" constraintName="commentID_userID" tableName="comment_praise"/>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033132743-42">
+        <addUniqueConstraint columnNames="group_id, key_string" constraintName="groupID_key" tableName="group_meta"/>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033132743-43">
+        <addUniqueConstraint columnNames="key_string, type" constraintName="key_type" tableName="system_option"/>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033132743-44">
+        <addUniqueConstraint columnNames="source_id, key_string" constraintName="sourceID_key" tableName="io_source_meta"/>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033132743-45">
+        <addUniqueConstraint columnNames="user_id, key_string, type" constraintName="userID_key_type" tableName="user_option"/>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033132743-46">
+        <addUniqueConstraint columnNames="user_id, key_string" constraintName="userID_metaKey" tableName="user_meta"/>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033132743-47">
+        <addUniqueConstraint columnNames="user_id, notice_id" constraintName="user_notice_key" tableName="notice_user"/>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033132743-48">
+        <createIndex indexName="comment_meta_keys" tableName="comment_meta" unique="false">
+            <column name="key_string"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033132743-49">
+        <createIndex indexName="common_convert_state" tableName="common_convert" unique="false">
+            <column name="state"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033132743-50">
+        <createIndex indexName="group_meta_keys" tableName="group_meta" unique="false">
+            <column name="key_string"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033132743-51">
+        <createIndex indexName="group_name" tableName="groups" unique="false">
+            <column name="name"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033132743-52">
+        <createIndex indexName="groups_sort" tableName="groups" unique="false">
+            <column name="sort"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033132743-53">
+        <createIndex indexName="io_file_hash" tableName="io_file" unique="false">
+            <column name="hash_simple"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033132743-54">
+        <createIndex indexName="io_file_meta_keys" tableName="io_file_meta" unique="false">
+            <column name="key_string"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033132743-55">
+        <createIndex indexName="io_file_name" tableName="io_file" unique="false">
+            <column name="name"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033132743-56">
+        <createIndex indexName="io_file_path" tableName="io_file" unique="false">
+            <column name="path"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033132743-57">
+        <createIndex indexName="io_file_size" tableName="io_file" unique="false">
+            <column name="size"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033132743-58">
+        <createIndex indexName="io_source_auth_id" tableName="io_source_auth" unique="false">
+            <column name="auth_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033132743-59">
+        <createIndex indexName="io_source_meta_keys" tableName="io_source_meta" unique="false">
+            <column name="key_string"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033132743-60">
+        <createIndex indexName="io_source_size" tableName="io_source" unique="false">
+            <column name="size"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033132743-61">
+        <createIndex indexName="nickname" tableName="users" unique="false">
+            <column name="nickname"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033132743-62">
+        <createIndex indexName="phone" tableName="users" unique="false">
+            <column name="phone"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033132743-63">
+        <createIndex indexName="pid" tableName="comment" unique="false">
+            <column name="pid"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033132743-64">
+        <createIndex indexName="share_islink" tableName="share" unique="false">
+            <column name="is_link"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033132743-65">
+        <createIndex indexName="share_path" tableName="share" unique="false">
+            <column name="source_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033132743-66">
+        <createIndex indexName="share_sid" tableName="share" unique="false">
+            <column name="share_hash"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033132743-67">
+        <createIndex indexName="share_url" tableName="share" unique="false">
+            <column name="url"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033132743-68">
+        <createIndex indexName="system_log_type" tableName="system_log" unique="false">
+            <column name="type"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033132743-69">
+        <createIndex indexName="system_session_expires" tableName="system_session" unique="false">
+            <column name="expires"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033132743-70">
+        <createIndex indexName="user_email" tableName="users" unique="false">
+            <column name="email"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033132743-71">
+        <createIndex indexName="user_fav_name" tableName="user_fav" unique="false">
+            <column name="name"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033132743-72-1" dbms="mysql">
+        <createIndex indexName="user_fav_path" tableName="user_fav" unique="false">
+            <column name="path(333)"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033132743-72-2" dbms="postgresql">
+        <createIndex indexName="user_fav_path" tableName="user_fav" unique="false">
+            <column name="path"/>
+        </createIndex>
+    </changeSet>
+
+
+    <changeSet author="Aspirin (generated)" id="1691033132743-73">
+        <createIndex indexName="user_fav_sort" tableName="user_fav" unique="false">
+            <column name="sort"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033132743-74">
+        <createIndex indexName="user_fav_type" tableName="user_fav" unique="false">
+            <column name="type"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033132743-75">
+        <createIndex indexName="user_group_sort" tableName="user_group" unique="false">
+            <column name="sort"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033132743-76">
+        <createIndex indexName="user_name" tableName="users" unique="false">
+            <column name="name"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033132743-77">
+        <createIndex indexName="user_option_keys" tableName="user_option" unique="false">
+            <column name="key_string"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033132743-78">
+        <createIndex indexName="user_option_type" tableName="user_option" unique="false">
+            <column name="type"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Aspirin (generated)" id="1691033132743-79">
+        <createIndex indexName="users_status" tableName="users" unique="false">
+            <column name="status"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet author="slj" id="1692068719-1">
+        <createTable remarks="租户表" tableName="t_tenant">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="tenant_name" remarks="名称" type="VARCHAR(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="second_level_domain" remarks="二级域名" type="VARCHAR(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" remarks="超级管理员，用户id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="0" name="status" remarks="状态，0停用，1启用，2删除" type="tinyint(3)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="start_time" remarks="生效时间" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="expire_time" remarks="失效时间" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="0"  name="size_use" remarks="已使用大小(byte)" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="0" name="group_count" remarks="组织数" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="0" name="user_count" remarks="用户数" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="remark" remarks="备注" type="VARCHAR(255)" />
+            <column name="create_time" remarks="创建时间" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="modify_time" remarks="最后修改" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addColumn tableName="comment">
+            <column name="tenant_id" remarks="租户id" type="BIGINT" />
+        </addColumn>
+        <addColumn tableName="comment_meta">
+            <column name="tenant_id" remarks="租户id" type="BIGINT" />
+        </addColumn>
+        <addColumn tableName="comment_praise">
+            <column name="tenant_id" remarks="租户id" type="BIGINT" />
+        </addColumn>
+        <addColumn tableName="common_convert">
+            <column name="tenant_id" remarks="租户id" type="BIGINT" />
+        </addColumn>
+        <addColumn tableName="common_design">
+            <column name="tenant_id" remarks="租户id" type="BIGINT" />
+        </addColumn>
+        <addColumn tableName="common_design_classify">
+            <column name="tenant_id" remarks="租户id" type="BIGINT" />
+        </addColumn>
+        <addColumn tableName="common_info">
+            <column name="tenant_id" remarks="租户id" type="BIGINT" />
+        </addColumn>
+        <addColumn tableName="common_info_type">
+            <column name="tenant_id" remarks="租户id" type="BIGINT" />
+        </addColumn>
+        <addColumn tableName="common_label">
+            <column name="tenant_id" remarks="租户id" type="BIGINT" />
+        </addColumn>
+        <addColumn tableName="common_schedule">
+            <column name="tenant_id" remarks="租户id" type="BIGINT" />
+        </addColumn>
+        <addColumn tableName="group_meta">
+            <column name="tenant_id" remarks="租户id" type="BIGINT" />
+        </addColumn>
+        <addColumn tableName="group_source">
+            <column name="tenant_id" remarks="租户id" type="BIGINT" />
+        </addColumn>
+        <addColumn tableName="groups">
+            <column name="tenant_id" remarks="租户id" type="BIGINT" />
+        </addColumn>
+        <addColumn tableName="io_file">
+            <column name="tenant_id" remarks="租户id" type="BIGINT" />
+        </addColumn>
+        <addColumn tableName="io_file_contents">
+            <column name="tenant_id" remarks="租户id" type="BIGINT" />
+        </addColumn>
+        <addColumn tableName="io_file_meta">
+            <column name="tenant_id" remarks="租户id" type="BIGINT" />
+        </addColumn>
+        <addColumn tableName="io_source">
+            <column name="tenant_id" remarks="租户id" type="BIGINT" />
+        </addColumn>
+        <addColumn tableName="io_source_auth">
+            <column name="tenant_id" remarks="租户id" type="BIGINT" />
+        </addColumn>
+        <addColumn tableName="io_source_event">
+            <column name="tenant_id" remarks="租户id" type="BIGINT" />
+        </addColumn>
+        <addColumn tableName="io_source_history">
+            <column name="tenant_id" remarks="租户id" type="BIGINT" />
+        </addColumn>
+        <addColumn tableName="io_source_meta">
+            <column name="tenant_id" remarks="租户id" type="BIGINT" />
+        </addColumn>
+        <addColumn tableName="io_source_recycle">
+            <column name="tenant_id" remarks="租户id" type="BIGINT" />
+        </addColumn>
+        <addColumn tableName="log_schedule">
+            <column name="tenant_id" remarks="租户id" type="BIGINT" />
+        </addColumn>
+        <addColumn tableName="notice">
+            <column name="tenant_id" remarks="租户id" type="BIGINT" />
+        </addColumn>
+        <addColumn tableName="notice_detail">
+            <column name="tenant_id" remarks="租户id" type="BIGINT" />
+        </addColumn>
+        <addColumn tableName="notice_user">
+            <column name="tenant_id" remarks="租户id" type="BIGINT" />
+        </addColumn>
+        <addColumn tableName="role">
+            <column name="tenant_id" remarks="租户id" type="BIGINT" />
+        </addColumn>
+        <addColumn tableName="share">
+            <column name="tenant_id" remarks="租户id" type="BIGINT" />
+        </addColumn>
+        <addColumn tableName="share_report">
+            <column name="tenant_id" remarks="租户id" type="BIGINT" />
+        </addColumn>
+        <addColumn tableName="share_to">
+            <column name="tenant_id" remarks="租户id" type="BIGINT" />
+        </addColumn>
+        <addColumn tableName="system_log">
+            <column name="tenant_id" remarks="租户id" type="BIGINT" />
+        </addColumn>
+        <addColumn tableName="system_option">
+            <column name="tenant_id" remarks="租户id" type="BIGINT" />
+        </addColumn>
+        <addColumn tableName="system_session">
+            <column name="tenant_id" remarks="租户id" type="BIGINT" />
+        </addColumn>
+        <addColumn tableName="user_common_info">
+            <column name="tenant_id" remarks="租户id" type="BIGINT" />
+        </addColumn>
+        <addColumn tableName="user_fav">
+            <column name="tenant_id" remarks="租户id" type="BIGINT" />
+        </addColumn>
+        <addColumn tableName="user_group">
+            <column name="tenant_id" remarks="租户id" type="BIGINT" />
+        </addColumn>
+        <addColumn tableName="user_meta">
+            <column name="tenant_id" remarks="租户id" type="BIGINT" />
+        </addColumn>
+        <addColumn tableName="user_option">
+            <column name="tenant_id" remarks="租户id" type="BIGINT" />
+        </addColumn>
+        <addColumn tableName="users">
+            <column name="tenant_id" remarks="租户id" type="BIGINT" />
+        </addColumn>
+        <addColumn tableName="visit_count_record">
+            <column name="tenant_id" remarks="租户id" type="BIGINT" />
+        </addColumn>
+    </changeSet>
+    <changeSet id="1692068719-3" author="zhy">
+        <dropColumn tableName="common_info" columnName="top_time"/>
+        <addColumn tableName="common_info">
+            <column name="top_time" remarks="置顶时间（数字）" type="BIGINT"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="1692068719-5" author="zhy">
+        <renameColumn tableName="share" oldColumnName="timeTo" newColumnName="time_to" columnDataType="BIGINT"/>
+    </changeSet>
+    <changeSet id="1692068719-9" author="zhy">
+        <renameColumn tableName="share" oldColumnName="time_to" newColumnName="time_to" columnDataType="BIGINT" remarks="到期时间,0-永久生效"/>
+        <!--  下面的SQL会覆盖上面的SQL，导致没有注释   -->
+        <addNotNullConstraint tableName="share" columnName="time_to" columnDataType="BIGINT"/>
+    </changeSet>
+    <changeSet id="1692840897-1" author="slj">
+        <addColumn tableName="io_source">
+            <column name="name_pinyin" remarks="拼音全称" type="VARCHAR(2048)"/>
+        </addColumn>
+        <addColumn tableName="io_source">
+            <column name="name_pinyin_simple" remarks="拼音首字母" type="VARCHAR(256)"/>
+        </addColumn>
+        <addColumn tableName="io_source">
+            <column name="description" remarks="描述说明" type="VARCHAR(1024)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="1693034680-1" author="zhy">
+        <addColumn tableName="t_tenant">
+            <column name="dr" remarks="逻辑删除 0 未删除 1 已删除" defaultValue="0" type="TINYINT" afterColumn="modify_time">
+                <constraints nullable="false" />
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet author="slj" id="1693895531-1">
+        <addUniqueConstraint columnNames="tenant_id, key_string, type" constraintName="tenant_id_key_type" tableName="system_option"/>
+        <dropUniqueConstraint constraintName="key_type" tableName="system_option"/>
+    </changeSet>
+    <changeSet id="1696832402-1" author="slj">
+        <addColumn tableName="io_file">
+            <column name="user_id" remarks="创建人id" type="BIGINT" defaultValue="0">
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet id="1697092114-1" author="slj">
+        <dropColumn tableName="io_file" columnName="user_id" />
+        <addColumn tableName="io_file">
+            <column name="user_id" remarks="创建人id" type="BIGINT" defaultValue="0">
+                <constraints nullable="false" />
+            </column>
+        </addColumn>
+        <addColumn tableName="t_tenant">
+            <column name="is_system" remarks="是否是系统租户  0 否 1 是" type="int" defaultValue="0">
+                <constraints nullable="false" />
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet id="1697709498-1" author="slj">
+        <addColumn tableName="users">
+            <column name="ding_union_id" remarks="钉钉 unionId" type="VARCHAR(64)" />
+        </addColumn>
+        <addColumn tableName="io_source">
+            <column name="ding_dentry_id" remarks="钉盘文件id" type="VARCHAR(64)" />
+            <column name="ding_space_id" remarks="钉盘文件id" type="VARCHAR(64)" />
+            <column name="ding_union_id" remarks="钉钉 unionId" type="VARCHAR(64)" />
+        </addColumn>
+    </changeSet>
+    <changeSet id="1697709498-2" author="slj">
+        <renameColumn tableName="io_source" oldColumnName="ding_space_id" newColumnName="ding_space_id" columnDataType="VARCHAR(64)" remarks="钉盘空间id"/>
+    </changeSet>
+    <changeSet id="1703490362-1" author="slj">
+        <addColumn tableName="groups">
+            <column name="ding_dept_id" remarks="钉钉部门id" type="BIGINT" defaultValue="0"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="1704165060-1" author="slj">
+        <addColumn tableName="users">
+            <column name="third_open_id" remarks="第三方接入机构的用户唯一标识openid" type="VARCHAR(64)" />
+        </addColumn>
+    </changeSet>
+    <changeSet id="1704259483-1" author="slj">
+        <addColumn tableName="groups">
+            <column name="third_dept_id" remarks="第三方部门id" type="VARCHAR(128)" />
+        </addColumn>
+    </changeSet>
+    <changeSet author="slj" id="1705301983-1">
+        <createTable remarks="组件设计表" tableName="common_design_assembly">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="title" remarks="标题" type="VARCHAR(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="detail" remarks="内容" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="gmt_create" remarks="创建时间" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="gmt_modified" remarks="修改时间" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="assembly_type" remarks="组件类型，1hover特效，2组合模块" type="CHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="size" remarks="尺寸大小，长宽{length,height}" type="VARCHAR(16)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="setting" remarks="样式设置" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="client_type" remarks="客户端类型，1PC，2APP，3小程序" type="CHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="design_type" remarks="编辑器类型类型，1主页，2二级页" type="CHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="slj" id="1705301983-2">
+        <addColumn tableName="common_design_assembly">
+            <column name="tenant_id" remarks="租户id" type="BIGINT" />
+        </addColumn>
+    </changeSet>
+    <changeSet id="1705995675-1" author="slj">
+        <addColumn tableName="users">
+            <column name="ding_user_id" remarks="钉钉userId" type="VARCHAR(64)" />
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="1697709498-3" author="zry">
+        <addDefaultValue tableName="system_log" columnName="client_type" defaultValue=""></addDefaultValue>
+        <addDefaultValue tableName="system_log" columnName="os_name" defaultValue=""></addDefaultValue>
+    </changeSet>
+    <changeSet id="1708499432-1" author="slj">
+        <renameColumn tableName="io_source" oldColumnName="file_type" newColumnName="file_type" columnDataType="VARCHAR(64)" remarks="文件扩展名，文件夹则为空"/>
+    </changeSet>
+    <changeSet id="1708499432-2" author="slj">
+        <addNotNullConstraint columnDataType="VARCHAR(64)" columnName="file_type" tableName="io_source" />
+    </changeSet>
+    <changeSet id="1708499432-3" author="slj">
+        <addColumn tableName="io_source">
+            <column name="cover_id" remarks="封面id" type="bigint" defaultValue="0" />
+        </addColumn>
+    </changeSet>
+    <changeSet id="1710914151-1" author="slj">
+        <addColumn tableName="io_source">
+            <column name="is_safe" remarks="是否是私密保险箱" type="int" defaultValue="0" />
+        </addColumn>
+    </changeSet>
+
+
+
+
+
+
+
+    <include file="liquibase/init-data.xml"/>
+</databaseChangeLog>

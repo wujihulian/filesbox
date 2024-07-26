@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html style="font-size: 37.5px;">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Cache-control" content="no-cache">
+  <meta http-equiv="Cache" content="no-cache">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>手机预览</title>
+  <meta name="keywords" content="无极浏览器" />
+  <meta name="description" content="无极浏览器，是一款高效上网浏览器，容量小速度快安全绿色无插件，内置强大功能，管控，锁屏，微课录制，大课互动直播，小班直播等" />
+  <!-- 微信端 过来查看 允许缩放 -->
+  <link rel="shortcut icon" href="/common/favicon.png" type="image/x-icon">
+  <!-- 公共css,js -->
+  <link rel="stylesheet" href="/design/designstatic/home/iconfont/iconfont.css">
+  <link rel="stylesheet" href="/design/mobile/css/common.css">
+  <link rel="stylesheet" href="/design/mobile/css/module.css">
+  <link rel="stylesheet" href="/design/designstatic/home/css/animate.css">
+  <!-- <link rel="stylesheet" href="/design/form/css/index.css"> -->
+  <script src="/design/designstatic/home/js/jquery-2.2.4.min.js"></script>
+  <script src="/design/designstatic/home/waphome/js/layerMobile/layer.js"></script>
+  <style id='secoundStyle'></style>
+  <style>
+    .module[data-type="pageform"] #mainForm {
+      display: block;
+    }
+
+    .bottomBtnBox {
+      padding: 50px 10px 50px;
+    }
+
+    .bottomBtnBox .submit {
+      margin: 0 auto;
+      padding: 6px 10px;
+      border-radius: 4px;
+      background-color: #40a9ff;
+      color: #fff;
+      width: 250px;
+      text-align: center;
+      cursor: pointer;
+      font-size: 16px;
+    }
+  </style>
+  <style>
+    ::-webkit-scrollbar {
+      width: 4px;
+      height: 8px;
+    }
+
+    ::-webkit-scrollbar-track-piece {
+      background-color: #fff;
+      /*  background-color: #fff; */
+      /* -webkit-border-radius: 6px; */
+    }
+
+    ::-webkit-scrollbar-thumb:vertical {
+      height: 8px;
+      width: 3px;
+      background-color: #91d5ff;
+      /*rgba(217,217,217,0.8);91d5ff*/
+      -webkit-border-radius: 3px;
+    }
+
+    ::-webkit-scrollbar-thumb:horizontal {
+      width: 4px;
+      background-color: #ccc;
+      -webkit-border-radius: 6px;
+    }
+
+    Pseudo ::scrollbar-corner element ::-webkit-scrollbar-corner {
+      background-color: #fff;
+    }
+
+    Pseudo ::scrollbar-thumb element ::-webkit-scrollbar-thumb {
+      background-color: #ccc;
+      border-radius: 4px;
+    }
+
+    Pseudo ::scrollbar-track element ::-webkit-scrollbar-track {
+      background-color: #ccc;
+    }
+
+    body {
+      background-color: #f0f2f5;
+    }
+
+    .mobileBox {
+      position: relative;
+      width: 375px;
+      height: 667px;
+      overflow: hidden;
+      overflow-y: auto;
+      margin: 80px auto;
+      box-shadow: 0 0 5px 3px #d3d3d3;
+      background-color: #fff;
+    }
+
+    .vagueLineBox,
+    .suspenTool {
+      display: none;
+    }
+  </style>
+  <script>
+    // 特殊的全部变量设置
+    var previewMobilePage = JSON.parse(localStorage.previewMobilePage)
+    var previewMobileSubPage = JSON.parse(localStorage.previewMobileSubPage)
+    $('head').append(previewMobilePage.cssText)
+    // setInterval(function () {
+    //   previewMobileSubPage = JSON.parse(localStorage.previewMobileSubPage)
+    // }, 1000)
+
+  </script>
+</head>
+
+<body>
+  <div class="mobileBox">
+    <!-- 公共头部 -->
+    <div class="comHead">
+      <div class="showSet">
+      </div>
+    </div>
+    <div class="content">
+    </div>
+    <div class="comFoot">
+      <div class="showSet">
+      </div>
+    </div>
+  </div>
+</body>
+<script>
+  $('.comHead .showSet').html(previewMobilePage.header)
+  $('.content').html(previewMobileSubPage.mainly)
+  $('.comFoot .showSet').html(previewMobilePage.footer)
+  // setInterval(function () {
+  //   $('.content').html(previewMobileSubPage.mainly)
+  //   $('.content').height(previewMobileSubPage.size.split('|')[1])
+  // }, 1000)
+</script>
+<script src="/design/designstatic/home/waphome/js/module.js"></script>
+
+</html>

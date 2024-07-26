@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<configuration xmlns="http://www.jooq.org/xsd/jooq-codegen-3.12.0.xsd">
+ <!-- Configure the database connection here -->
+ <jdbc>
+  <driver>com.mysql.jdbc.Driver</driver>
+  <url>jdbc:mysql://mysql/cloud_disk</url>
+  <user>dev</user>
+  <password>Dev123456</password>
+ </jdbc>
+ <generator>
+  <name>org.jooq.codegen.WjJavaGenerator</name>
+  <strategy>
+   <name>org.jooq.codegen.WjGeneratorStrategy</name>
+  </strategy>
+
+  <database>
+   <integerDisplayWidths>false</integerDisplayWidths>
+   <forcedTypes>
+    <forcedType>
+     <name>INT</name>
+     <includeTypes>(?i:TINYINT|SMALLINT)</includeTypes>
+    </forcedType>
+    <forcedType>
+     <name>date</name>
+     <includeTypes>(?i:DATE)</includeTypes>
+    </forcedType>
+   </forcedTypes>
+   <name>org.jooq.meta.mysql.MySQLDatabase</name>
+   <includes>.*</includes>
+   <excludes>DATABASECHANGELOG,DATABASECHANGELOGLOCK</excludes>
+   <inputSchema>cloud_disk_new</inputSchema>
+   <outputSchema>cloud_disk</outputSchema>
+  </database>
+  <generate>
+   <pojos>true</pojos>
+   <daos>true</daos>
+   <javaTimeTypes>true</javaTimeTypes>
+   <validationAnnotations>false</validationAnnotations>
+  </generate>
+  <target>
+   <packageName>com.svnlan.jooq</packageName>
+   <directory>src/main/java</directory>
+  </target>
+ </generator>
+
+</configuration>

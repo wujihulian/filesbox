@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.svnlan</groupId>
+    <artifactId>diskdata</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <name>diskdata</name>
+    <description>diskdata server</description>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.2.12.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
+        <jooq.version>3.12.4</jooq.version>
+        <mybatis-spring-boot>1.2.0</mybatis-spring-boot>
+        <mysql-connector>5.1.47</mysql-connector>
+        <spring-boot-starter-redis-version>1.3.2.RELEASE</spring-boot-starter-redis-version>
+        <spring-cloud.version>Finchley.RELEASE</spring-cloud.version>
+    </properties>
+
+    <dependencies>
+
+
+        <!-- Spring Boot Test 依赖 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+
+        <!-- MySQL 连接驱动依赖 -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql-connector}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.highgo</groupId>
+            <artifactId>hgdb-pgjdbc</artifactId>
+            <version>42.5.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+        </dependency>
+        <!--alibaba工具类-->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+            <version>1.1.10</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jooq</groupId>
+            <artifactId>jooq</artifactId>
+            <version>${jooq.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jooq</groupId>
+            <artifactId>jooq-meta</artifactId>
+            <version>${jooq.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.5</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jooq</groupId>
+            <artifactId>jooq-codegen</artifactId>
+            <version>${jooq.version}</version>
+        </dependency>
+        <!-- Junit -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.github.ulisesbocchio</groupId>
+            <artifactId>jasypt-spring-boot-starter</artifactId>
+            <version>3.0.5</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+            <version>3.6.2</version>
+        </dependency>
+
+    </dependencies>
+
+    <!-- <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>-->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <!--   这个是assembly 所在位置；${basedir}是指项目的的根路径  -->
+                    <descriptors>
+                        <descriptor>${basedir}/assembly.xml</descriptor>
+                </descriptors>
+                <!--打包解压后的目录名；${project.artifactId}是指：项目的artifactId-->
+                <finalName>cloud-disk-model</finalName>
+                <!-- 打包压缩包位置-->
+                <outputDirectory>${project.build.directory}</outputDirectory>
+                <!-- 打包编码 -->
+                <encoding>UTF-8</encoding>
+            </configuration>
+            <executions>
+                <execution><!-- 配置执行器 -->
+                    <id>make-assembly</id>
+                    <goals>
+                        <goal>single</goal><!-- 只运行一次 -->
+                    </goals>
+                </execution>
+            </executions>
+        </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <id>copy-resources</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <!-- 覆盖原有文件 -->
+                            <overwrite>true</overwrite>
+                            <outputDirectory>${project.build.outputDirectory}</outputDirectory>
+                            <!-- 也可以用下面这样的方式（指定相对url的方式指定outputDirectory） <outputDirectory>target/classes</outputDirectory> -->
+                            <!-- 待处理的资源定义 -->
+                            <resources>
+                                <resource>
+                                    <!-- 指定resources插件处理哪个目录下的资源文件 -->
+                                    <directory>src/main/resources/${package.environment}</directory>
+                                    <filtering>false</filtering>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>false</filtering>
+            </resource>
+        </resources>
+    </build>
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <activation>
+                <property>
+                    <name>env</name>
+                    <value>dev</value>
+                </property>
+            </activation>
+            <properties>
+                <package.environment>dev</package.environment>
+            </properties>
+        </profile>
+        <profile>
+            <id>pufay</id>
+            <activation>
+                <property>
+                    <name>env</name>
+                    <value>pufay</value>
+                </property>
+            </activation>
+            <properties>
+                <package.environment>pufay</package.environment>
+            </properties>
+        </profile>
+        <profile>
+            <id>feature</id>
+            <activation>
+                <property>
+                    <name>env</name>
+                    <value>feature</value>
+                </property>
+            </activation>
+            <properties>
+                <package.environment>feature</package.environment>
+            </properties>
+        </profile>
+        <profile>
+            <id>itest</id>
+            <activation>
+                <property>
+                    <name>env</name>
+                    <value>itest</value>
+                </property>
+            </activation>
+            <properties>
+                <package.environment>itest</package.environment>
+            </properties>
+        </profile>
+        <profile>
+            <id>pro</id>
+            <activation>
+                <property>
+                    <name>env</name>
+                    <value>pro</value>
+                </property>
+            </activation>
+            <properties>
+                <package.environment>pro</package.environment>
+            </properties>
+        </profile>
+        <profile>
+            <id>pre</id>
+            <activation>
+                <property>
+                    <name>env</name>
+                    <value>pre</value>
+                </property>
+            </activation>
+            <properties>
+                <package.environment>pre</package.environment>
+            </properties>
+        </profile>
+        <profile>
+            <id>ali</id>
+            <activation>
+                <property>
+                    <name>env</name>
+                    <value>ali</value>
+                </property>
+            </activation>
+            <properties>
+                <package.environment>ali</package.environment>
+            </properties>
+        </profile>
+        <profile>
+            <id>docker</id>
+            <activation>
+                <property>
+                    <name>env</name>
+                    <value>docker</value>
+                </property>
+            </activation>
+            <properties>
+                <package.environment>docker</package.environment>
+            </properties>
+        </profile>
+    </profiles>
+</project>
